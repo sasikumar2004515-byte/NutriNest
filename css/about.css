@@ -1,0 +1,78 @@
+body{
+    background:linear-gradient(135deg,#FFF8E7,#E8F5E9);
+    font-family:Arial,sans-serif;
+    margin:0;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:700px;
+    height:700px;
+    background:url("../images/logo.jpeg") no-repeat center;
+    background-size:contain;
+    opacity:.06;
+    z-index:-1;
+}
+
+.about-heading{
+    text-align:center;
+    color:#2E7D32;
+    font-size:45px;
+    margin:40px;
+}
+
+.about-container{
+    width:85%;
+    margin:auto;
+    padding:40px;
+    
+}
+
+.about-container h2{
+    color:#2E7D32;
+    margin-top:30px;
+}
+
+.about-container p{
+    color:#555;
+    line-height:1.8;
+    font-size:18px;
+}
+
+.about-cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+.card{
+    width:220px;
+    padding:25px;
+    text-align:center;
+    border-radius:15px;
+
+    background:rgba(255,255,255,0.45);
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.10);
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card i{
+    font-size:40px;
+    color:#2E7D32;
+    margin-bottom:15px;
+}

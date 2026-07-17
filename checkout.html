@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="images/logo.jpeg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - NutriNest</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<h1 class="checkout-heading">Checkout</h1>
+
+<div class="checkout-container">
+
+    <form id="checkoutForm">
+
+        <input type="text" placeholder="Full Name" required>
+
+        <input type="text" placeholder="Mobile Number" required>
+
+        <textarea placeholder="Delivery Address" required></textarea>
+
+        <select>
+            <option>Cash on Delivery</option>
+            <option>UPI</option>
+            <option>Credit / Debit Card</option>
+        </select>
+
+        <button type="submit">Place Order</button>
+
+    </form>
+ <script src="js/checkout.js"></script>
+</div>
+
+</body>
+</html>
