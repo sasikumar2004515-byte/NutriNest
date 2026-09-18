@@ -15,9 +15,11 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(RoleRepository roleRepository,
-                           UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+    public DataInitializer(
+            RoleRepository roleRepository,
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder) {
+
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -26,6 +28,10 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+        // =====================================================
+        // CREATE ADMIN ROLE IF NOT EXISTS
+        // =====================================================
+
         Role adminRole = roleRepository.findByRoleName("ADMIN")
                 .orElseGet(() -> {
                     Role role = new Role();
@@ -33,12 +39,26 @@ public class DataInitializer implements CommandLineRunner {
                     return roleRepository.save(role);
                 });
 
+
+        // =====================================================
+        // CREATE DEFAULT ADMIN IF NOT EXISTS
+        // =====================================================
+
         if (userRepository.findByEmail("admin@nutrinest.com").isEmpty()) {
 
             User admin = new User();
+
             admin.setFullName("Administrator");
             admin.setEmail("admin@nutrinest.com");
-            admin.setPassword(passwordEncoder.encode("admin123"));
+
+            // Password is encoded using BCrypt
+            admin.setPassword(
+                    passwordEncoder.encode("admin123")
+            );
+
+            // Phone is required by the database
+            admin.setPhone("9999999999");
+
             admin.setRole(adminRole);
             admin.setEnabled(true);
 
