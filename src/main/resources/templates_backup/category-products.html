@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${category.categoryName + ' | NutriNest'}">
+        Category | NutriNest
+    </title>
+
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+
+    <link rel="stylesheet"
+          th:href="@{/css/variables.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/animation.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/categories-product.css}">
+
+</head>
+
+
+<body>
+
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- ===========================
+       CATEGORY HEADER
+=========================== -->
+
+<section class="category-products-header">
+
+    <div class="category-products-header-content">
+
+        <a th:href="@{/categories}"
+           class="back-category">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            All Categories
+
+        </a>
+
+
+        <h1 th:text="${category.categoryName}">
+            Almonds
+        </h1>
+
+
+        <p th:if="${category.description != null}"
+           th:text="${category.description}">
+            Premium quality products.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ===========================
+       PRODUCTS
+=========================== -->
+
+<section class="category-products-section">
+
+    <div class="category-products-container">
+
+
+        <div class="category-products-top">
+
+            <h2>
+
+                <span th:text="${category.categoryName}">
+                    Almonds
+                </span>
+
+                Products
+
+            </h2>
+
+
+            <span class="product-count">
+
+                <span th:text="${#lists.size(products)}">
+                    0
+                </span>
+
+                Products
+
+            </span>
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+
+        <div class="category-products-grid">
+
+
+            <div class="category-product-card"
+                 th:each="product : ${products}">
+
+
+                <!-- IMAGE -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}"
+                   class="category-product-image-link">
+
+                    <div class="category-product-image-box">
+
+                        <img th:if="${product.imageUrl != null}"
+                             th:src="${product.displayImageUrl}"
+                             th:alt="${product.productName}">
+
+                        <img th:if="${product.imageUrl == null}"
+                             th:src="@{/images/OIP.jpeg}"
+                             th:alt="${product.productName}">
+
+                    </div>
+
+                </a>
+
+
+                <!-- CONTENT -->
+
+                <div class="category-product-content">
+
+                    <h3 th:text="${product.productName}">
+                        Almonds
+                    </h3>
+
+
+                    <p class="product-weight"
+                       th:text="${product.weight}">
+                        250g
+                    </p>
+
+
+                    <div class="category-price">
+
+                        <span th:text="'₹' + ${product.price}">
+                            ₹499
+                        </span>
+
+
+                        <del th:if="${product.mrp != null
+                                     and product.mrp > product.price}"
+                             th:text="'₹' + ${product.mrp}">
+                            ₹599
+                        </del>
+
+                    </div>
+
+
+                    <a th:href="@{/products/{id}(id=${product.id})}"
+                       class="view-product-btn">
+
+                        View Details
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- EMPTY -->
+
+        <div class="no-products"
+             th:if="${products == null or #lists.isEmpty(products)}">
+
+            <i class="fa-solid fa-box-open"></i>
+
+            <h3>
+                No Products Found
+            </h3>
+
+            <p>
+                There are no active products in this category.
+            </p>
+
+            <a th:href="@{/categories}">
+                Browse Categories
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/animation.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+/*==================================
+            RESET
+==================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    background:#f8faf8;
+
+    color:#333;
+
+    line-height:1.7;
+
+}
+
+/*==================================
+        HERO SECTION
+==================================*/
+
+.privacy-hero{
+
+    height:350px;
+
+    background:url("../images/welcom1.png") center/cover no-repeat;
+
+    position:relative;
+
+}
+
+.privacy-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    color:#fff;
+
+    padding:20px;
+
+}
+
+.privacy-overlay h1{
+
+    font-size:52px;
+
+    margin-bottom:15px;
+
+}
+
+.privacy-overlay p{
+
+    font-size:20px;
+
+    max-width:650px;
+
+}
+
+/*==================================
+      PRIVACY CONTAINER
+==================================*/
+
+.privacy-container{
+
+    max-width:1200px;
+
+    margin:70px auto;
+
+    padding:0 20px;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+
+    gap:30px;
+
+}
+
+/*==================================
+        PRIVACY CARD
+==================================*/
+
+.privacy-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+    border-top:5px solid #2E7D32;
+
+}
+
+.privacy-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
+
+}
+
+.privacy-card h2{
+
+    color:#2E7D32;
+
+    margin-bottom:18px;
+
+    font-size:26px;
+
+}
+
+.privacy-card p{
+
+    color:#666;
+
+    margin-bottom:12px;
+
+}
+
+.privacy-card ul{
+
+    padding-left:20px;
+
+}
+
+.privacy-card li{
+
+    margin-bottom:12px;
+
+    color:#555;
+
+}
+
+/*==================================
+        RESPONSIVE
+==================================*/
+
+@media(max-width:992px){
+
+.privacy-overlay h1{
+
+font-size:42px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.privacy-hero{
+
+height:260px;
+
+}
+
+.privacy-overlay h1{
+
+font-size:34px;
+
+}
+
+.privacy-overlay p{
+
+font-size:17px;
+
+}
+
+.privacy-container{
+
+grid-template-columns:1fr;
+
+margin:50px auto;
+
+}
+
+.privacy-card{
+
+padding:25px;
+
+}
+
+.privacy-card h2{
+
+font-size:22px;
+
+}
+
+}

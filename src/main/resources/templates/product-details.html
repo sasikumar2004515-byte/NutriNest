@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${product.productName + ' | NutriNest'}">
+        Product Details | NutriNest
+    </title>
+
+    <!-- Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Existing CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/product-details.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/animation.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- =========================================================
+     PRODUCT PAGE
+========================================================= -->
+
+<main class="product-page">
+
+    <!-- Breadcrumb -->
+
+    <div class="product-container">
+
+        <div class="breadcrumb">
+
+            <a th:href="@{/}">
+                Home
+            </a>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <a th:href="@{/products}">
+                Products
+            </a>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span th:text="${product.productName}">
+                Product
+            </span>
+
+        </div>
+
+
+        <!-- =================================================
+             MAIN PRODUCT
+        ================================================== -->
+
+        <section class="product-main">
+
+
+            <!-- =================================================
+                 LEFT - IMAGE
+            ================================================== -->
+
+            <div class="product-visual">
+
+
+                <!-- Badge -->
+
+                <div class="product-badges">
+
+                    <span class="organic-badge"
+                          th:if="${product.organic}">
+
+                        <i class="fa-solid fa-leaf"></i>
+
+                        Organic
+
+                    </span>
+
+
+                    <span class="bestseller-badge"
+                          th:if="${product.bestSeller}">
+
+                        <i class="fa-solid fa-fire"></i>
+
+                        Best Seller
+
+                    </span>
+
+
+                    <span class="featured-badge"
+                          th:if="${product.featured}">
+
+                        <i class="fa-solid fa-star"></i>
+
+                        Featured
+
+                    </span>
+
+                </div>
+
+
+                <!-- Wishlist -->
+
+                <form th:action="${wishlistInWishlist != null and wishlistInWishlist}
+                                  ? @{/wishlist/remove/{id}(id=${product.id})}
+                                  : @{/wishlist/add/{id}(id=${product.id})}"
+                      method="post"
+                      class="wishlist-form">
+
+                    <button type="submit"
+                            class="wishlist-button"
+                            th:classappend="${wishlistInWishlist != null and wishlistInWishlist}
+                                            ? ' active' : ''"
+                            title="Wishlist">
+
+                        <i class="fa-heart"
+                           th:classappend="${wishlistInWishlist != null and wishlistInWishlist}
+                                           ? ' fa-solid' : ' fa-regular'">
+                        </i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- Image -->
+
+                <div class="main-product-image">
+
+                    <div class="image-background"></div>
+
+                    <img id="productImage"
+                         th:src="${product.displayImageUrl}"
+                         th:alt="${product.productName}"
+                         onerror="this.src='/images/OIP.jpeg';">
+
+                    <button type="button"
+                            class="zoom-button"
+                            onclick="openImageZoom()">
+
+                        <i class="fa-solid fa-expand"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- Image hint -->
+
+                <p class="image-hint">
+
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+
+                    Click image to zoom
+
+                </p>
+
+
+                <!-- Trust -->
+
+                <div class="visual-trust">
+
+                    <div>
+
+                        <i class="fa-solid fa-shield-heart"></i>
+
+                        <span>
+                            Quality Checked
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-box"></i>
+
+                        <span>
+                            Securely Packed
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-truck-fast"></i>
+
+                        <span>
+                            Fast Delivery
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT - PRODUCT INFORMATION
+            ================================================== -->
+
+            <div class="product-information">
+
+
+                <!-- Category -->
+
+                <div class="product-category">
+
+                    <i class="fa-solid fa-leaf"></i>
+
+                    <span th:text="${product.category != null
+                                    ? product.category.categoryName
+                                    : 'Natural Product'}">
+
+                        Natural Product
+
+                    </span>
+
+                </div>
+
+
+                <!-- Name -->
+
+                <h1 th:text="${product.productName}">
+                    Product Name
+                </h1>
+
+
+                <!-- Status -->
+
+                <div class="status-row">
+
+
+                    <span th:if="${product.organic}"
+                          class="status-pill organic">
+
+                        <i class="fa-solid fa-leaf"></i>
+
+                        Organic
+
+                    </span>
+
+
+                    <span th:if="${product.bestSeller}"
+                          class="status-pill seller">
+
+                        <i class="fa-solid fa-fire"></i>
+
+                        Best Seller
+
+                    </span>
+
+
+                    <span th:if="${product.featured}"
+                          class="status-pill featured">
+
+                        <i class="fa-solid fa-star"></i>
+
+                        Featured
+
+                    </span>
+
+                </div>
+
+
+                <!-- Rating -->
+
+                <div class="rating-area">
+
+                    <div class="stars">
+
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+
+                    </div>
+
+                    <span>
+                        Premium Quality
+                    </span>
+
+                </div>
+
+
+                <!-- Divider -->
+
+                <div class="section-line"></div>
+
+
+                <!-- =================================================
+                     PRICE
+                ================================================== -->
+
+                <div class="price-section">
+
+                    <div class="price-line">
+
+                        <span id="currentPrice" class="current-price"
+                              th:text="${defaultVariant != null
+                                      ? '₹' + #numbers.formatInteger(defaultVariant.price, 0, 'COMMA')
+                                      : '₹' + #numbers.formatInteger(product.price, 0, 'COMMA')}">
+
+                            ₹0
+
+                        </span>
+
+
+                        <span id="mrpPrice"
+                              class="mrp-price"
+                              th:text="${defaultVariant != null and defaultVariant.mrp != null
+                                      ? '₹' + #numbers.formatInteger(defaultVariant.mrp, 0, 'COMMA')
+                                      : (product.mrp != null
+                                         ? '₹' + #numbers.formatInteger(product.mrp, 0, 'COMMA')
+                                         : '')}">
+
+                            ₹0
+
+                        </span>
+
+
+                        <span id="discountPrice"
+                              class="discount"
+                              th:text="${defaultVariant != null and defaultVariant.mrp != null and defaultVariant.mrp > defaultVariant.price
+                                      ? T(java.lang.Math).round(((defaultVariant.mrp - defaultVariant.price) / defaultVariant.mrp) * 100) + '% OFF'
+                                      : ''}">
+
+                            20% OFF
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="tax-info">
+                        Inclusive of all taxes
+                    </p>
+
+
+                    <p id="savingInfo"
+                       class="saving-info"
+                       th:text="${defaultVariant != null and defaultVariant.mrp != null and defaultVariant.mrp > defaultVariant.price
+                               ? 'You save ₹' + #numbers.formatInteger(defaultVariant.mrp - defaultVariant.price, 0, 'COMMA')
+                               : ''}">
+
+                        You save ₹0
+
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     DESCRIPTION
+                ================================================== -->
+
+                <div class="short-description"
+                     th:if="${product.description != null
+                             and !#strings.isEmpty(product.description)}">
+
+                    <h3>
+                        About this product
+                    </h3>
+
+                    <p th:text="${product.description}">
+                        Product description
+                    </p>
+
+                </div>
+
+                <!-- =================================================
+                     WEIGHT / VARIANTS
+                ================================================= -->
+
+                <div class="pack-section"
+                     th:if="${(variants != null and !variants.isEmpty())
+             or (product.weight != null
+             and !#strings.isEmpty(product.weight))}">
+
+                    <div class="pack-title">
+                        <h3>Pack Size</h3>
+
+                        <span th:if="${variants != null and !variants.isEmpty()}">
+            Select
+        </span>
+                    </div>
+
+
+                    <!-- =================================================
+                         PRODUCTS WITH VARIANTS
+                         DROPDOWN
+                    ================================================== -->
+
+                    <div th:if="${variants != null and !variants.isEmpty()}"
+                         class="pack-select-wrapper">
+
+                        <select id="variantSelect"
+                                class="pack-select"
+                                aria-label="Choose pack size">
+
+                            <option th:each="variant : ${variants}"
+                                    th:value="${variant.id}"
+                                    th:text="${variant.weight}"
+                                    th:data-variant-id="${variant.id}"
+                                    th:data-price="${variant.price}"
+                                    th:data-mrp="${variant.mrp}"
+                                    th:data-stock="${variant.stock}"
+                                    th:data-weight="${variant.weight}"
+                                    th:selected="${defaultVariant != null
+                      and defaultVariant.id == variant.id}">
+                                250g
+                            </option>
+
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down pack-select-icon"></i>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PRODUCTS WITHOUT VARIANTS
+                    ================================================== -->
+
+                    <div th:if="${variants == null or variants.isEmpty()}"
+                         class="pack-select-wrapper">
+
+                        <select id="variantSelect"
+                                class="pack-select"
+                                aria-label="Product weight">
+
+                            <option value=""
+                                    data-variant-id=""
+                                    th:data-price="${product.price}"
+                                    th:data-mrp="${product.mrp}"
+                                    th:data-stock="${product.stock}"
+                                    th:data-weight="${product.weight}"
+                                    th:text="${product.weight + ' — ₹' +
+                             #numbers.formatInteger(
+                                 product.price,
+                                 0,
+                                 'COMMA'
+                             )}">
+                                500g — ₹0
+                            </option>
+
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down pack-select-icon"></i>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SELECTED VARIANT
+                    ================================================== -->
+
+                    <input type="hidden"
+                           name="variantId"
+                           id="mobileCartVariantId"
+                           th:value="${defaultVariant != null
+                  ? defaultVariant.id
+                  : ''}">
+                </div>
+                <!-- =================================================
+                     STOCK
+                ================================================== -->
+
+                <div class="stock-box">
+
+
+                    <!-- Variant Stock -->
+
+                    <div th:if="${defaultVariant != null
+                                and defaultVariant.stock != null
+                                and defaultVariant.stock > 0}"
+                         class="stock-in">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <div>
+
+                            <strong>
+                                In Stock
+                            </strong>
+
+                            <span id="selectedVariantStock"
+                                  th:text="${defaultVariant.stock +
+                                            ' units available'}">
+
+                                10 units available
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Product Stock -->
+
+                    <div th:if="${defaultVariant == null
+                                and product.stock != null
+                                and product.stock > 0}"
+                         class="stock-in">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <div>
+
+                            <strong>
+                                In Stock
+                            </strong>
+
+                            <span th:text="${product.stock +
+                                            ' units available'}">
+
+                                10 units available
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Variant Low Stock -->
+
+                    <div th:if="${defaultVariant != null
+                                and defaultVariant.stock != null
+                                and defaultVariant.stock > 0
+                                and defaultVariant.stock <= 5}"
+                         class="stock-low">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        Only few units left
+
+                    </div>
+
+
+                    <!-- Product Low Stock -->
+
+                    <div th:if="${defaultVariant == null
+                                and product.stock != null
+                                and product.stock > 0
+                                and product.stock <= 5}"
+                         class="stock-low">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        Only few units left
+
+                    </div>
+
+
+                    <!-- Variant Out Of Stock -->
+
+                    <div th:if="${defaultVariant != null
+                                and (defaultVariant.stock == null
+                                or defaultVariant.stock <= 0)}"
+                         class="stock-out">
+
+                        <i class="fa-solid fa-circle-xmark"></i>
+
+                        Currently out of stock
+
+                    </div>
+
+
+                    <!-- Product Out Of Stock -->
+
+                    <div th:if="${defaultVariant == null
+                                and (product.stock == null
+                                or product.stock <= 0)}"
+                         class="stock-out">
+
+                        <i class="fa-solid fa-circle-xmark"></i>
+
+                        Currently out of stock
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     QUANTITY
+                ================================================== -->
+
+                <div class="purchase-area"
+
+                     th:if="${(defaultVariant != null
+                              and defaultVariant.stock != null
+                              and defaultVariant.stock > 0)
+                             or
+                             (defaultVariant == null
+                              and product.stock != null
+                              and product.stock > 0)}">
+
+
+                    <div class="quantity-area">
+
+                        <span class="quantity-label">
+                            Quantity
+                        </span>
+
+
+                        <div class="quantity-control">
+
+                            <button type="button"
+                                    id="decreaseQuantity">
+
+                                <i class="fa-solid fa-minus"></i>
+
+                            </button>
+
+
+                            <span id="quantityValue">
+                                1
+                            </span>
+
+
+                            <button type="button"
+                                    id="increaseQuantity"
+
+                                    th:data-stock="${defaultVariant != null
+                                                    ? defaultVariant.stock
+                                                    : product.stock}">
+
+                                <i class="fa-solid fa-plus"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ACTIONS
+                    ================================================== -->
+
+                    <div class="action-area">
+
+
+                        <!-- Add Cart -->
+
+                        <form th:action="@{/cart/add}"
+                              method="post"
+                              class="cart-form">
+
+                            <input type="hidden"
+                                   name="productId"
+                                   th:value="${product.id}">
+
+
+                            <input type="hidden"
+                                   name="variantId"
+                                   id="cartVariantId"
+                                   th:value="${defaultVariant != null
+                                              ? defaultVariant.id
+                                              : ''}">
+
+
+                            <input type="hidden"
+                                   name="quantity"
+                                   id="cartQuantity"
+                                   value="1">
+
+
+                            <button type="submit"
+                                    class="add-cart-button">
+
+                                <i class="fa-solid fa-cart-shopping"></i>
+
+                                Add to Cart
+
+                            </button>
+
+                        </form>
+
+
+                        <!-- Buy Now -->
+
+                        <button type="button"
+                                class="buy-now-button"
+                                id="buyNowButton"
+                                th:data-product-id="${product.id}">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Buy Now
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Out of stock -->
+
+                <div class="out-of-stock-action"
+
+                     th:if="${(defaultVariant != null
+                              and (defaultVariant.stock == null
+                              or defaultVariant.stock <= 0))
+                             or
+                             (defaultVariant == null
+                              and (product.stock == null
+                              or product.stock <= 0))}">
+
+                    <button disabled>
+
+                        <i class="fa-solid fa-bell"></i>
+
+                        Currently Unavailable
+
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     PRODUCT INFORMATION
+                ================================================== -->
+
+                <div class="product-information-grid">
+
+
+                    <div>
+
+                        <span>
+                            Product ID
+                        </span>
+
+                        <strong th:text="${product.id}">
+                            1
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Category
+                        </span>
+
+                        <strong th:text="${product.category != null
+                                          ? product.category.categoryName
+                                          : 'Natural'}">
+
+                            Natural
+
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Availability
+                        </span>
+
+                        <strong th:text="${product.active
+                                          ? 'Available'
+                                          : 'Unavailable'}">
+
+                            Available
+
+                        </strong>
+
+                    </div>
+
+
+                    <div th:if="${product.weight != null}">
+
+                        <span>
+                            Weight
+                        </span>
+
+                        <strong id="selectedWeight"
+                                th:text="${defaultVariant != null
+                                          ? defaultVariant.weight
+                                          : product.weight}">
+
+                            500g
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DELIVERY / TRUST
+        ================================================== -->
+
+        <section class="benefit-section">
+
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-truck-fast"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        Fast Delivery
+                    </h4>
+
+                    <p>
+                        Quick & secure delivery
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        Secure Payment
+                    </h4>
+
+                    <p>
+                        Safe & trusted checkout
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        Premium Packaging
+                    </h4>
+
+                    <p>
+                        Hygienically packed
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        Made With Care
+                    </h4>
+
+                    <p>
+                        Quality you can trust
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PRODUCT DESCRIPTION
+        ================================================== -->
+
+        <section class="full-description"
+
+                 th:if="${product.description != null
+                         and !#strings.isEmpty(product.description)}">
+
+            <div class="section-heading">
+
+                <span>
+                    KNOW MORE
+                </span>
+
+                <h2>
+                    Product Details
+                </h2>
+
+            </div>
+
+
+            <div class="description-card">
+
+                <p th:text="${product.description}">
+                    Product description
+                </p>
+
+
+                <div class="quality-points">
+
+
+                    <div>
+
+                        <i class="fa-solid fa-leaf"></i>
+
+                        <span>
+                            Natural Ingredients
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span>
+                            Quality Checked
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-box"></i>
+
+                        <span>
+                            Hygienic Packaging
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        <span>
+                            Fast Delivery
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MOBILE STICKY BAR
+        ================================================== -->
+
+        <div class="mobile-buy-bar"
+
+             th:if="${(defaultVariant != null
+                      and defaultVariant.stock != null
+                      and defaultVariant.stock > 0)
+                     or
+                     (defaultVariant == null
+                      and product.stock != null
+                      and product.stock > 0)}">
+
+
+            <div class="mobile-price">
+
+                <small>
+                    Total
+                </small>
+
+                <strong id="mobileTotal"
+
+                        th:text="${defaultVariant != null
+                                  ? '₹' +
+                                    #numbers.formatInteger(
+                                        defaultVariant.price,
+                                        0,
+                                        'COMMA'
+                                    )
+                                  : '₹' +
+                                    #numbers.formatInteger(
+                                        product.price,
+                                        0,
+                                        'COMMA'
+                                    )}">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <form th:action="@{/cart/add}"
+                  method="post">
+
+                <input type="hidden"
+                       name="productId"
+                       th:value="${product.id}">
+
+
+                <input type="hidden"
+                       name="variantId"
+
+                       th:value="${defaultVariant != null
+                                  ? defaultVariant.id
+                                  : ''}">
+
+                <input type="hidden"
+                       name="quantity"
+                       id="mobileCartQuantity"
+                       value="1">
+
+
+                <button type="submit">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    Cart
+
+                </button>
+
+            </form>
+
+
+            <button type="button"
+                    id="mobileBuyNow">
+
+                Buy Now
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     IMAGE ZOOM
+========================================================= -->
+
+<div class="image-modal"
+     id="imageModal">
+
+    <button type="button"
+            class="modal-close"
+            onclick="closeImageZoom()">
+
+        <i class="fa-solid fa-xmark"></i>
+
+    </button>
+
+
+    <img id="zoomedImage"
+         src=""
+         alt="Product">
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- =========================================================
+     JAVASCRIPT FILES
+========================================================= -->
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/product-details.js}"></script>
+
+<script th:src="@{/js/animation.js}"></script>
+
+
+<!-- =========================================================
+     VARIANT PRICE / MRP SYNCHRONIZER
+========================================================= -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const variantSelect = document.getElementById("variantSelect");
+        const currentPrice = document.getElementById("currentPrice");
+        const mrpPrice = document.getElementById("mrpPrice");
+        const discountPrice = document.getElementById("discountPrice");
+        const savingInfo = document.getElementById("savingInfo");
+        const selectedWeight = document.getElementById("selectedWeight");
+        const selectedStock = document.getElementById("selectedVariantStock");
+        const cartVariantId = document.getElementById("cartVariantId");
+        const mobileCartVariantId = document.getElementById("mobileCartVariantId");
+        const increaseQuantity = document.getElementById("increaseQuantity");
+        const cartQuantity = document.getElementById("cartQuantity");
+        const mobileCartQuantity = document.getElementById("mobileCartQuantity");
+        const quantityValue = document.getElementById("quantityValue");
+        const mobileTotal = document.getElementById("mobileTotal");
+
+        if (!variantSelect) return;
+
+        function money(value) {
+            return "₹" + Number(value || 0).toLocaleString("en-IN", {
+                maximumFractionDigits: 0
+            });
+        }
+
+        function updateVariant() {
+            const option = variantSelect.options[variantSelect.selectedIndex];
+            if (!option) return;
+
+            const price = parseFloat(option.dataset.price) || 0;
+            const mrpRaw = option.dataset.mrp;
+            const mrp = mrpRaw !== undefined && mrpRaw !== "" ? parseFloat(mrpRaw) : 0;
+            const stock = parseInt(option.dataset.stock, 10) || 0;
+            const weight = option.dataset.weight || "";
+            const variantId = option.dataset.variantId || "";
+
+            if (currentPrice) currentPrice.textContent = money(price);
+
+            if (mrpPrice) {
+                if (mrp > price) {
+                    mrpPrice.textContent = money(mrp);
+                    mrpPrice.style.display = "";
+                } else {
+                    mrpPrice.textContent = "";
+                    mrpPrice.style.display = "none";
+                }
+            }
+
+            if (discountPrice) {
+                if (mrp > price) {
+                    discountPrice.textContent = Math.round(((mrp - price) / mrp) * 100) + "% OFF";
+                    discountPrice.style.display = "";
+                } else {
+                    discountPrice.textContent = "";
+                    discountPrice.style.display = "none";
+                }
+            }
+
+            if (savingInfo) {
+                if (mrp > price) {
+                    savingInfo.textContent = "You save " + money(mrp - price);
+                    savingInfo.style.display = "";
+                } else {
+                    savingInfo.textContent = "";
+                    savingInfo.style.display = "none";
+                }
+            }
+
+            if (selectedWeight) selectedWeight.textContent = weight;
+            if (selectedStock) selectedStock.textContent = stock + " units available";
+            if (cartVariantId) cartVariantId.value = variantId;
+            if (mobileCartVariantId) mobileCartVariantId.value = variantId;
+            if (increaseQuantity) increaseQuantity.dataset.stock = stock;
+
+            if (quantityValue) quantityValue.textContent = "1";
+            if (cartQuantity) cartQuantity.value = "1";
+            if (mobileCartQuantity) mobileCartQuantity.value = "1";
+            if (mobileTotal) mobileTotal.textContent = money(price);
+        }
+
+        variantSelect.addEventListener("change", updateVariant);
+        updateVariant();
+    });
+</script>
+
+
+<!-- =========================================================
+     IMAGE ZOOM ONLY
+     BUY NOW IS HANDLED BY product-details.js
+========================================================= -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        window.openImageZoom = function () {
+
+            const image =
+                document.getElementById("productImage");
+
+            const modal =
+                document.getElementById("imageModal");
+
+            const zoomed =
+                document.getElementById("zoomedImage");
+
+
+            if (!image || !modal || !zoomed) {
+                return;
+            }
+
+
+            zoomed.src = image.src;
+
+            modal.classList.add("active");
+
+            document.body.style.overflow = "hidden";
+
+        };
+
+
+        window.closeImageZoom = function () {
+
+            const modal =
+                document.getElementById("imageModal");
+
+
+            if (!modal) {
+                return;
+            }
+
+
+            modal.classList.remove("active");
+
+            document.body.style.overflow = "";
+
+        };
+
+
+        const mainImage =
+            document.getElementById("productImage");
+
+
+        if (mainImage) {
+
+            mainImage.addEventListener(
+                "click",
+                openImageZoom
+            );
+
+        }
+
+
+        const modal =
+            document.getElementById("imageModal");
+
+
+        if (modal) {
+
+            modal.addEventListener(
+                "click",
+                function (event) {
+
+                    if (event.target === modal) {
+
+                        closeImageZoom();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+
+                    closeImageZoom();
+
+                }
+
+            }
+        );
+
+    });
+
+</script>
+
+
+</body>
+
+</html>

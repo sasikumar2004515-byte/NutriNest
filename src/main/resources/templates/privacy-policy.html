@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Privacy Policy | NutriNest</title>
+
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/privacy-policy.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/animation.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ===========================
+        MASTER NAVBAR
+=========================== -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+    <!-- ===========================
+        SIDE DRAWER
+    ============================ -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+
+            <img src="images/logo.jpeg" alt="Logo">
+
+            <h2>NutriNest</h2>
+
+        </div>
+
+        <ul>
+
+            <li><a href="#">🏠 Home</a></li>
+
+            <li><a href="#">🛍 Products</a></li>
+
+            <li><a href="#">📂 Categories</a></li>
+
+            <li><a href="#">🔥 Offers</a></li>
+
+            <li><a href="#">❤️ Wishlist</a></li>
+
+            <li><a href="#">🛒 Cart</a></li>
+
+            <li><a href="#">📦 Orders</a></li>
+
+            <li><a href="#">ℹ About</a></li>
+
+            <li><a href="#">📞 Contact</a></li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Overlay -->
+
+    <div class="overlay"></div>
+
+
+
+
+<!-- Hero -->
+
+<section class="privacy-hero">
+
+    <div class="privacy-overlay">
+
+        <h1>Privacy Policy</h1>
+
+        <p>
+
+            Your privacy and personal information are important to us.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Content -->
+
+<section class="privacy-container">
+
+    <div class="privacy-card">
+
+        <h2>Introduction</h2>
+
+        <p>
+
+            NutriNest respects your privacy. This Privacy Policy explains
+            how we collect, use, store, and protect your personal
+            information when you use our website.
+
+        </p>
+
+    </div>
+
+    <div class="privacy-card">
+
+        <h2>Information We Collect</h2>
+
+        <ul>
+
+            <li>Name and Contact Information</li>
+
+            <li>Email Address</li>
+
+            <li>Phone Number</li>
+
+            <li>Shipping Address</li>
+
+            <li>Order History</li>
+
+            <li>Payment Details (Processed Securely)</li>
+
+        </ul>
+
+    </div>
+
+    <div class="privacy-card">
+
+        <h2>How We Use Your Information</h2>
+
+        <ul>
+
+            <li>Process your orders</li>
+
+            <li>Deliver products</li>
+
+            <li>Provide customer support</li>
+
+            <li>Improve our services</li>
+
+            <li>Send order updates</li>
+
+        </ul>
+
+    </div>
+
+    <div class="privacy-card">
+
+        <h2>Cookies</h2>
+
+        <p>
+
+            We use cookies to improve your browsing experience,
+            remember your preferences, and provide personalized
+            recommendations.
+
+        </p>
+
+    </div>
+
+    <div class="privacy-card">
+
+        <h2>Data Security</h2>
+
+        <p>
+
+            We use secure technologies and encrypted connections
+            to protect your personal information.
+
+        </p>
+
+    </div>
+
+    <div class="privacy-card">
+
+        <h2>Your Rights</h2>
+
+        <ul>
+
+            <li>Access your personal data</li>
+
+            <li>Update your profile</li>
+
+            <li>Delete your account</li>
+
+            <li>Request data correction</li>
+
+        </ul>
+
+    </div>
+
+    <div class="privacy-card">
+
+        <h2>Contact Us</h2>
+
+        <p>
+
+            Email : support@nutrinest.com
+
+        </p>
+
+        <p>
+
+            Phone : +91 98765 43210
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+        PREMIUM FOOTER
+=========================== -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<script src="js/navbar.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/animation.js"></script>
+
+</body>
+
+</html>

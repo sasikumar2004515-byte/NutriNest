@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product | NutriNest Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7f5;
+            color: #24352b;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background: #163d2a;
+            padding: 28px 18px;
+            z-index: 1000;
+            box-shadow: 4px 0 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            color: #fff;
+        }
+
+        .logo-img {
+            width: 62px;
+            height: 62px;
+            object-fit: contain;
+            border-radius: 14px;
+            background: #fff;
+            padding: 5px;
+        }
+
+        .logo h4 {
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .tagline {
+            color: #b8c8bd;
+            font-size: 11px;
+            margin: 0;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            color: #d9e5dc;
+            text-decoration: none;
+            padding: 13px 14px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            transition: .2s ease;
+        }
+
+        .sidebar a i {
+            width: 18px;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background: rgba(255,255,255,.08);
+            color: #fff;
+        }
+
+        .sidebar a.active {
+            background: #d9b45f;
+            color: #163d2a;
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+            padding: 30px 35px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .page-title h1 {
+            margin: 0;
+            color: #183b29;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            margin: 6px 0 0;
+            color: #77877d;
+            font-size: 14px;
+        }
+
+        .admin-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            border: 1px solid #e3e9e4;
+            padding: 9px 14px;
+            border-radius: 30px;
+            color: #466052;
+            font-size: 13px;
+        }
+
+        .admin-badge i {
+            color: #b28b34;
+        }
+
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card {
+            max-width: 1000px;
+            background: #fff;
+            border: 1px solid #e6ebe7;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(22,61,42,.04);
+        }
+
+        .form-header {
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #edf1ee;
+        }
+
+        .form-header h3 {
+            margin: 0;
+            color: #183b29;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .form-header p {
+            margin: 6px 0 0;
+            color: #819087;
+            font-size: 13px;
+        }
+
+        .form-label {
+            color: #294435;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 46px;
+            border-radius: 10px;
+            border: 1px solid #dfe6e1;
+            font-size: 14px;
+            box-shadow: none;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #7da38a;
+            box-shadow: 0 0 0 3px rgba(125,163,138,.12);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+
+        /* =========================
+           PRODUCT VARIANTS
+        ========================= */
+
+        .variant-box {
+            background: #fafcfb;
+            border: 1px solid #e1e9e3;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .variant-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+
+        .variant-title {
+            color: #294435;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .variant-subtitle {
+            margin: 4px 0 0;
+            color: #89968e;
+            font-size: 12px;
+        }
+
+        .variant-row {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr 1fr 1fr 46px;
+            gap: 10px;
+            align-items: end;
+            background: #fff;
+            border: 1px solid #e5ebe7;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            transition: .2s ease;
+        }
+
+        .variant-row:hover {
+            border-color: #cbd9cf;
+            box-shadow: 0 4px 12px rgba(22,61,42,.04);
+        }
+
+        .variant-field label {
+            display: block;
+            color: #64756b;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .variant-field input {
+            width: 100%;
+            min-height: 42px;
+            border: 1px solid #dfe6e1;
+            border-radius: 9px;
+            padding: 0 12px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .variant-field input:focus {
+            border-color: #7da38a;
+            box-shadow: 0 0 0 3px rgba(125,163,138,.10);
+        }
+
+        .remove-variant {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 9px;
+            background: #fff1f0;
+            color: #b94a48;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .remove-variant:hover {
+            background: #fce1df;
+            transform: translateY(-1px);
+        }
+
+        .remove-variant:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .add-variant-btn {
+            min-height: 42px;
+            padding: 0 16px;
+            border: 1px dashed #9db3a3;
+            border-radius: 9px;
+            background: #f5faf6;
+            color: #28583b;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .add-variant-btn:hover {
+            background: #edf6ef;
+            border-color: #6f987b;
+            transform: translateY(-1px);
+        }
+
+        .variant-note {
+            margin-top: 12px;
+            color: #89968e;
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           IMAGE UPLOAD
+        ========================= */
+
+        .upload-box {
+            border: 1.5px dashed #cbd8cf;
+            border-radius: 14px;
+            padding: 22px;
+            background: #fafcfb;
+            text-align: center;
+        }
+
+        .upload-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 10px;
+            border-radius: 14px;
+            background: #edf5ef;
+            color: #477858;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .upload-note {
+            margin-top: 8px;
+            color: #89968e;
+            font-size: 11px;
+        }
+
+        .preview-wrapper {
+            display: none;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .preview-wrapper.show {
+            display: block;
+        }
+
+        .preview-image {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid #e2e9e3;
+            padding: 8px;
+        }
+
+        .preview-label {
+            display: block;
+            margin-top: 8px;
+            color: #7b8981;
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           COLLECTIONS
+        ========================= */
+
+        .collection-box {
+            background: #fafcfb;
+            border: 1px solid #e4ebe5;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .collection-title {
+            color: #294435;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .collection-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px;
+            border: 1px solid #e0e7e2;
+            border-radius: 10px;
+            background: #fff;
+            transition: .2s ease;
+        }
+
+        .collection-option:hover {
+            border-color: #cbded0;
+            background: #f7faf7;
+        }
+
+        .collection-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: #163d2a;
+        }
+
+        .collection-option label {
+            cursor: pointer;
+            margin: 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #294435;
+        }
+
+        .collection-option i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .featured-icon {
+            color: #b28b34;
+        }
+
+        .organic-icon {
+            color: #3c8054;
+        }
+
+        .best-icon {
+            color: #b55f32;
+        }
+
+        .premium-icon {
+            color: #8b6a24;
+        }
+
+        .gift-icon {
+            color: #a6536a;
+        }
+
+        .active-icon {
+            color: #287043;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid #edf1ee;
+        }
+
+        .btn-custom {
+            min-height: 44px;
+            padding: 0 20px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            transition: .2s ease;
+        }
+
+        .btn-cancel {
+            background: #f2f5f3;
+            color: #52645a;
+        }
+
+        .btn-cancel:hover {
+            background: #e8eeea;
+            color: #294435;
+        }
+
+        .btn-save {
+            background: #163d2a;
+            color: #fff;
+        }
+
+        .btn-save:hover {
+            background: #23583d;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .variant-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .variant-remove-wrapper {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                padding: 25px 20px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 15px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px 14px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .admin-badge {
+                display: none;
+            }
+
+            .form-card {
+                padding: 20px;
+            }
+
+            .collection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .btn-custom {
+                width: 100%;
+            }
+
+            .variant-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .variant-row {
+                grid-template-columns: 1fr;
+            }
+
+            .variant-remove-wrapper {
+                justify-content: flex-end;
+            }
+
+            .remove-variant {
+                width: 100%;
+            }
+
+            .add-variant-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .form-card {
+                padding: 16px;
+                border-radius: 14px;
+            }
+
+            .page-title h1 {
+                font-size: 23px;
+            }
+
+            .variant-box {
+                padding: 14px;
+            }
+
+            .variant-row {
+                padding: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="logo text-center mb-4">
+
+        <img th:src="@{/images/logo.jpeg}"
+             alt="NutriNest Logo"
+             class="logo-img">
+
+        <h4 class="mt-2">
+            NutriNest
+        </h4>
+
+        <p class="tagline">
+            Premium Nuts & Dry Fruits
+        </p>
+
+    </div>
+
+
+    <a th:href="@{/admin/dashboard}">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+    </a>
+
+
+    <a th:href="@{/admin/categories}">
+        <i class="fa-solid fa-layer-group"></i>
+        Categories
+    </a>
+
+
+    <a th:href="@{/admin/products}"
+       class="active">
+
+        <i class="fa-solid fa-box"></i>
+        Products
+
+    </a>
+
+
+    <a th:href="@{/admin/brands}">
+        <i class="fa-solid fa-tags"></i>
+        Brands
+    </a>
+
+
+    <a th:href="@{/admin/orders}">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Orders
+    </a>
+
+
+    <a th:href="@{/admin/customers}">
+        <i class="fa-solid fa-users"></i>
+        Customers
+    </a>
+
+
+    <a th:href="@{/logout}">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+    </a>
+
+</div>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="main">
+
+
+    <div class="topbar">
+
+        <div class="page-title">
+
+            <h1>
+                Add Product
+            </h1>
+
+            <p>
+                Create a new product and add it to your collections
+            </p>
+
+        </div>
+
+
+        <div class="admin-badge">
+
+            <i class="fa-solid fa-user-shield"></i>
+
+            Administrator
+
+        </div>
+
+    </div>
+
+
+
+    <div class="form-card">
+
+
+        <div class="form-header">
+
+            <h3>
+
+                <i class="fa-solid fa-box-open me-2"></i>
+
+                Product Information
+
+            </h3>
+
+
+            <p>
+                Add product details, image, variants and collection settings.
+            </p>
+
+        </div>
+
+
+
+        <form th:action="@{/admin/products/save}"
+              th:object="${product}"
+              method="post"
+              enctype="multipart/form-data">
+
+
+            <!-- =========================
+                 PRODUCT NAME
+            ========================= -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Product Name
+                </label>
+
+
+                <input type="text"
+                       class="form-control"
+                       th:field="*{productName}"
+                       placeholder="Enter product name"
+                       required>
+
+            </div>
+
+
+
+            <!-- =========================
+                 CATEGORY
+            ========================= -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Category
+                </label>
+
+
+                <select class="form-select"
+                        name="category"
+                        required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.categoryName}">
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =========================
+                 PRODUCT VARIANTS
+            ========================= -->
+
+            <div class="mb-4">
+
+                <div class="variant-box">
+
+
+                    <div class="variant-header">
+
+                        <div>
+
+                            <div class="variant-title">
+
+                                <i class="fa-solid fa-scale-balanced me-1"></i>
+
+                                Product Variants
+
+                            </div>
+
+
+                            <p class="variant-subtitle">
+
+                                Add weight, selling price, MRP and stock for each pack size.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div id="variantContainer">
+
+
+                        <!-- =========================
+                             DEFAULT VARIANT
+                        ========================= -->
+
+                        <div class="variant-row">
+
+
+                            <!-- WEIGHT -->
+
+                            <div class="variant-field">
+
+                                <label>
+                                    Weight
+                                </label>
+
+
+                                <input type="text"
+                                       name="variantWeights"
+                                       placeholder="250g"
+                                       required>
+
+                            </div>
+
+
+
+                            <!-- SELLING PRICE -->
+
+                            <div class="variant-field">
+
+                                <label>
+                                    Selling Price (₹)
+                                </label>
+
+
+                                <input type="number"
+                                       name="variantPrices"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="299"
+                                       required>
+
+                            </div>
+
+
+
+                            <!-- MRP -->
+
+                            <div class="variant-field">
+
+                                <label>
+                                    MRP (₹)
+                                </label>
+
+
+                                <input type="number"
+                                       name="variantMrps"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="350"
+                                       required>
+
+                            </div>
+
+
+
+                            <!-- STOCK -->
+
+                            <div class="variant-field">
+
+                                <label>
+                                    Stock
+                                </label>
+
+
+                                <input type="number"
+                                       name="variantStocks"
+                                       min="0"
+                                       step="1"
+                                       placeholder="100"
+                                       required>
+
+                            </div>
+
+
+
+                            <!-- REMOVE -->
+
+                            <div class="variant-remove-wrapper">
+
+                                <button type="button"
+                                        class="remove-variant"
+                                        disabled
+                                        title="Remove variant">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ADD VARIANT -->
+
+                    <button type="button"
+                            id="addVariantBtn"
+                            class="add-variant-btn">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Variant
+
+                    </button>
+
+
+
+                    <div class="variant-note">
+
+                        <i class="fa-solid fa-circle-info me-1"></i>
+
+                        Example: 250g ₹299 / MRP ₹350, 500g ₹549 / MRP ₹650, 1 Kg ₹999 / MRP ₹1200
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 DESCRIPTION
+            ========================= -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+
+                <textarea class="form-control"
+                          rows="4"
+                          th:field="*{description}"
+                          placeholder="Enter product description"></textarea>
+
+            </div>
+
+
+
+            <!-- =========================
+                 PRODUCT IMAGE
+            ========================= -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Product Image
+                </label>
+
+
+                <div class="upload-box">
+
+
+                    <div class="upload-icon">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    </div>
+
+
+                    <input type="file"
+                           class="form-control"
+                           name="imageFile"
+                           id="imageFile"
+                           accept="image/*">
+
+
+                    <div class="upload-note">
+
+                        JPG, JPEG, PNG or WEBP recommended.
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- IMAGE PREVIEW -->
+
+                <div class="preview-wrapper"
+                     id="previewWrapper">
+
+
+                    <img id="imagePreview"
+                         class="preview-image"
+                         alt="Product Image Preview">
+
+
+                    <span class="preview-label">
+
+                        Product Image Preview
+
+                    </span>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 PRODUCT COLLECTIONS
+            ========================= -->
+
+            <div class="mb-4">
+
+                <div class="collection-box">
+
+
+                    <div class="collection-title">
+
+                        <i class="fa-solid fa-layer-group me-1"></i>
+
+                        Product Collections
+
+                    </div>
+
+
+
+                    <div class="collection-grid">
+
+
+                        <!-- FEATURED -->
+
+                        <div class="collection-option">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   th:field="*{featured}"
+                                   id="featured">
+
+                            <i class="fa-solid fa-star featured-icon"></i>
+
+                            <label for="featured">
+                                Featured Product
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- ORGANIC -->
+
+                        <div class="collection-option">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   th:field="*{organic}"
+                                   id="organic">
+
+                            <i class="fa-solid fa-leaf organic-icon"></i>
+
+                            <label for="organic">
+                                Organic
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- BEST SELLER -->
+
+                        <div class="collection-option">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   th:field="*{bestSeller}"
+                                   id="bestSeller">
+
+                            <i class="fa-solid fa-fire best-icon"></i>
+
+                            <label for="bestSeller">
+                                Best Seller
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- PREMIUM -->
+
+                        <div class="collection-option">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   th:field="*{premium}"
+                                   id="premium">
+
+                            <i class="fa-solid fa-crown premium-icon"></i>
+
+                            <label for="premium">
+                                Premium
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- GIFT -->
+
+                        <div class="collection-option">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   th:field="*{gift}"
+                                   id="gift">
+
+                            <i class="fa-solid fa-gift gift-icon"></i>
+
+                            <label for="gift">
+                                Gift Collection
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- ACTIVE -->
+
+                        <div class="collection-option">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   th:field="*{active}"
+                                   id="active">
+
+                            <i class="fa-solid fa-circle-check active-icon"></i>
+
+                            <label for="active">
+                                Active Product
+                            </label>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 ACTION BUTTONS
+            ========================= -->
+
+            <div class="form-actions">
+
+
+                <a th:href="@{/admin/products}"
+                   class="btn-custom btn-cancel">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back
+
+                </a>
+
+
+
+                <button type="submit"
+                        class="btn-custom btn-save">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Save Product
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     VARIANT SCRIPT
+========================= -->
+
+<script>
+
+    const variantContainer =
+        document.getElementById("variantContainer");
+
+    const addVariantBtn =
+        document.getElementById("addVariantBtn");
+
+
+    /*
+     * Enable / disable remove buttons.
+     * At least one variant must always remain.
+     */
+
+    function updateRemoveButtons() {
+
+        const rows =
+            variantContainer.querySelectorAll(".variant-row");
+
+
+        rows.forEach(function (row) {
+
+            const button =
+                row.querySelector(".remove-variant");
+
+
+            button.disabled =
+                rows.length === 1;
+
+        });
+
+    }
+
+
+    /*
+     * Create new variant row
+     */
+
+    function createVariantRow() {
+
+        const row =
+            document.createElement("div");
+
+
+        row.className =
+            "variant-row";
+
+
+        row.innerHTML = `
+
+            <div class="variant-field">
+
+                <label>
+                    Weight
+                </label>
+
+                <input type="text"
+                       name="variantWeights"
+                       placeholder="500g"
+                       required>
+
+            </div>
+
+
+            <div class="variant-field">
+
+                <label>
+                    Selling Price (₹)
+                </label>
+
+                <input type="number"
+                       name="variantPrices"
+                       min="0"
+                       step="0.01"
+                       placeholder="549"
+                       required>
+
+            </div>
+
+
+            <div class="variant-field">
+
+                <label>
+                    MRP (₹)
+                </label>
+
+                <input type="number"
+                       name="variantMrps"
+                       min="0"
+                       step="0.01"
+                       placeholder="650"
+                       required>
+
+            </div>
+
+
+            <div class="variant-field">
+
+                <label>
+                    Stock
+                </label>
+
+                <input type="number"
+                       name="variantStocks"
+                       min="0"
+                       step="1"
+                       placeholder="100"
+                       required>
+
+            </div>
+
+
+            <div class="variant-remove-wrapper">
+
+                <button type="button"
+                        class="remove-variant"
+                        title="Remove variant">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        variantContainer.appendChild(row);
+
+
+        updateRemoveButtons();
+
+
+        const firstInput =
+            row.querySelector(
+                'input[name="variantWeights"]'
+            );
+
+
+        if (firstInput) {
+
+            firstInput.focus();
+
+        }
+
+    }
+
+
+    /*
+     * Add variant
+     */
+
+    addVariantBtn.addEventListener(
+        "click",
+        function () {
+
+            createVariantRow();
+
+        }
+    );
+
+
+    /*
+     * Remove variant
+     */
+
+    variantContainer.addEventListener(
+        "click",
+        function (event) {
+
+            const removeButton =
+                event.target.closest(
+                    ".remove-variant"
+                );
+
+
+            if (!removeButton) {
+
+                return;
+
+            }
+
+
+            const row =
+                removeButton.closest(
+                    ".variant-row"
+                );
+
+
+            if (row) {
+
+                row.remove();
+
+            }
+
+
+            updateRemoveButtons();
+
+        }
+    );
+
+
+    /*
+     * Initial state
+     */
+
+    updateRemoveButtons();
+
+</script>
+
+
+
+<!-- =========================
+     IMAGE PREVIEW SCRIPT
+========================= -->
+
+<script>
+
+    const imageFile =
+        document.getElementById("imageFile");
+
+    const imagePreview =
+        document.getElementById("imagePreview");
+
+    const previewWrapper =
+        document.getElementById("previewWrapper");
+
+
+    if (imageFile) {
+
+        imageFile.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    this.files[0];
+
+
+                if (!file) {
+
+                    previewWrapper.classList.remove(
+                        "show"
+                    );
+
+                    imagePreview.src = "";
+
+                    return;
+                }
+
+
+                if (!file.type.startsWith("image/")) {
+
+                    alert(
+                        "Please select a valid image file."
+                    );
+
+                    this.value = "";
+
+                    previewWrapper.classList.remove(
+                        "show"
+                    );
+
+                    return;
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function (event) {
+
+                        imagePreview.src =
+                            event.target.result;
+
+                        previewWrapper.classList.add(
+                            "show"
+                        );
+
+                    };
+
+
+                reader.readAsDataURL(file);
+
+            }
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

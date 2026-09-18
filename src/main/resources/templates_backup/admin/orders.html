@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Orders | NutriNest Admin</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Existing Admin CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/admin.css}">
+
+    <style>
+
+        .orders-container {
+            padding: 25px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .page-header h2 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin: 5px 0 0;
+            color: #777;
+        }
+
+        .orders-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .orders-table {
+            margin: 0;
+        }
+
+        .orders-table thead th {
+            background: #198754;
+            color: white;
+            padding: 15px;
+            white-space: nowrap;
+        }
+
+        .orders-table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .orders-table tbody tr:hover {
+            background: #f8fdf9;
+        }
+
+        .order-number {
+            font-weight: 700;
+            color: #198754;
+        }
+
+        .customer-name {
+            font-weight: 600;
+        }
+
+        .customer-email {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .amount {
+            font-weight: 700;
+        }
+
+        .status-form {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .status-form select {
+            min-width: 135px;
+            min-height: 44px;
+        }
+
+        .update-btn {
+            border: none;
+            background: #198754;
+            color: white;
+            padding: 7px 12px;
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+            background: #146c43;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 70px 20px;
+            color: #777;
+        }
+
+        .empty-orders i {
+            font-size: 55px;
+            color: #198754;
+            margin-bottom: 15px;
+        }
+
+        .empty-orders h4 {
+            color: #333;
+            font-weight: 700;
+        }
+
+        @media (max-width: 900px) {
+
+            .main {
+                margin-left: 210px;
+            }
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .orders-container {
+                padding: 18px;
+                overflow-x: auto;
+            }
+
+            .orders-card {
+                min-width: 1000px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 15px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px 14px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .page-header {
+                display: block;
+            }
+
+            .page-header h2 {
+                font-size: 24px;
+            }
+
+            .page-header p {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- =========================
+       SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="logo text-center mb-4">
+
+        <img th:src="@{/images/logo.jpeg}"
+             alt="NutriNest Logo"
+             class="logo-img">
+
+        <h4 class="mt-2">NutriNest</h4>
+
+        <p class="tagline">
+            Premium Nuts & Dry Fruits
+        </p>
+
+    </div>
+
+
+    <a href="/admin/dashboard">
+
+        <i class="fa-solid fa-house"></i>
+
+        Dashboard
+
+    </a>
+
+
+    <a href="/admin/categories">
+
+        <i class="fa-solid fa-layer-group"></i>
+
+        Categories
+
+    </a>
+
+
+    <a href="/admin/products">
+
+        <i class="fa-solid fa-box"></i>
+
+        Products
+
+    </a>
+
+
+    <a href="#">
+
+        <i class="fa-solid fa-tags"></i>
+
+        Brands
+
+    </a>
+
+
+    <a href="/admin/orders">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+        Orders
+
+    </a>
+
+
+    <a href="#">
+
+        <i class="fa-solid fa-users"></i>
+
+        Customers
+
+    </a>
+
+
+    <a href="/logout">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+    </a>
+
+</div>
+
+
+<!-- =========================
+       MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+    <div class="navbar">
+
+        <h2>Orders</h2>
+
+        <h3>Welcome Admin</h3>
+
+    </div>
+
+
+    <div class="orders-container">
+
+        <div class="page-header">
+
+            <div>
+
+                <h2>All Orders</h2>
+
+                <p>
+                    Manage customer orders and update order status.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+               ORDERS TABLE
+        ========================= -->
+
+        <div class="orders-card">
+
+            <div class="table-responsive">
+
+                <table class="table orders-table">
+
+                    <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Order Number</th>
+
+                        <th>Customer</th>
+
+                        <th>Date</th>
+
+                        <th>Payment</th>
+
+                        <th>Total</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="order, stat : ${orders}">
+
+                        <td th:text="${stat.count}">
+                            1
+                        </td>
+
+
+                        <td>
+
+                            <span class="order-number"
+                                  th:text="${order.orderNumber}">
+                                NN202609130001
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="customer-name"
+                                 th:text="${order.user.fullName}">
+                                Customer Name
+                            </div>
+
+                            <div class="customer-email"
+                                 th:text="${order.user.email}">
+                                customer@email.com
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span th:text="${#temporals.format(order.orderDate, 'dd MMM yyyy')}">
+                                13 Sep 2026
+                            </span>
+
+                            <br>
+
+                            <small class="text-muted"
+                                   th:text="${#temporals.format(order.orderDate, 'hh:mm a')}">
+                                11:30 AM
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            <strong th:text="${order.paymentMethod}">
+                                COD
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted"
+                                   th:text="${order.paymentStatus}">
+                                PENDING
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="amount">
+
+                                ₹<span th:text="${order.grandTotal}">
+                                    999
+                                </span>
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="badge"
+                                  th:classappend="${order.orderStatus == 'PENDING' ? ' bg-warning text-dark' :
+                                                   order.orderStatus == 'CONFIRMED' ? ' bg-primary' :
+                                                   order.orderStatus == 'SHIPPED' ? ' bg-info text-dark' :
+                                                   order.orderStatus == 'DELIVERED' ? ' bg-success' :
+                                                   order.orderStatus == 'CANCELLED' ? ' bg-danger' :
+                                                   ' bg-secondary'}"
+                                  th:text="${order.orderStatus}">
+                                PENDING
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <form th:action="@{/admin/orders/update-status/{id}(id=${order.id})}"
+                                  method="post"
+                                  class="status-form">
+
+                                <select name="status"
+                                        class="form-select form-select-sm">
+
+                                    <option value="PENDING"
+                                            th:selected="${order.orderStatus == 'PENDING'}">
+                                        Pending
+                                    </option>
+
+                                    <option value="CONFIRMED"
+                                            th:selected="${order.orderStatus == 'CONFIRMED'}">
+                                        Confirmed
+                                    </option>
+
+                                    <option value="SHIPPED"
+                                            th:selected="${order.orderStatus == 'SHIPPED'}">
+                                        Shipped
+                                    </option>
+
+                                    <option value="DELIVERED"
+                                            th:selected="${order.orderStatus == 'DELIVERED'}">
+                                        Delivered
+                                    </option>
+
+                                    <option value="CANCELLED"
+                                            th:selected="${order.orderStatus == 'CANCELLED'}">
+                                        Cancelled
+                                    </option>
+
+                                </select>
+
+
+                                <button type="submit"
+                                        class="update-btn"
+                                        title="Update Status">
+
+                                    <i class="fa-solid fa-check"></i>
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+
+                    <!-- EMPTY STATE -->
+
+                    <tr th:if="${orders == null or #lists.isEmpty(orders)}">
+
+                        <td colspan="8">
+
+                            <div class="empty-orders">
+
+                                <i class="fa-solid fa-cart-shopping"></i>
+
+                                <h4>No Orders Yet</h4>
+
+                                <p>
+                                    Customer orders will appear here once they place an order.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>

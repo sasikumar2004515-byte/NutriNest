@@ -1,0 +1,421 @@
+/* ======================================
+        ORDER DETAILS SECTION
+====================================== */
+
+.order-details-section{
+
+    width:100%;
+    min-height:100vh;
+
+    background:#f5f7f2;
+
+    padding:120px 6% 80px;
+
+}
+
+.order-details-container{
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+/* ======================================
+        PAGE TITLE
+====================================== */
+
+.page-title{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.page-title h2{
+
+    font-size:36px;
+
+    font-weight:700;
+
+    color:#2E7D32;
+
+    margin-bottom:10px;
+
+}
+
+.page-title p{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+/* ======================================
+        DETAILS CARD
+====================================== */
+
+.details-card{
+
+    background:rgba(255,255,255,.95);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:22px;
+
+    padding:30px;
+
+    margin-bottom:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+}
+
+.details-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+
+}
+
+.details-card h3{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#2E7D32;
+
+    margin-bottom:25px;
+
+    font-size:22px;
+
+}
+
+/* ======================================
+        DETAILS ROW
+====================================== */
+
+.detail-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 0;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.detail-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.detail-row span{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+.detail-row strong{
+
+    color:#222;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+.total-row{
+
+    margin-top:10px;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#2E7D32;
+
+}
+
+/* ======================================
+        ADDRESS
+====================================== */
+
+.details-card p{
+
+    color:#555;
+
+    line-height:1.8;
+
+    margin-bottom:8px;
+
+}
+/* ======================================
+        PRODUCT LIST
+====================================== */
+
+.product-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    border:1px solid #edf0ed;
+
+    border-radius:18px;
+
+    background:#fcfcfc;
+
+    transition:.35s;
+
+}
+
+.product-item:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 30px rgba(46,125,50,.12);
+
+    border-color:#2E7D32;
+
+}
+
+.product-item img{
+
+    width:120px;
+
+    height:120px;
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+    background:#fff;
+
+    padding:8px;
+
+    border:1px solid #eee;
+
+}
+
+.product-info{
+
+    flex:1;
+
+}
+
+.product-info h4{
+
+    font-size:20px;
+
+    color:#222;
+
+    margin-bottom:10px;
+
+}
+
+.product-info p{
+
+    margin:6px 0;
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+.product-price{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#2E7D32;
+
+}
+
+/* ======================================
+        ACTION BUTTONS
+====================================== */
+
+.action-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    margin-top:35px;
+
+    flex-wrap:wrap;
+
+}
+
+.action-buttons a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    text-decoration:none;
+
+    padding:15px 28px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.back-btn{
+
+    background:#ffffff;
+
+    color:#2E7D32;
+
+    border:2px solid #2E7D32;
+
+}
+
+.back-btn:hover{
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+}
+
+.invoice-btn{
+
+    background:linear-gradient(135deg,#2E7D32,#43A047);
+
+    color:#fff;
+
+}
+
+.invoice-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 28px rgba(46,125,50,.25);
+
+}
+
+/* ======================================
+        RESPONSIVE
+====================================== */
+
+@media(max-width:768px){
+
+    .page-title h2{
+
+        font-size:28px;
+
+    }
+
+    .details-card{
+
+        padding:22px;
+
+    }
+
+    .detail-row{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:6px;
+
+    }
+
+    .product-item{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .product-item img{
+
+        width:170px;
+
+        height:170px;
+
+    }
+
+    .product-price{
+
+        margin-top:10px;
+
+    }
+
+    .action-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .action-buttons a{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .order-details-section{
+
+        padding:95px 15px 50px;
+
+    }
+
+    .page-title h2{
+
+        font-size:24px;
+
+    }
+
+    .details-card{
+
+        padding:18px;
+
+        border-radius:16px;
+
+    }
+
+}

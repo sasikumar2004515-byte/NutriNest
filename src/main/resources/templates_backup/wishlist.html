@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wishlist | NutriNest</title>
+
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/wishlist.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/animation.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+<div class="bg-shape shape3"></div>
+
+<div id="navbar"></div>
+
+<section class="wishlist-section">
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <!-- ===========================
+         WISHLIST HERO
+ =========================== -->
+
+    <section class="wishlist-hero">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+        <span class="hero-tag">
+            ❤️ Premium Collection
+        </span>
+
+            <h1>
+
+                My Wishlist
+
+            </h1>
+
+            <p>
+
+                Save your favourite healthy products and
+                purchase them whenever you're ready.
+
+            </p>
+
+            <div class="hero-stats">
+
+                <div class="stat-box">
+
+                    <h2 th:text="${#lists.size(wishlist)}">0</h2>
+
+                    <span>Saved Items</span>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h2>100%</h2>
+
+                    <span>Premium Quality</span>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h2>24/7</h2>
+
+                    <span>Customer Support</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <div class="wishlist-toolbar">
+
+        <div class="wishlist-title">
+
+            <h2>Saved Products</h2>
+
+            <span th:text="${#lists.size(wishlist) + ' Items'}">
+
+            0 Items
+
+        </span>
+
+        </div>
+
+        <div class="wishlist-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                    type="text"
+                    id="wishlistSearch"
+                    placeholder="Search your wishlist...">
+
+        </div>
+
+    </div>
+    <!-- Empty Wishlist -->
+
+    <div th:if="${#lists.isEmpty(wishlist)}" class="empty-wishlist">
+
+        <div class="empty-icon">
+
+            <i class="fa-solid fa-heart-crack"></i>
+
+        </div>
+
+        <h2>Your Wishlist is Empty</h2>
+
+        <p>
+
+            Start exploring our premium healthy collection.
+
+        </p>
+
+        <p>Add your favourite products to see them here.</p>
+
+        <a th:href="@{/products}" class="shop-btn">
+            Continue Shopping
+        </a>
+
+    </div>
+
+    <!-- Wishlist Products -->
+
+    <div class="wishlist-grid" th:if="${!#lists.isEmpty(wishlist)}">
+
+        <div class="wishlist-card"
+             th:each="item : ${wishlist}">
+
+            <!-- Discount Ribbon -->
+            <div class="discount-ribbon">
+
+                <span>Best Seller</span>
+
+            </div>
+            <span class="organic-badge">
+
+             🌿 Organic
+
+            </span>
+
+            <!-- Remove Wishlist -->
+
+            <form th:action="@{/wishlist/remove/{id}(id=${item.product.id})}"
+                  method="post">
+
+                <button type="submit"
+                        class="wishlist-remove">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                </button>
+
+            </form>
+
+            <!-- Product Image -->
+
+            <div class="product-image">
+
+                <img th:src="${item.product.displayImageUrl}"
+                     th:alt="${item.product.productName}">
+
+            </div>
+
+            <!-- Rating -->
+
+            <div class="rating">
+
+                <i class="fa-solid fa-star"></i>
+                <span>4.9</span>
+
+                <small>(248 Reviews)</small>
+
+            </div>
+
+            <!-- Product Name -->
+
+            <h2 class="product-title"
+                th:text="${item.product.productName}">
+
+            </h2>
+
+            <!-- Description -->
+
+            <p class="product-description"
+               th:text="${item.product.description}">
+
+            </p>
+
+            <!-- Delivery -->
+
+            <div class="delivery-chip">
+
+                <i class="fa-solid fa-truck-fast"></i>
+
+                Free Delivery
+
+            </div>
+
+            <!-- Price -->
+
+            <div class="price-box">
+
+        <span class="current-price">
+
+            ₹<span th:text="${item.product.price}"></span>
+
+        </span>
+
+                <span class="old-price">
+
+            ₹999
+
+        </span>
+
+                <span class="offer">
+
+            20% OFF
+
+        </span>
+
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="wishlist-buttons">
+
+                <form th:action="@{/cart/add}"
+                      method="post">
+
+                    <input type="hidden" name="productId" th:value="${item.product.id}">
+
+                    <button type="submit"
+                            class="cart-btn">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        Add to Cart
+
+                    </button>
+
+                </form>
+
+                <a th:href="@{/products/{id}(id=${item.product.id})}">
+
+                    <button type="button"
+                            class="buy-btn">
+
+                        Buy Now
+
+                    </button>
+
+                </a>
+
+            </div>
+
+        </div>
+   </section>
+
+<!-- ===========================
+        PREMIUM FOOTER
+=========================== -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<script th:src="@{/js/footer.js}"></script>
+<script th:src="@{/js/wishlist.js}"></script>
+<script th:src="@{/js/animation.js}"></script>
+
+</body>
+</html>

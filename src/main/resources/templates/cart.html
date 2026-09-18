@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart | NutriNest</title>
+
+
+    <!-- ==============================
+         NAVBAR CSS
+    ============================== -->
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+
+    <!-- ==============================
+         CART CSS
+    ============================== -->
+    <link rel="stylesheet"
+          th:href="@{/css/cart.css}">
+
+
+    <!-- ==============================
+         FOOTER CSS
+    ============================== -->
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- ==============================
+         FONT AWESOME
+    ============================== -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+
+<!-- =========================================================
+     CART PAGE
+========================================================= -->
+
+<main class="cart-page">
+
+
+    <!-- =====================================================
+         CART HEADER
+    ====================================================== -->
+
+    <section class="cart-header">
+
+        <div class="cart-header-content">
+
+            <div>
+
+                <h1>
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    My Shopping Cart
+
+                </h1>
+
+
+                <p>
+
+                    Fresh • Healthy • Premium Quality
+
+                </p>
+
+            </div>
+
+
+            <a th:href="@{/products}"
+               class="continue-shopping">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EMPTY CART
+    ====================================================== -->
+
+    <section class="empty-cart"
+             th:if="${#lists.isEmpty(cartItems)}">
+
+
+        <img th:src="@{/images/empty-cart.png}"
+             alt="Empty Cart">
+
+
+        <h2>
+
+            Your Cart is Empty
+
+        </h2>
+
+
+        <p>
+
+            Looks like you haven't added any healthy
+            products yet.
+
+        </p>
+
+
+        <a th:href="@{/products}"
+           class="shop-btn">
+
+            <i class="fa-solid fa-bag-shopping"></i>
+
+            Start Shopping
+
+        </a>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CART CONTAINER
+    ====================================================== -->
+
+    <div class="cart-container"
+         th:if="${!#lists.isEmpty(cartItems)}">
+
+
+        <!-- =================================================
+             LEFT SIDE — CART ITEMS
+        ================================================== -->
+
+        <div class="cart-items">
+
+
+            <!-- =================================================
+                 PRODUCT CARD
+            ================================================== -->
+
+            <div class="cart-card"
+                 th:each="item : ${cartItems}">
+
+
+                <!-- PRODUCT IMAGE -->
+
+                <div class="product-image">
+
+                    <img th:src="${item.product.displayImageUrl}"
+                         th:alt="${item.product.productName}">
+
+                </div>
+
+
+
+                <!-- PRODUCT DETAILS -->
+
+                <div class="product-details">
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <h2 class="product-title"
+                        th:text="${item.product.productName}">
+
+                        Premium Organic Cashews
+
+                    </h2>
+
+
+
+                    <!-- RATING -->
+
+                    <div class="rating">
+
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+
+                        <span>
+
+                            4.8 (256 Reviews)
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- BADGES -->
+
+                    <div class="badges">
+
+                        <span class="organic">
+
+                            🌿 Organic
+
+                        </span>
+
+                        <span class="best">
+
+                            🔥 Bestseller
+
+                        </span>
+
+                        <span class="fresh">
+
+                            🚚 Fresh Stock
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    <p class="product-subtitle">
+
+                        Premium quality dry fruits
+                        sourced directly from trusted
+                        farms with natural freshness.
+
+                    </p>
+
+
+
+                    <!-- =================================================
+                         WEIGHT / VARIANT
+                    ================================================== -->
+
+                    <div class="weight-section">
+
+                        <label>
+
+                            Choose Weight
+
+                        </label>
+
+
+                        <!-- =============================================
+                             PRODUCTS WITH VARIANTS
+                        ============================================== -->
+
+                        <select class="weight-select"
+                                th:data-cart-id="${item.id}"
+                                onchange="changeWeight(this)"
+                                th:if="${productVariants[item.product.id] != null and !#lists.isEmpty(productVariants[item.product.id])}">
+
+                            <option th:each="variant : ${productVariants[item.product.id]}"
+                                    th:value="${variant.weight}"
+                                    th:text="${variant.weight}"
+                                    th:data-variant-id="${variant.id}"
+                                    th:selected="${item.productVariant != null and item.productVariant.id == variant.id}">
+
+                                250g
+
+                            </option>
+
+                        </select>
+
+
+                        <!-- =============================================
+                             PRODUCTS WITHOUT VARIANTS
+                        ============================================== -->
+
+                        <span class="weight-select"
+                              th:unless="${productVariants[item.product.id] != null and !#lists.isEmpty(productVariants[item.product.id])}"
+                              th:text="${item.selectedWeight != null and !item.selectedWeight.isBlank()
+                                  ? item.selectedWeight
+                                  : (item.product.weight != null
+                                      ? item.product.weight
+                                      : 'Standard')}">
+
+                            Standard
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         PRICE
+                    ================================================== -->
+
+                    <div class="price-box">
+
+
+                        <!-- =============================
+                             MRP
+                        ============================== -->
+
+                        <span class="old-price">
+
+                            ₹<span class="mrp-price"
+                                   data-mrp
+                                   th:text="${
+                                       item.productVariant != null
+                                       and item.productVariant.mrp != null
+                                       ? item.productVariant.mrp
+                                       : item.product.mrp != null
+                                       ? item.product.mrp
+                                       : 0
+                                   }">
+
+                                599
+
+                            </span>
+
+                        </span>
+
+
+
+                        <!-- =============================
+                             SELLING PRICE
+                        ============================== -->
+
+                        <span class="new-price">
+
+                            ₹<span
+                                th:text="${
+                                    item.productVariant != null
+                                    and item.productVariant.price != null
+                                    ? item.productVariant.price
+                                    : item.product.price != null
+                                    ? item.product.price
+                                    : 0
+                                }">
+
+                                499
+
+                            </span>
+
+                        </span>
+
+
+
+                        <!-- =============================
+                             DISCOUNT
+                        ============================== -->
+
+                        <span class="discount"
+                              th:if="${
+                                  item.productVariant != null
+                                  and item.productVariant.mrp != null
+                                  and item.productVariant.price != null
+                                  and item.productVariant.mrp > 0
+                                  and item.productVariant.mrp > item.productVariant.price
+                              }"
+                              th:text="${
+                                  T(java.lang.Math).round(
+                                      (
+                                          (item.productVariant.mrp
+                                          - item.productVariant.price)
+                                          / item.productVariant.mrp
+                                      ) * 100
+                                  ) + '% OFF'
+                              }">
+
+                            17% OFF
+
+                        </span>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         STOCK
+                    ================================================== -->
+
+                    <div class="stock">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+
+                        <!-- VARIANT STOCK -->
+
+                        <span th:if="${item.productVariant != null}">
+
+                            <span
+                                    th:if="${item.productVariant.stock != null
+                                    and item.productVariant.stock > 0}">
+
+                                In Stock
+
+                            </span>
+
+
+                            <span
+                                    th:unless="${item.productVariant.stock != null
+                                    and item.productVariant.stock > 0}">
+
+                                Out of Stock
+
+                            </span>
+
+                        </span>
+
+
+                        <!-- PRODUCT STOCK -->
+
+                        <span th:unless="${item.productVariant != null}">
+
+                            <span
+                                    th:if="${item.product.stock != null
+                                    and item.product.stock > 0}">
+
+                                In Stock
+
+                            </span>
+
+
+                            <span
+                                    th:unless="${item.product.stock != null
+                                    and item.product.stock > 0}">
+
+                                Out of Stock
+
+                            </span>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         PRODUCT ACTIONS
+                    ================================================== -->
+
+                    <div class="product-actions">
+
+
+                        <!-- QUANTITY -->
+
+                        <div class="quantity-wrapper">
+
+                            <label>
+
+                                Quantity
+
+                            </label>
+
+
+                            <div class="quantity-box">
+
+
+                                <form th:action="@{/cart/decrease/{id}(id=${item.id})}"
+                                      method="post">
+
+                                    <button type="submit">
+
+                                        <i class="fa-solid fa-minus"></i>
+
+                                    </button>
+
+                                </form>
+
+
+                                <span th:text="${item.quantity}">
+
+                                    1
+
+                                </span>
+
+
+                                <form th:action="@{/cart/increase/{id}(id=${item.id})}"
+                                      method="post">
+
+                                    <button type="submit">
+
+                                        <i class="fa-solid fa-plus"></i>
+
+                                    </button>
+
+                                </form>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ITEM TOTAL -->
+
+                        <div class="item-total-card">
+
+                            <span>
+
+                                Item Total
+
+                            </span>
+
+
+                            <h3>
+
+                                ₹<span
+                                    th:text="${
+                                        (
+                                            item.productVariant != null
+                                            and item.productVariant.price != null
+                                            ? item.productVariant.price
+                                            : item.product.price != null
+                                            ? item.product.price
+                                            : 0
+                                        )
+                                        *
+                                        (
+                                            item.quantity != null
+                                            ? item.quantity
+                                            : 0
+                                        )
+                                    }">
+
+                                    998
+
+                                </span>
+
+                            </h3>
+
+                        </div>
+
+
+
+                        <!-- SAVE / REMOVE -->
+
+                        <div class="cart-buttons">
+
+
+                            <button type="button"
+                                    class="wishlist-btn">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                                Save For Later
+
+                            </button>
+
+
+                            <form th:action="@{/cart/remove/{id}(id=${item.id})}"
+                                  method="post">
+
+                                <button type="submit"
+                                        class="delete-btn">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                    Remove
+
+                                </button>
+
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE — ORDER SUMMARY
+        ================================================== -->
+
+        <aside class="cart-summary">
+
+
+            <div class="summary-card">
+
+
+                <!-- SUMMARY HEADER -->
+
+                <div class="summary-header">
+
+                    <h2>
+
+                        Order Summary
+
+                    </h2>
+
+
+                    <span class="items-count">
+
+                        <span th:text="${#lists.size(cartItems)}">
+
+                            0
+
+                        </span>
+
+                        Items
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="summary-divider"></div>
+
+
+
+                <!-- SUBTOTAL -->
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Subtotal
+
+                    </span>
+
+
+                    <span>
+
+                        ₹<span id="subtotal"
+                               th:text="${subtotal}">
+
+                            0
+
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- DISCOUNT -->
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Product Discount
+
+                    </span>
+
+
+                    <span class="discount-text">
+
+                        -₹0
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- DELIVERY -->
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Delivery Charge
+
+                    </span>
+
+
+                    <span>
+
+                        <span th:if="${deliveryCharge == 0}"
+                              class="free-delivery">
+
+                            FREE
+
+                        </span>
+
+
+                        <span th:unless="${deliveryCharge == 0}"
+                              th:text="'₹' + ${deliveryCharge}">
+
+                            ₹99
+
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- GST -->
+
+                <div class="summary-row">
+
+                    <span>
+
+                        GST
+
+                    </span>
+
+
+                    <span>
+
+                        Included
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="summary-divider"></div>
+
+
+
+                <!-- GRAND TOTAL -->
+
+                <div class="grand-total">
+
+                    <span>
+
+                        Grand Total
+
+                    </span>
+
+
+                    <h2>
+
+                        ₹<span id="grandTotal"
+                               th:text="${grandTotal}">
+
+                            0
+
+                        </span>
+
+                    </h2>
+
+                </div>
+
+
+
+                <!-- COUPON -->
+
+                <div class="coupon-box">
+
+                    <label>
+
+                        Coupon Code
+
+                    </label>
+
+
+                    <div class="coupon-input">
+
+                        <input type="text"
+                               placeholder="Enter Coupon">
+
+
+                        <button type="button">
+
+                            Apply
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DELIVERY INFO -->
+
+                <div class="delivery-info">
+
+                    <i class="fa-solid fa-truck-fast"></i>
+
+
+                    <div>
+
+                        <strong>
+
+                            Estimated Delivery
+
+                        </strong>
+
+
+                        <p>
+
+                            Tomorrow • 10 AM - 1 PM
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SECURE PAYMENT -->
+
+                <div class="secure-payment">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <span>
+
+                        100% Secure Checkout
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- CHECKOUT -->
+
+                <a th:href="@{/checkout}"
+                   class="checkout-btn">
+
+                    <i class="fa-solid fa-credit-card"></i>
+
+                    Proceed to Checkout
+
+                </a>
+
+
+
+                <!-- CONTINUE -->
+
+                <a th:href="@{/products}"
+                   class="continue-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Continue Shopping
+
+                </a>
+
+
+            </div>
+
+        </aside>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     FREE DELIVERY PROGRESS
+========================================================= -->
+
+<section class="delivery-progress">
+
+
+    <div class="delivery-progress-card">
+
+
+        <div class="delivery-header">
+
+
+            <i class="fas fa-truck"></i>
+
+
+            <div>
+
+                <h3>
+
+                    Free Delivery Progress
+
+                </h3>
+
+
+                <p id="deliveryMessage">
+
+                    Add ₹999 more to unlock FREE Delivery.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+            <div id="progressFill"
+                 class="progress-fill">
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TRUST SECTION
+========================================================= -->
+
+<section class="trust-section">
+
+
+    <div class="trust-card">
+
+        <i class="fa-solid fa-seedling"></i>
+
+        <h4>
+
+            100% Organic
+
+        </h4>
+
+        <p>
+
+            Farm fresh premium quality products.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="trust-card">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <h4>
+
+            Secure Payment
+
+        </h4>
+
+        <p>
+
+            Safe & encrypted payment gateway.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="trust-card">
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <h4>
+
+            Fresh Packing
+
+        </h4>
+
+        <p>
+
+            Packed only after your order.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="trust-card">
+
+        <i class="fa-solid fa-headset"></i>
+
+        <h4>
+
+            24×7 Customer Support
+
+        </h4>
+
+        <p>
+
+            We're always here to help you.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+
+<!-- =========================================================
+     CART JS
+========================================================= -->
+
+<script th:src="@{/js/cart.js}"></script>
+<script th:src="@{/js/navbar.js}"></script>
+
+
+</body>
+
+</html>

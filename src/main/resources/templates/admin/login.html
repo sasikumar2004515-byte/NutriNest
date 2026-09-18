@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriNest Admin Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 16px;
+            display: grid;
+            place-items: center;
+            background: #f5f7fb;
+            color: #183b29;
+            font-family: Arial, sans-serif;
+        }
+
+        .admin-login {
+            width: min(100%, 360px);
+            padding: 24px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .08);
+        }
+
+        .admin-login h2 {
+            margin: 0 0 20px;
+        }
+
+        .admin-login input,
+        .admin-login button {
+            width: 100%;
+            min-height: 44px;
+            font: inherit;
+        }
+
+        .admin-login input {
+            padding: 10px 12px;
+            border: 1px solid #dfe6e1;
+            border-radius: 8px;
+        }
+
+        .admin-login button {
+            border: 0;
+            border-radius: 8px;
+            background: #163d2a;
+            color: #ffffff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="admin-login">
+
+<h2>Admin Login</h2>
+
+<form method="post" th:action="@{/login}">
+
+    <input
+            type="text"
+            name="username"
+            placeholder="Email">
+
+    <br><br>
+
+    <input
+            type="password"
+            name="password"
+            placeholder="Password">
+
+    <br><br>
+
+    <button type="submit">
+        Login
+    </button>
+
+</form>
+
+</main>
+
+</body>
+</html>

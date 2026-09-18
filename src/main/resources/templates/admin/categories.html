@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <link rel="icon"
+        type="image/jpeg"
+        th:href="@{/images/logo.jpeg}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Categories | NutriNest Admin</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f5f7f5;
+        color: #24352b;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background: #163d2a;
+        padding: 28px 18px;
+        z-index: 1000;
+        box-shadow: 4px 0 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 12px 30px;
+        color: #fff;
+    }
+
+    .brand-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: #d9b45f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #163d2a;
+        font-size: 19px;
+    }
+
+    .brand h2 {
+        margin: 0;
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .brand span {
+        display: block;
+        font-size: 11px;
+        color: #b8c8bd;
+        margin-top: 2px;
+    }
+
+    .nav-title {
+        color: #91aa9b;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding: 0 13px 10px;
+        text-transform: uppercase;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        color: #d9e5dc;
+        text-decoration: none;
+        padding: 13px 14px;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        transition: 0.2s ease;
+    }
+
+    .sidebar a i {
+        width: 18px;
+        text-align: center;
+    }
+
+    .sidebar a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+    }
+
+    .sidebar a.active {
+        background: #d9b45f;
+        color: #163d2a;
+        font-weight: 600;
+    }
+
+    .sidebar .logout {
+        position: absolute;
+        bottom: 25px;
+        left: 18px;
+        right: 18px;
+        color: #f0caca;
+    }
+
+    .sidebar .logout:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .main {
+        margin-left: 250px;
+        min-height: 100vh;
+        padding: 30px 35px;
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 28px;
+    }
+
+    .page-title h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+        color: #183b29;
+    }
+
+    .page-title p {
+        margin: 6px 0 0;
+        color: #77877d;
+        font-size: 14px;
+    }
+
+    .admin-badge {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        background: #fff;
+        border: 1px solid #e3e9e4;
+        padding: 9px 14px;
+        border-radius: 30px;
+        font-size: 13px;
+        color: #466052;
+    }
+
+    .admin-badge i {
+        color: #b28b34;
+    }
+
+    /* =========================
+       TOOLBAR
+    ========================= */
+
+    .toolbar {
+        background: #fff;
+        border: 1px solid #e6ebe7;
+        border-radius: 16px;
+        padding: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 22px;
+        box-shadow: 0 5px 20px rgba(22, 61, 42, 0.04);
+    }
+
+    .search-box {
+        position: relative;
+        width: 360px;
+    }
+
+    .search-box i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8b9a91;
+    }
+
+    .search-box input {
+        width: 100%;
+        height: 44px;
+        border: 1px solid #dfe6e1;
+        border-radius: 10px;
+        padding: 0 15px 0 42px;
+        outline: none;
+        font-size: 14px;
+        color: #294335;
+        background: #fafcfb;
+    }
+
+    .search-box input:focus {
+        border-color: #7da38a;
+        box-shadow: 0 0 0 3px rgba(125, 163, 138, 0.12);
+        background: #fff;
+    }
+
+    .add-btn {
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 0 19px;
+        border-radius: 10px;
+        background: #163d2a;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    .add-btn:hover {
+        background: #23583d;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    /* =========================
+       TABLE CARD
+    ========================= */
+
+    .table-card {
+        background: #fff;
+        border: 1px solid #e6ebe7;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(22, 61, 42, 0.04);
+    }
+
+    .table-header {
+        padding: 20px 22px;
+        border-bottom: 1px solid #edf1ee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .table-header h3 {
+        margin: 0;
+        font-size: 17px;
+        color: #183b29;
+    }
+
+    .category-count {
+        font-size: 12px;
+        color: #728178;
+        background: #f2f6f3;
+        padding: 6px 10px;
+        border-radius: 20px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 750px;
+    }
+
+    thead th {
+        background: #f8faf8;
+        color: #718077;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .6px;
+        text-transform: uppercase;
+        padding: 15px 20px;
+        border-bottom: 1px solid #e9eeea;
+        white-space: nowrap;
+    }
+
+    tbody td {
+        padding: 17px 20px;
+        border-bottom: 1px solid #edf1ee;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    tbody tr {
+        transition: 0.2s ease;
+    }
+
+    tbody tr:hover {
+        background: #fbfcfb;
+    }
+
+    .id-badge {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9px;
+        background: #edf5ef;
+        color: #28603f;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .category-name {
+        font-weight: 600;
+        color: #203e2d;
+    }
+
+    .description {
+        max-width: 310px;
+        color: #78867e;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .status.active {
+        background: #e8f5eb;
+        color: #26733e;
+    }
+
+    .status.inactive {
+        background: #f8eaea;
+        color: #a34848;
+    }
+
+    .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+
+    /* =========================
+       ACTIONS
+    ========================= */
+
+    .actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .action-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border: 1px solid #e1e7e2;
+        background: #fff;
+        transition: 0.2s ease;
+    }
+
+    .edit-btn {
+        color: #396a4d;
+    }
+
+    .edit-btn:hover {
+        background: #edf5ef;
+        border-color: #cbded0;
+        color: #245738;
+    }
+
+    .delete-btn {
+        color: #a54d4d;
+    }
+
+    .delete-btn:hover {
+        background: #faeeee;
+        border-color: #eccccc;
+        color: #8e3535;
+    }
+
+    /* =========================
+       EMPTY STATE
+    ========================= */
+
+    .empty-state {
+        text-align: center;
+        padding: 65px 20px;
+    }
+
+    .empty-icon {
+        width: 65px;
+        height: 65px;
+        margin: 0 auto 16px;
+        border-radius: 18px;
+        background: #edf5ef;
+        color: #477858;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+    }
+
+    .empty-state h4 {
+        margin: 0 0 7px;
+        color: #294435;
+    }
+
+    .empty-state p {
+        margin: 0 0 20px;
+        color: #819087;
+        font-size: 13px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+        .sidebar {
+            width: 210px;
+        }
+
+        .main {
+            margin-left: 210px;
+            padding: 25px 20px;
+        }
+
+        .search-box {
+            width: 280px;
+        }
+    }
+
+    @media (max-width: 700px) {
+
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+            padding: 15px;
+        }
+
+        .brand {
+            padding-bottom: 15px;
+        }
+
+        .nav-title {
+            display: none;
+        }
+
+        .sidebar a {
+            display: inline-flex;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            padding: 9px 11px;
+        }
+
+        .sidebar .logout {
+            position: static;
+            margin-top: 8px;
+        }
+
+        .main {
+            margin-left: 0;
+            padding: 20px 14px;
+        }
+
+        .topbar {
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .page-title h1 {
+            font-size: 23px;
+        }
+
+        .admin-badge {
+            display: none;
+        }
+
+        .toolbar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-box {
+            width: 100%;
+        }
+
+        .add-btn {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        .brand h2 {
+            font-size: 18px;
+        }
+
+        .sidebar a {
+            font-size: 12px;
+        }
+
+        .table-header {
+            padding: 16px;
+        }
+
+        thead th,
+        tbody td {
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+  <div class="brand">
+    <div class="brand-icon">
+      <i class="fa-solid fa-leaf"></i>
+    </div>
+
+    <div>
+      <h2>NutriNest</h2>
+      <span>ADMIN PANEL</span>
+    </div>
+  </div>
+
+  <div class="nav-title">Management</div>
+
+  <a th:href="@{/admin/dashboard}">
+    <i class="fa-solid fa-chart-line"></i>
+    Dashboard
+  </a>
+
+  <a th:href="@{/admin/categories}" class="active">
+    <i class="fa-solid fa-layer-group"></i>
+    Categories
+  </a>
+
+  <a th:href="@{/admin/products}">
+    <i class="fa-solid fa-box-open"></i>
+    Products
+  </a>
+
+  <a href="#">
+    <i class="fa-solid fa-tags"></i>
+    Brands
+  </a>
+
+  <a href="#">
+    <i class="fa-solid fa-cart-shopping"></i>
+    Orders
+  </a>
+
+  <a href="#">
+    <i class="fa-solid fa-users"></i>
+    Customers
+  </a>
+
+  <a th:href="@{/logout}" class="logout">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Logout
+  </a>
+
+</aside>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="main">
+
+  <div class="topbar">
+
+    <div class="page-title">
+      <h1>Categories</h1>
+      <p>Manage your product categories</p>
+    </div>
+
+    <div class="admin-badge">
+      <i class="fa-solid fa-user-shield"></i>
+      Administrator
+    </div>
+
+  </div>
+
+
+  <!-- TOOLBAR -->
+
+  <div class="toolbar">
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input type="text"
+             id="categorySearch"
+             placeholder="Search categories..."
+             autocomplete="off">
+    </div>
+
+    <a th:href="@{/admin/categories/new}"
+       class="add-btn">
+
+      <i class="fa-solid fa-plus"></i>
+      Add Category
+
+    </a>
+
+  </div>
+
+
+  <!-- TABLE -->
+
+  <div class="table-card">
+
+    <div class="table-header">
+
+      <h3>All Categories</h3>
+
+      <span class="category-count"
+            id="categoryCount"
+            th:text="${#lists.size(categories) + ' Categories'}">
+                0 Categories
+            </span>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table id="categoryTable">
+
+        <thead>
+        <tr>
+
+          <th>ID</th>
+
+          <th>Name</th>
+
+          <th>Description</th>
+
+          <th>Status</th>
+
+          <th>Action</th>
+
+        </tr>
+        </thead>
+
+
+        <tbody id="categoryTableBody">
+
+        <tr th:each="category : ${categories}"
+            class="category-row">
+
+          <td>
+                        <span class="id-badge"
+                              th:text="${category.id}">
+                            1
+                        </span>
+          </td>
+
+
+          <td>
+                        <span class="category-name"
+                              th:text="${category.categoryName}">
+                            Category
+                        </span>
+          </td>
+
+
+          <td>
+            <div class="description"
+                 th:text="${category.description != null and !#strings.isEmpty(category.description)
+                                      ? category.description
+                                      : 'No description'}">
+              No description
+            </div>
+          </td>
+
+
+          <td>
+
+                        <span th:if="${category.active}"
+                              class="status active">
+
+                            <span class="status-dot"></span>
+                            Active
+
+                        </span>
+
+            <span th:unless="${category.active}"
+                  class="status inactive">
+
+                            <span class="status-dot"></span>
+                            Inactive
+
+                        </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="actions">
+
+              <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}"
+                 class="action-btn edit-btn"
+                 title="Edit Category">
+
+                <i class="fa-solid fa-pen"></i>
+
+              </a>
+
+
+              <a th:href="@{/admin/categories/delete/{id}(id=${category.id})}"
+                 class="action-btn delete-btn"
+                 title="Delete Category"
+                 onclick="return confirm('Are you sure you want to delete this category?')">
+
+                <i class="fa-solid fa-trash"></i>
+
+              </a>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+        </tbody>
+
+      </table>
+
+
+      <!-- EMPTY STATE -->
+
+      <div class="empty-state"
+           id="emptyState"
+           th:if="${#lists.isEmpty(categories)}">
+
+        <div class="empty-icon">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+
+        <h4>No Categories Yet</h4>
+
+        <p>
+          Start by adding your first product category.
+        </p>
+
+        <a th:href="@{/admin/categories/new}"
+           class="add-btn">
+
+          <i class="fa-solid fa-plus"></i>
+          Add Category
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<script>
+
+  /* =========================
+     CATEGORY SEARCH
+  ========================= */
+
+  const searchInput = document.getElementById("categorySearch");
+  const rows = document.querySelectorAll(".category-row");
+  const countElement = document.getElementById("categoryCount");
+
+  if (searchInput) {
+
+      searchInput.addEventListener("input", function () {
+
+          const keyword = this.value.toLowerCase().trim();
+
+          let visibleCount = 0;
+
+          rows.forEach(function (row) {
+
+              const text = row.textContent.toLowerCase();
+
+              if (text.includes(keyword)) {
+
+                  row.style.display = "";
+                  visibleCount++;
+
+              } else {
+
+                  row.style.display = "none";
+
+              }
+
+          });
+
+          if (countElement) {
+
+              countElement.textContent =
+                  visibleCount + (visibleCount === 1 ? " Category" : " Categories");
+
+          }
+
+      });
+
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+/* ======================================
+        ORDERS SECTION
+====================================== */
+
+.orders-section{
+
+    width:100%;
+    min-height:100vh;
+
+    background:#f5f7f2;
+
+    padding:120px 6% 80px;
+
+}
+
+.orders-container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+}
+
+/* ======================================
+        TITLE
+====================================== */
+
+.orders-title{
+
+    margin-bottom:35px;
+
+}
+
+.orders-title h2{
+
+    font-size:34px;
+
+    color:#2E7D32;
+
+    margin-bottom:10px;
+
+}
+
+.orders-title p{
+
+    color:#666;
+
+}
+
+/* ======================================
+        EMPTY ORDERS
+====================================== */
+
+.empty-orders{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:60px 30px;
+
+    text-align:center;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.empty-orders i{
+
+    font-size:70px;
+
+    color:#2E7D32;
+
+    margin-bottom:20px;
+
+}
+
+.empty-orders h3{
+
+    font-size:28px;
+
+    margin-bottom:10px;
+
+}
+
+.empty-orders p{
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+.shop-btn{
+
+    display:inline-block;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.shop-btn:hover{
+
+    background:#256a2a;
+
+}
+
+/* ======================================
+        ORDER LIST
+====================================== */
+
+.orders-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+.order-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.order-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+/* ======================================
+        ORDER HEADER
+====================================== */
+
+.order-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.order-header h3{
+
+    color:#222;
+
+    margin-bottom:8px;
+
+}
+
+.order-header p{
+
+    color:#666;
+
+}
+/* ======================================
+        STATUS BADGE
+====================================== */
+
+.status-badge{
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    background:#FFF3CD;
+
+    color:#856404;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+/* ======================================
+        ORDER BODY
+====================================== */
+
+.order-body{
+
+    border-top:1px solid #eee;
+
+    border-bottom:1px solid #eee;
+
+    padding:20px 0;
+
+}
+
+.order-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:10px 0;
+
+}
+
+.order-row span{
+
+    color:#666;
+
+}
+
+.order-row strong{
+
+    color:#222;
+
+}
+
+/* ======================================
+        ORDER FOOTER
+====================================== */
+
+.order-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:20px;
+
+}
+
+.details-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    text-decoration:none;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.details-btn:hover{
+
+    background:#256a2a;
+
+    transform:translateY(-2px);
+
+}
+
+/* ======================================
+        CONTINUE SHOPPING
+====================================== */
+
+.continue-shopping{
+
+    text-align:center;
+
+    margin-top:40px;
+
+}
+
+/* ======================================
+        RESPONSIVE
+====================================== */
+
+@media(max-width:768px){
+
+    .orders-section{
+
+        padding:100px 20px 60px;
+
+    }
+
+    .orders-title h2{
+
+        font-size:28px;
+
+    }
+
+    .order-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .order-row{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:6px;
+
+    }
+
+    .order-footer{
+
+        justify-content:center;
+
+    }
+
+    .details-btn{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .orders-section{
+
+        padding:90px 15px 50px;
+
+    }
+
+    .order-card{
+
+        padding:18px;
+
+    }
+
+    .shop-btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+}

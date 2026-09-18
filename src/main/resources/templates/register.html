@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | NutriNest</title>
+
+    <link rel="stylesheet" href="css/register.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+          <link rel="stylesheet" href="css/animation.css">
+
+</head>
+
+<body>
+
+<section class="register-section">
+
+    <div class="register-container">
+
+        <!-- Left -->
+
+        <div class="register-banner">
+
+            <h1>Join NutriNest 🌿</h1>
+
+            <p>
+
+                Create your account and enjoy
+                premium organic nuts with
+                exclusive member benefits.
+
+            </p>
+
+            <img src="images/welcom banner.png"
+                 alt="Register">
+
+        </div>
+
+        <!-- Right -->
+
+        <div class="register-card">
+
+            <h2>Create Account</h2>
+
+            <p class="register-subtitle">
+
+                Start your healthy journey today
+
+            </p>
+
+            <form id="registerForm"
+                  th:action="@{/register}"
+                  th:object="${user}"
+                  method="post">
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input type="text"
+                           th:field="*{fullName}"
+                           placeholder="Full Name"
+                           required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input type="email"
+                           th:field="*{email}"
+                           placeholder="Email Address"
+                           required>
+                    <small class="error"
+                           th:if="${emailError}"
+                           th:text="${emailError}">
+                    </small>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <input type="tel"
+                           th:field="*{phone}"
+                           placeholder="Mobile Number"
+                           required>
+                    <small class="error"
+                           th:if="${phoneError}"
+                           th:text="${phoneError}">
+                    </small>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input type="password"
+                           id="password"
+                           th:field="*{password}"
+                           placeholder="Password"
+                           required>
+                    <small id="passwordStrength" class="password-strength"></small>
+
+                    <i class="fa-solid fa-eye toggle-password"></i>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input type="password"
+                           id="confirmPassword"
+                           placeholder="Confirm Password"
+                           required>
+                    <i class="fa-solid fa-eye toggle-password"></i>
+
+                </div>
+
+                <label class="terms-box">
+
+                    <input type="checkbox" required>
+
+                    I agree to the
+                    <a th:href="@{/terms}" >
+                        Terms & Conditions
+                    </a>
+
+                </label>
+
+                <button type="submit"
+                        class="register-btn">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+            <div class="divider">
+
+                <span>OR</span>
+
+            </div>
+
+            <button class="google-btn">
+
+                <i class="fa-brands fa-google"></i>
+
+                Sign Up with Google
+
+            </button>
+
+            <p class="login-link">
+
+                Already have an account?
+
+                <a th:href="@{/login}">
+
+                    Login
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="js/register.js"></script>
+<script src="js/animation.js"></script>
+
+</body>
+
+</html>

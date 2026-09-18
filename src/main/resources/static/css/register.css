@@ -1,0 +1,1102 @@
+/* =========================================================
+   NUTRINEST REGISTER
+   DESKTOP + MOBILE SEPARATE RESPONSIVE DESIGN
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --forest: #173b2a;
+    --deep-forest: #0d261a;
+    --green: #2d5a40;
+
+    --cream: #f8f5ed;
+    --white: #ffffff;
+
+    --gold: #c6a66b;
+    --gold-light: #dfc992;
+
+    --text: #202922;
+    --muted: #858b86;
+
+    --border: #dedfd8;
+
+    --error: #c94b4b;
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        "Segoe UI",
+        "Inter",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(198, 166, 107, 0.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(45, 90, 64, 0.10),
+            transparent 30%
+        ),
+        var(--cream);
+
+    color: var(--text);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 25px;
+}
+
+
+/* =========================================================
+   REGISTER SECTION
+   ========================================================= */
+
+.register-section {
+    width: 100%;
+    max-width: 1180px;
+}
+
+
+/* =========================================================
+   DESKTOP CONTAINER
+   ========================================================= */
+
+.register-container {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 46% 54%;
+
+    min-height: 720px;
+
+    background: var(--white);
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(198, 166, 107, 0.25);
+
+    box-shadow:
+        0 30px 80px rgba(13, 38, 26, 0.15);
+}
+
+
+/* =========================================================
+   DESKTOP LEFT BANNER
+   ========================================================= */
+
+.register-banner {
+    position: relative;
+
+    min-height: 720px;
+
+    padding: 65px 55px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--deep-forest),
+            var(--forest)
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+}
+
+
+/* Decorative circle */
+
+.register-banner::before {
+    content: "";
+
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+
+    border: 1px solid rgba(223, 201, 146, 0.16);
+
+    border-radius: 50%;
+
+    top: -180px;
+    left: -160px;
+}
+
+
+.register-banner::after {
+    content: "";
+
+    position: absolute;
+
+    width: 430px;
+    height: 430px;
+
+    border: 1px solid rgba(223, 201, 146, 0.12);
+
+    border-radius: 50%;
+
+    bottom: -230px;
+    right: -200px;
+}
+
+
+/* =========================================================
+   BANNER CONTENT
+   ========================================================= */
+
+.register-banner h1 {
+    position: relative;
+
+    z-index: 3;
+
+    color: white;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 48px;
+
+    font-weight: 500;
+
+    line-height: 1.1;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 20px;
+}
+
+
+.register-banner h1::after {
+    content: "";
+
+    display: block;
+
+    width: 60px;
+    height: 2px;
+
+    background: var(--gold);
+
+    margin-top: 20px;
+}
+
+
+.register-banner p {
+    position: relative;
+
+    z-index: 3;
+
+    max-width: 400px;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   IMAGE - DESKTOP
+   IMPORTANT:
+   NO CROP
+   FULL IMAGE VISIBLE
+   ========================================================= */
+
+.register-banner img {
+    position: absolute;
+
+    z-index: 2;
+
+    left: 50%;
+
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+
+    height: auto;
+
+    max-height: 62%;
+
+    object-fit: contain;
+
+    object-position: center bottom;
+
+    display: block;
+
+    opacity: 0.95;
+}
+
+
+/* =========================================================
+   IMAGE FADE
+   ========================================================= */
+
+.register-banner img {
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.4) 15%,
+            black 32%,
+            black 100%
+        );
+
+    -webkit-mask-image:
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.4) 15%,
+            black 32%,
+            black 100%
+        );
+}
+
+
+/* =========================================================
+   RIGHT CARD
+   ========================================================= */
+
+.register-card {
+    position: relative;
+
+    padding: 55px 70px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.register-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 90px;
+    height: 90px;
+
+    border-top: 2px solid rgba(198, 166, 107, 0.35);
+
+    border-right: 2px solid rgba(198, 166, 107, 0.35);
+
+    border-radius: 0 30px 0 0;
+}
+
+
+/* =========================================================
+   CARD TITLE
+   ========================================================= */
+
+.register-card h2 {
+    color: var(--forest);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 36px;
+
+    font-weight: 500;
+
+    letter-spacing: -0.7px;
+
+    margin-bottom: 8px;
+}
+
+
+.register-subtitle {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-box {
+    position: relative;
+
+    width: 100%;
+
+    height: 57px;
+
+    margin-bottom: 18px;
+}
+
+
+.input-box > i:first-child {
+    position: absolute;
+
+    left: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #78917f;
+
+    font-size: 15px;
+
+    z-index: 2;
+}
+
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    background: #fafaf7;
+
+    outline: none;
+
+    padding:
+        0 48px;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    transition: 0.3s ease;
+}
+
+
+.input-box input::placeholder {
+    color: #9a9f9b;
+}
+
+
+.input-box input:focus {
+    background: white;
+
+    border-color: var(--gold);
+
+    box-shadow:
+        0 0 0 4px rgba(198, 166, 107, 0.10);
+}
+
+
+/* =========================================================
+   PASSWORD EYE
+   ========================================================= */
+
+.toggle-password {
+    position: absolute;
+
+    right: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #929993;
+
+    cursor: pointer;
+
+    z-index: 4;
+}
+
+
+.toggle-password:hover {
+    color: var(--forest);
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.error {
+    display: block;
+
+    color: var(--error);
+
+    font-size: 11px;
+
+    margin-top: 5px;
+
+    padding-left: 4px;
+}
+
+
+/* =========================================================
+   PASSWORD STRENGTH
+   ========================================================= */
+/* =========================================================
+   PASSWORD STRENGTH
+   ========================================================= */
+.password-strength {
+    position: absolute;
+    left: 6px;
+    top: 62px;
+    display: flex;
+    align-items: center;
+    min-height: 18px;
+    padding: 2px 0;
+    color: var(--error);
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 5;
+}
+
+.input-box:has(.password-strength) {
+    margin-bottom: 38px;
+}
+@media (max-width: 600px) {
+
+    .password-strength {
+        top: 65px;
+        left: 5px;
+        font-size: 11px;
+        min-height: 17px;
+    }
+
+    .input-box:has(.password-strength) {
+        margin-bottom: 36px;
+    }
+}
+/* =========================================================
+   TERMS
+   ========================================================= */
+
+.terms-box {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 8px;
+
+    color: #7d837f;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    margin:
+        7px 0 24px;
+
+    cursor: pointer;
+}
+
+
+.terms-box input {
+    width: 15px;
+    height: 15px;
+
+    accent-color: var(--forest);
+
+    margin-top: 1px;
+}
+
+
+.terms-box a {
+    color: var(--forest);
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+.terms-box a:hover {
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   REGISTER BUTTON
+   ========================================================= */
+
+.register-btn {
+    width: 100%;
+
+    height: 55px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--forest),
+            var(--green)
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.4px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+
+    box-shadow:
+        0 10px 25px rgba(23, 59, 42, 0.18);
+}
+
+
+.register-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 32px rgba(23, 59, 42, 0.25);
+}
+
+
+.register-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin: 25px 0 18px;
+
+    color: #a3a7a4;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #e3e3df;
+}
+
+
+/* =========================================================
+   GOOGLE
+   ========================================================= */
+
+.google-btn {
+    width: 100%;
+
+    height: 52px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 13px;
+
+    background: white;
+
+    color: #404642;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    transition: 0.3s ease;
+}
+
+
+.google-btn:hover {
+    background: #fafaf7;
+
+    border-color: #c9cac4;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.login-link {
+    text-align: center;
+
+    color: #858b87;
+
+    font-size: 12px;
+
+    margin-top: 22px;
+}
+
+
+.login-link a {
+    color: var(--forest);
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    margin-left: 4px;
+}
+
+
+.login-link a:hover {
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    body {
+        padding: 25px 18px;
+    }
+
+    .register-container {
+        grid-template-columns: 1fr;
+
+        max-width: 680px;
+    }
+
+    .register-banner {
+        min-height: 330px;
+
+        padding: 45px;
+    }
+
+    .register-banner h1 {
+        font-size: 40px;
+    }
+
+    /*
+       Tablet image:
+       FULL IMAGE
+       NO CROP
+    */
+
+    .register-banner img {
+        width: 55%;
+
+        max-height: 100%;
+
+        height: auto;
+
+        right: 0;
+        left: auto;
+
+        transform: none;
+
+        bottom: 0;
+
+        object-fit: contain;
+
+        object-position: right bottom;
+
+        opacity: 0.38;
+
+        mask-image:
+            linear-gradient(
+                to right,
+                black 0%,
+                transparent 100%
+            );
+
+        -webkit-mask-image:
+            linear-gradient(
+                to right,
+                black 0%,
+                transparent 100%
+            );
+    }
+
+    .register-card {
+        padding: 50px 55px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        min-height: 100vh;
+
+        padding: 12px;
+
+        align-items: flex-start;
+    }
+
+    .register-section {
+        width: 100%;
+    }
+
+    .register-container {
+        display: flex;
+
+        flex-direction: column;
+
+        width: 100%;
+
+        min-height: auto;
+
+        border-radius: 22px;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE BANNER
+       ----------------------------------------------------- */
+
+    .register-banner {
+        width: 100%;
+
+        min-height: 285px;
+
+        padding: 32px 25px;
+
+        justify-content: flex-start;
+
+        overflow: hidden;
+    }
+
+
+    .register-banner h1 {
+        font-size: 30px;
+
+        letter-spacing: -0.8px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .register-banner h1::after {
+        width: 45px;
+
+        margin-top: 14px;
+    }
+
+
+    .register-banner p {
+        max-width: 270px;
+
+        font-size: 12px;
+
+        line-height: 1.65;
+
+        margin-bottom: 0;
+    }
+
+
+    /*
+       MOBILE IMAGE
+       -------------------------------
+       Image FULL VIEW
+       NO CROPPING
+       -------------------------------
+    */
+
+    .register-banner img {
+        position: absolute;
+
+        width: auto;
+
+        height: auto;
+
+        max-width: 90%;
+
+        max-height: 58%;
+
+        left: 50%;
+
+        right: auto;
+
+        bottom: 0;
+
+        transform: translateX(-50%);
+
+        object-fit: contain;
+
+        object-position: center bottom;
+
+        opacity: 0.42;
+
+        mask-image:
+            linear-gradient(
+                to bottom,
+                transparent 0%,
+                black 35%,
+                black 100%
+            );
+
+        -webkit-mask-image:
+            linear-gradient(
+                to bottom,
+                transparent 0%,
+                black 35%,
+                black 100%
+            );
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE CARD
+       ----------------------------------------------------- */
+
+    .register-card {
+        width: 100%;
+
+        padding: 35px 23px 30px;
+
+        justify-content: flex-start;
+    }
+
+
+    .register-card::before {
+        width: 55px;
+        height: 55px;
+
+        border-radius: 0 22px 0 0;
+    }
+
+
+    .register-card h2 {
+        font-size: 29px;
+
+        margin-bottom: 7px;
+    }
+
+
+    .register-subtitle {
+        font-size: 12px;
+
+        margin-bottom: 24px;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE INPUTS
+       ----------------------------------------------------- */
+
+    .input-box {
+        height: 53px;
+
+        margin-bottom: 17px;
+    }
+
+
+    .input-box input {
+        font-size: 13px;
+
+        padding-left: 44px;
+
+        padding-right: 44px;
+    }
+
+
+    .input-box > i:first-child {
+        left: 16px;
+
+        font-size: 14px;
+    }
+
+
+    .toggle-password {
+        right: 16px;
+
+        font-size: 14px;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE TERMS
+       ----------------------------------------------------- */
+
+    .terms-box {
+        font-size: 11px;
+
+        margin-top: 5px;
+
+        margin-bottom: 20px;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE BUTTON
+       ----------------------------------------------------- */
+
+    .register-btn {
+        height: 52px;
+
+        font-size: 13px;
+    }
+
+
+    .divider {
+        margin:
+            22px 0 16px;
+    }
+
+
+    .google-btn {
+        height: 49px;
+
+        font-size: 12px;
+    }
+
+
+    .login-link {
+        font-size: 11px;
+
+        margin-top: 19px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 8px;
+    }
+
+
+    .register-banner {
+        min-height: 255px;
+
+        padding:
+            28px 20px;
+    }
+
+
+    .register-banner h1 {
+        font-size: 27px;
+    }
+
+
+    .register-banner p {
+        max-width: 245px;
+
+        font-size: 11px;
+    }
+
+
+    .register-banner img {
+        max-width: 92%;
+
+        max-height: 55%;
+    }
+
+
+    .register-card {
+        padding:
+            30px 18px 25px;
+    }
+
+
+    .register-card h2 {
+        font-size: 27px;
+    }
+
+
+    .input-box {
+        height: 51px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+    outline:
+        2px solid var(--gold);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   TEXT SELECTION
+   ========================================================= */
+
+::selection {
+    background:
+        rgba(198, 166, 107, 0.25);
+
+    color: var(--forest);
+}

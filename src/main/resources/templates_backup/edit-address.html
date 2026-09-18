@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Edit Address | NutriNest</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/variables.css}">
+  <link rel="stylesheet" th:href="@{/css/animation.css}">
+  <link rel="stylesheet" th:href="@{/css/address.css}">
+
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="address-section">
+
+  <div class="edit-profile-container">
+
+    <div class="page-title">
+      <h2>Edit Address</h2>
+      <p>Update your delivery address</p>
+    </div>
+
+    <form th:action="@{/address/update/{id}(id=${address.id})}"
+          method="post"
+          id="editAddressForm">
+
+      <input type="hidden"
+             name="returnTo"
+             th:value="${returnTo}">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text"
+               name="fullName"
+               th:value="${address.fullName}"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text"
+               name="phone"
+               th:value="${address.phone}"
+               maxlength="10"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Address Line 1</label>
+        <textarea name="addressLine1"
+                  rows="3"
+                  required
+                  th:text="${address.addressLine1}"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Address Line 2</label>
+        <textarea name="addressLine2"
+                  rows="2"
+                  th:text="${address.addressLine2}"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Landmark</label>
+        <input type="text"
+               name="landmark"
+               th:value="${address.landmark}">
+      </div>
+
+      <div class="form-group">
+        <label>City</label>
+        <input type="text"
+               name="city"
+               th:value="${address.city}"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>State</label>
+        <input type="text"
+               name="state"
+               th:value="${address.state}"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Pincode</label>
+        <input type="text"
+               name="pincode"
+               th:value="${address.pincode}"
+               maxlength="6"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Address Type</label>
+
+        <select name="addressType">
+
+          <option value="Home"
+                  th:selected="${address.addressType=='Home'}">
+            Home
+          </option>
+
+          <option value="Office"
+                  th:selected="${address.addressType=='Office'}">
+            Office
+          </option>
+
+          <option value="Other"
+                  th:selected="${address.addressType=='Other'}">
+            Other
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="button-group">
+
+        <button type="submit"
+                class="save-btn">
+
+          <i class="fa-solid fa-pen"></i>
+
+          Update Address
+
+        </button>
+
+        <a th:href="@{/address}"
+           class="cancel-btn">
+
+          Cancel
+
+        </a>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/navbar.js}"></script>
+<script>
+  document.getElementById("editAddressForm").addEventListener("submit", function () {
+
+      const form = this;
+      const returnTo = form.querySelector('input[name="returnTo"]')?.value || "address";
+
+      sessionStorage.setItem(
+          "nutrinestAddressReturn",
+          returnTo
+      );
+
+  });
+</script>
+
+</body>
+</html>

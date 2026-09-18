@@ -1,0 +1,46 @@
+/* ===========================
+      WHY CHOOSE US
+=========================== */
+
+.why-us{
+    padding:90px 0;
+     background:#e3f3e3;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    margin-top:50px;
+}
+
+.why-card{
+    background:#fff;
+    border-radius:20px;
+    padding:40px 25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.why-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+.why-card i{
+    font-size:50px;
+    color:#16a34a;
+    margin-bottom:20px;
+}
+
+.why-card h3{
+    font-size:24px;
+    color:#14532d;
+    margin-bottom:12px;
+}
+
+.why-card p{
+    color:#666;
+    line-height:1.7;
+}

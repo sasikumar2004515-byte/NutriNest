@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | NutriNest</title>
+
+    <!-- Favicon -->
+    <link rel="icon"
+          type="image/png"
+          th:href="@{/images/logo.png}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Page CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/account.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+</head>
+
+
+<body>
+
+<!-- =========================
+          NAVBAR
+========================= -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- =========================
+        ACCOUNT SECTION
+========================= -->
+
+<section class="account-section">
+
+    <div class="account-container">
+
+
+        <!-- =========================
+             LEFT SIDEBAR
+        ========================= -->
+
+        <aside class="account-sidebar">
+
+
+            <!-- Profile -->
+
+            <div class="profile-card">
+
+                <div class="profile-image-wrapper">
+
+                    <img th:if="${user.profileImage != null}"
+                         th:src="@{${user.profileImage}}"
+                         alt="Profile">
+
+                    <img th:unless="${user.profileImage != null}"
+                         th:src="@{/images/OIP.jpeg}"
+                         alt="Profile">
+
+                    <div class="profile-online">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                </div>
+
+
+                <h2 th:text="${user.fullName}">
+                    User Name
+                </h2>
+
+                <p th:text="${user.email}">
+                    email@gmail.com
+                </p>
+
+            </div>
+
+
+            <!-- Account Menu -->
+
+            <div class="account-menu">
+
+
+                <a th:href="@{/account}"
+                   class="active">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+
+                    <span>Dashboard</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/account/edit}">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </span>
+
+                    <span>Edit Profile</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/my-orders}">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-box"></i>
+                    </span>
+
+                    <span>My Orders</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/wishlist}">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+
+                    <span>Wishlist</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/cart}">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </span>
+
+                    <span>Cart</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/address}">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </span>
+
+                    <span>Address</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/account/change-password}">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+
+                    <span>Change Password</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                </a>
+
+
+                <form th:action="@{/logout}" method="post" class="logout-form">
+                    <button type="submit" class="logout-link">
+
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </span>
+
+                    <span>Logout</span>
+
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+
+                    </button>
+                </form>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             RIGHT CONTENT
+        ========================= -->
+
+        <main class="account-content">
+
+
+            <!-- Welcome -->
+
+            <div class="welcome-card">
+
+                <div class="welcome-content">
+
+                    <span class="welcome-small-title">
+                        MY ACCOUNT
+                    </span>
+
+                    <h1>
+
+                        Welcome,
+
+                        <span th:text="${user.fullName}">
+                            User
+                        </span>
+
+                        <span class="welcome-hand">
+                            👋
+                        </span>
+
+                    </h1>
+
+                    <p>
+                        Manage your NutriNest account from here.
+                    </p>
+
+                </div>
+
+
+                <div class="welcome-icon">
+
+                    <i class="fa-solid fa-leaf"></i>
+
+                </div>
+
+            </div>
+
+
+            <!-- Account Information -->
+
+            <div class="details-card">
+
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+
+                        <i class="fa-solid fa-id-card"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            PROFILE DETAILS
+                        </span>
+
+                        <h2>
+                            Account Information
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="account-details">
+
+
+                    <!-- Full Name -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+
+                            <span class="detail-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+
+                            <span>
+                                Full Name
+                            </span>
+
+                        </div>
+
+                        <strong th:text="${user.fullName}">
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+
+                            <span class="detail-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+
+                            <span>
+                                Email
+                            </span>
+
+                        </div>
+
+                        <strong th:text="${user.email}">
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Phone -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+
+                            <span class="detail-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+
+                            <span>
+                                Phone
+                            </span>
+
+                        </div>
+
+                        <strong th:text="${user.phone}">
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Role -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+
+                            <span class="detail-icon">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </span>
+
+                            <span>
+                                Role
+                            </span>
+
+                        </div>
+
+                        <strong
+                                class="role-badge"
+                                th:text="${user.role.roleName}">
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Edit Profile -->
+
+                <div class="card-footer-action">
+
+                    <a th:href="@{/account/edit}"
+                       class="edit-profile-btn">
+
+                        <i class="fa-solid fa-user-pen"></i>
+
+                        <span>
+                            Edit Profile
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Quick Access -->
+
+            <div class="quick-access">
+
+
+                <a th:href="@{/my-orders}"
+                   class="quick-card orders-quick">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                    </div>
+
+                    <div class="quick-text">
+
+                        <span>
+                            YOUR ORDERS
+                        </span>
+
+                        <strong>
+                            My Orders
+                        </strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right quick-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/wishlist}"
+                   class="quick-card wishlist-quick">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                    </div>
+
+                    <div class="quick-text">
+
+                        <span>
+                            SAVED ITEMS
+                        </span>
+
+                        <strong>
+                            Wishlist
+                        </strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right quick-arrow"></i>
+
+                </a>
+
+
+                <a th:href="@{/address}"
+                   class="quick-card address-quick">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </div>
+
+                    <div class="quick-text">
+
+                        <span>
+                            DELIVERY
+                        </span>
+
+                        <strong>
+                            My Address
+                        </strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right quick-arrow"></i>
+
+                </a>
+
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+           FOOTER
+========================= -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- =========================
+        JAVASCRIPT
+========================= -->
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/main.js}"></script>
+
+
+</body>
+
+</html>

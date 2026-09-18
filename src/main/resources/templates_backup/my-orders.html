@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | NutriNest</title>
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Existing -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+    <!-- Orders -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/orders.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+
+<!-- =========================================================
+     ORDERS
+========================================================= -->
+
+<section class="orders-section">
+
+    <div class="orders-wrapper">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div class="orders-page-header">
+
+            <div class="orders-heading">
+
+                <div class="orders-heading-icon">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                </div>
+
+                <div>
+
+                    <h1>My Orders</h1>
+
+                    <p>
+                        Track all your NutriNest orders.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="orders-count">
+
+                <i class="fa-solid fa-receipt"></i>
+
+                <div>
+
+                    <strong th:text="${#lists.size(orders)}">
+                        0
+                    </strong>
+
+                    <span>
+                        Orders
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             EMPTY
+        ================================================== -->
+
+        <div class="empty-orders"
+             th:if="${#lists.isEmpty(orders)}">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-box-open"></i>
+
+            </div>
+
+            <h2>No Orders Yet</h2>
+
+            <p>
+                Start shopping to place your first order.
+            </p>
+
+            <a th:href="@{/products}"
+               class="shop-btn">
+
+                <i class="fa-solid fa-store"></i>
+
+                Shop Now
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ORDER LIST
+        ================================================== -->
+
+        <div class="orders-list"
+             th:if="${!#lists.isEmpty(orders)}">
+
+
+            <article class="order-card"
+                     th:each="order : ${orders}">
+
+
+                <!-- =================================================
+                     IMAGE
+                ================================================== -->
+
+                <div class="order-image">
+
+                    <div class="image-circle"></div>
+
+
+                    <img th:if="${order.orderItems != null
+                                 and !#lists.isEmpty(order.orderItems)}"
+
+                         th:src="${order.orderItems.get(0).productImage != null
+                                  and !#strings.isEmpty(order.orderItems.get(0).productImage)
+                                  ? order.orderItems.get(0).productImage
+                                  : '/images/OIP.jpeg'}"
+
+                         th:alt="${order.orderItems.get(0).productName}"
+
+                         onerror="this.src='/images/OIP.jpeg';">
+
+
+                    <div class="organic-badge">
+
+                        <i class="fa-solid fa-leaf"></i>
+
+                        NutriNest
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CONTENT
+                ================================================== -->
+
+                <div class="order-content">
+
+
+                    <!-- HEADER -->
+
+                    <div class="order-header">
+
+                        <div class="order-id-area">
+
+                            <span class="order-label">
+                                ORDER ID
+                            </span>
+
+                            <h2>
+
+                                #
+
+                                <span th:text="${order.orderNumber}">
+                                    NN202608010001
+                                </span>
+
+                            </h2>
+
+                            <p class="order-date">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                <span th:text="${#temporals.format(order.orderDate,'dd MMM yyyy HH:mm')}">
+                                    01 Aug 2026 10:30
+                                </span>
+
+                            </p>
+
+                        </div>
+
+
+                        <span class="status-badge"
+
+                              th:classappend="${order.orderStatus != null
+                                               ? ' status-' + #strings.toLowerCase(order.orderStatus)
+                                               : ''}"
+
+                              th:text="${order.orderStatus}">
+
+                            PENDING
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         ITEMS
+                    ================================================== -->
+
+                    <div class="order-items"
+
+                         th:if="${order.orderItems != null
+                                 and !#lists.isEmpty(order.orderItems)}">
+
+                        <div class="order-item"
+                             th:each="item : ${order.orderItems}">
+
+                            <div class="item-information">
+
+                                <h3 th:text="${item.productName}">
+                                    Organic Almonds
+                                </h3>
+
+
+                                <div class="item-meta">
+
+                                    <span>
+
+                                        <i class="fa-solid fa-weight-hanging"></i>
+
+                                        <span th:text="${item.selectedWeight}">
+                                            500g
+                                        </span>
+
+                                    </span>
+
+
+                                    <span>
+
+                                        <i class="fa-solid fa-cubes-stacked"></i>
+
+                                        Qty:
+
+                                        <strong th:text="${item.quantity}">
+                                            1
+                                        </strong>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="item-price">
+
+                                <small>
+                                    Item Total
+                                </small>
+
+                                <strong>
+
+                                    ₹
+
+                                    <span th:text="${item.totalPrice}">
+                                        648
+                                    </span>
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         INFO
+                    ================================================== -->
+
+                    <div class="order-information">
+
+
+                        <div class="information-box">
+
+                            <span class="information-icon">
+
+                                <i class="fa-solid fa-credit-card"></i>
+
+                            </span>
+
+                            <div>
+
+                                <small>
+                                    Payment
+                                </small>
+
+                                <strong th:text="${order.paymentMethod}">
+                                    COD
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="information-box">
+
+                            <span class="information-icon">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                            </span>
+
+                            <div>
+
+                                <small>
+                                    Payment Status
+                                </small>
+
+                                <strong th:text="${order.paymentStatus}">
+                                    PENDING
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT SIDE
+                ================================================== -->
+
+                <div class="order-side">
+
+
+                    <!-- TOTAL -->
+
+                    <div class="order-total">
+
+                        <span>
+                            ORDER TOTAL
+                        </span>
+
+                        <strong>
+
+                            ₹
+
+                            <span th:text="${order.grandTotal}">
+                                648
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="order-actions">
+
+
+                        <!-- VIEW DETAILS -->
+
+                        <a th:href="@{/my-orders/{orderNumber}(orderNumber=${order.orderNumber})}"
+                           class="order-action details-btn">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            <span>
+                                View Details
+                            </span>
+
+                        </a>
+
+
+
+                        <!-- TRACK ORDER -->
+
+                        <a th:href="@{/my-orders/{orderNumber}/track(orderNumber=${order.orderNumber})}"
+                           class="order-action track-btn">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <span>
+                                Track Order
+                            </span>
+
+                        </a>
+
+
+
+                        <!-- =================================================
+                             BUY AGAIN
+                        ================================================== -->
+
+                        <a th:href="@{/my-orders/{orderNumber}/buy-again(orderNumber=${order.orderNumber})}"
+                           class="order-action reorder-btn">
+
+                            <i class="fa-solid fa-cart-plus"></i>
+
+                            <span>
+                                Buy Again
+                            </span>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+            </article>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CONTINUE SHOPPING
+        ================================================== -->
+
+        <div class="continue-shopping"
+             th:if="${!#lists.isEmpty(orders)}">
+
+            <a th:href="@{/products}"
+               class="continue-btn">
+
+                <i class="fa-solid fa-store"></i>
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script th:src="@{/js/navbar.js}"></script>
+
+
+
+</body>
+
+</html>

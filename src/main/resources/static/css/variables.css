@@ -1,0 +1,86 @@
+/* /* ==========================================
+        NUTRINEST DESIGN SYSTEM v1.0
+========================================== */
+
+:root{
+
+    /* ===== Brand Colors ===== */
+
+    --primary:#2E7D32;
+    --primary-dark:#1B5E20;
+    --primary-light:#81C784;
+
+    --accent:#FFC107;
+
+    /* ===== Background ===== */
+
+    --bg:#F8FAFC;
+    --surface:#FFFFFF;
+
+    /* ===== Text ===== */
+
+    --text:#1E293B;
+    --text-light:#64748B;
+    --white:#FFFFFF;
+    --black:#111827;
+
+    /* ===== Border ===== */
+
+    --border:#E2E8F0;
+
+    /* ===== Glass ===== */
+
+    --glass:rgba(255,255,255,.65);
+    --glass-border:rgba(255,255,255,.35);
+    --blur:18px;
+
+    /* ===== Shadow ===== */
+
+    --shadow-xs:0 2px 8px rgba(0,0,0,.05);
+
+    --shadow-sm:0 8px 20px rgba(0,0,0,.08);
+
+    --shadow-md:0 15px 40px rgba(0,0,0,.10);
+
+    --shadow-lg:0 25px 60px rgba(0,0,0,.15);
+
+    /* ===== Radius ===== */
+
+    --radius-sm:8px;
+    --radius-md:15px;
+    --radius-lg:25px;
+    --radius-full:999px;
+
+    /* ===== Font ===== */
+
+    --font:'Poppins',sans-serif;
+
+    /* ===== Font Size ===== */
+
+    --fs-xs:.75rem;
+    --fs-sm:.9rem;
+    --fs-md:1rem;
+    --fs-lg:1.2rem;
+    --fs-xl:2rem;
+    --fs-xxl:3.5rem;
+
+    /* ===== Font Weight ===== */
+
+    --light:300;
+    --regular:400;
+    --medium:500;
+    --semi:600;
+    --bold:700;
+    --extra:800;
+
+    /* ===== Layout ===== */
+
+    --container:1320px;
+
+    --header-height:90px;
+
+    /* ===== Transition ===== */
+
+    --transition:.35s ease;
+
+} 

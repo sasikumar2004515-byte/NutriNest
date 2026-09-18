@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact Us | NutriNest</title>
+
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/animation.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+
+ <!-- ===========================
+        MASTER NAVBAR
+=========================== -->
+ <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- Hero -->
+
+<section class="contact-hero">
+
+<div class="contact-overlay">
+
+<h1>Contact Us</h1>
+
+<p>
+
+We're always here to help you.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- Contact -->
+
+<section class="contact-section">
+
+<div class="contact-info">
+
+<h2>Get In Touch</h2>
+
+<p>
+
+Have questions about our products or your order?
+Our team is happy to assist you.
+
+</p>
+
+<div class="info-card">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<div>
+
+<h3>Address</h3>
+
+<p>
+
+123 Organic Street,
+Chennai, Tamil Nadu,
+India.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="info-card">
+
+<i class="fa-solid fa-phone"></i>
+
+<div>
+
+<h3>Phone</h3>
+
+<p>
+
++91 98765 43210
+
+</p>
+
+</div>
+
+</div>
+
+<div class="info-card">
+
+<i class="fa-solid fa-envelope"></i>
+
+<div>
+
+<h3>Email</h3>
+
+<p>
+
+support@nutrinest.com
+
+</p>
+
+</div>
+
+</div>
+
+<div class="social-links">
+
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+
+<a href="#"><i class="fab fa-instagram"></i></a>
+
+<a href="#"><i class="fab fa-twitter"></i></a>
+
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+
+</div>
+
+</div>
+
+<!-- Contact Form -->
+
+<div class="contact-form">
+
+<h2>Send Message</h2>
+
+<form id="contactForm">
+
+<div class="input-group">
+
+<input
+type="text"
+id="name"
+placeholder="Your Name"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="text"
+id="subject"
+placeholder="Subject"
+required>
+
+</div>
+
+<div class="input-group">
+
+<textarea
+id="message"
+rows="6"
+placeholder="Write your message..."
+required>
+
+</textarea>
+
+</div>
+
+<button
+type="submit"
+class="send-btn">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<!-- Google Map -->
+
+<section class="map-section">
+
+<h2>Visit Our Store</h2>
+
+<div class="map-container">
+
+<iframe
+src="https://www.google.com/maps/embed?pb=!1m18..."
+allowfullscreen=""
+loading="lazy">
+
+</iframe>
+
+</div>
+
+</section>
+
+<!-- ===========================
+        PREMIUM FOOTER
+=========================== -->
+ <div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="js/navbar.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/animation.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,611 @@
+
+
+/* =========================================================
+   HERO SECTION
+   Fixed navbar: top 16px + height 78px + 12px gap = 106px
+   ========================================================= */
+
+.nutri-nest-home-hero-section{
+    position:relative;
+    width:100%;
+
+    height:clamp(270px, 26vw, 380px);
+    min-height:270px;
+    max-height:380px;
+
+    margin:80px 0 12px;
+    padding:0;
+
+    overflow:hidden;
+    background:#F6FCF5;
+    isolation:isolate;
+}
+
+
+/* =========================================================
+   SLIDER
+   ========================================================= */
+
+.nutri-nest-home-hero-slider{
+    position:relative;
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+
+.nutri-nest-home-hero-slide{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transition:
+        opacity .55s ease,
+        visibility .55s ease;
+}
+
+
+.nutri-nest-home-hero-slide.nutri-nest-home-hero-active{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+
+/* =========================================================
+   ANIMATION LAYER / BACKGROUND IMAGE
+   ========================================================= */
+
+.nutri-nest-home-hero-animation-layer{
+    position:relative;
+    width:100%;
+    height:100%;
+}
+
+
+.nutri-nest-home-hero-image{
+    position:absolute;
+    inset:0;
+    z-index:0;
+
+    display:block;
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    object-position:center center;
+
+    transform:scale(1);
+    transition:transform 5s ease;
+}
+
+
+.nutri-nest-home-hero-slide.nutri-nest-home-hero-active
+.nutri-nest-home-hero-image{
+    transform:scale(1.03);
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+   ========================================================= */
+
+.nutri-nest-home-hero-overlay{
+    position:absolute;
+    inset:0;
+    z-index:1;
+
+    pointer-events:none;
+
+    background:linear-gradient(
+        90deg,
+        rgba(20,52,28,.25) 0%,
+        rgba(20,52,28,.08) 44%,
+        rgba(20,52,28,.01) 72%,
+        rgba(20,52,28,0) 100%
+    );
+}
+
+
+/* =========================================================
+   GLASS CARD — DESKTOP COMPACT BOX
+   ========================================================= */
+
+.nutri-nest-home-hero-glass-card{
+    position:absolute;
+    z-index:3;
+
+    top:50%;
+    left:clamp(50px, 9vw, 120px);
+    right:auto;
+
+    /* Compact desktop box */
+    width:clamp(320px, 24vw, 440px);
+    max-width:calc(100% - 96px);
+    box-sizing:border-box;
+
+    padding:clamp(16px, 2vw, 28px);
+
+    border:1px solid rgba(255,255,255,.58);
+    border-radius:20px;
+
+    /* Transparent glass */
+    background:rgba(255,255,255,.28);
+    box-shadow:0 14px 32px rgba(18,53,28,.14);
+
+    backdrop-filter:blur(10px) saturate(125%);
+    -webkit-backdrop-filter:blur(10px) saturate(125%);
+
+    transform:translateY(-50%);
+}
+
+
+/* =========================================================
+   HERO TEXT
+   ========================================================= */
+
+.nutri-nest-home-hero-badge{
+    display:inline-flex;
+    align-items:center;
+
+    margin:0 0 9px;
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    background:rgba(233,248,229,.72);
+    color:#245E32;
+
+    font-size:11px;
+    font-weight:700;
+    line-height:1.2;
+}
+
+
+.nutri-nest-home-hero-title{
+    margin:0;
+
+    color:#123B22;
+
+    font-size:clamp(28px, 3vw, 48px);
+    font-weight:800;
+    line-height:1.08;
+    letter-spacing:-.035em;
+}
+
+
+.nutri-nest-home-hero-description{
+    margin:13px 0 0;
+
+    color:#315B40;
+
+    font-size:clamp(14px, 1.15vw, 17px);
+    font-weight:500;
+    line-height:1.55;
+}
+
+
+.nutri-nest-home-hero-button-group{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+
+    margin-top:18px;
+}
+
+
+/* =========================================================
+   BUTTONS — GREEN PRIMARY + ORANGE SECONDARY
+   ========================================================= */
+
+.nutri-nest-home-hero-primary-button,
+.nutri-nest-home-hero-secondary-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-height:40px;
+    padding:10px 17px;
+
+    border:0;
+    border-radius:999px;
+
+    color:#FFFFFF;
+    font-size:13px;
+    font-weight:700;
+    line-height:1;
+    text-decoration:none;
+
+    transition:
+        transform .22s ease,
+        filter .22s ease,
+        box-shadow .22s ease;
+}
+
+
+.nutri-nest-home-hero-primary-button{
+    background:linear-gradient(135deg, #14783A, #42A047);
+    box-shadow:0 7px 16px rgba(20,120,58,.32);
+
+    animation:nutri-nest-green-pulse 2.3s ease-in-out infinite;
+}
+
+
+.nutri-nest-home-hero-secondary-button{
+    background:linear-gradient(135deg, #DD6D21, #F3A238);
+    box-shadow:0 7px 16px rgba(221,109,33,.30);
+
+    animation:nutri-nest-orange-pulse 2.3s .3s ease-in-out infinite;
+}
+
+
+.nutri-nest-home-hero-primary-button:hover,
+.nutri-nest-home-hero-secondary-button:hover{
+    color:#FFFFFF;
+    filter:brightness(1.08);
+    transform:translateY(-3px) scale(1.03);
+}
+
+
+@keyframes nutri-nest-green-pulse{
+    0%,
+    100%{
+        box-shadow:0 7px 16px rgba(20,120,58,.28);
+    }
+
+    50%{
+        box-shadow:0 9px 24px rgba(20,120,58,.52);
+    }
+}
+
+
+@keyframes nutri-nest-orange-pulse{
+    0%,
+    100%{
+        box-shadow:0 7px 16px rgba(221,109,33,.28);
+    }
+
+    50%{
+        box-shadow:0 9px 24px rgba(221,109,33,.52);
+    }
+}
+
+
+/* =========================================================
+   ARROWS
+   ========================================================= */
+
+.nutri-nest-home-hero-arrow{
+    position:absolute;
+    z-index:4;
+
+    top:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:42px;
+    height:42px;
+
+    margin:0;
+    padding:0;
+
+    border:1px solid rgba(255,255,255,.68);
+    border-radius:50%;
+
+    background:rgba(255,255,255,.74);
+    color:#1B4A27;
+
+    cursor:pointer;
+
+    transform:translateY(-50%);
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+
+.nutri-nest-home-hero-arrow:hover{
+    background:#FFFFFF;
+    color:#2E7D32;
+}
+
+
+.nutri-nest-home-hero-prev{
+    left:18px;
+}
+
+
+.nutri-nest-home-hero-next{
+    right:18px;
+}
+
+
+/* =========================================================
+   DOTS
+   ========================================================= */
+
+.nutri-nest-home-hero-dot-wrapper{
+    position:absolute;
+    z-index:4;
+
+    bottom:14px;
+    left:50%;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    transform:translateX(-50%);
+}
+
+
+.nutri-nest-home-hero-dot{
+    width:8px;
+    height:8px;
+
+    margin:0;
+    padding:0;
+
+    border:0;
+    border-radius:50%;
+
+    background:rgba(255,255,255,.60);
+
+    cursor:pointer;
+    transition:
+        width .2s ease,
+        background .2s ease;
+}
+
+
+.nutri-nest-home-hero-dot.nutri-nest-home-hero-dot-active{
+    width:24px;
+    border-radius:999px;
+    background:#FFFFFF;
+}
+
+
+/* =========================================================
+   MOBILE
+   Left-side 40% transparent glass frame
+   ========================================================= */
+
+@media (max-width:767px){
+
+    .nutri-nest-home-hero-section{
+        width:100%;
+
+        height:clamp(194px, 32.4vw, 230px);
+        min-height:194px;
+        max-height:230px;
+
+        margin:60px 0 12px;
+    }
+
+
+    .nutri-nest-home-hero-image{
+        transform:none;
+        transition:none;
+    }
+
+
+    .nutri-nest-home-hero-slide.nutri-nest-home-hero-active
+    .nutri-nest-home-hero-image{
+        transform:none;
+    }
+
+
+    .nutri-nest-home-hero-overlay{
+        background:linear-gradient(
+            90deg,
+            rgba(20,52,28,.30) 0%,
+            rgba(20,52,28,.11) 62%,
+            rgba(20,52,28,.01) 100%
+        );
+    }
+
+
+    .nutri-nest-home-hero-glass-card{
+        top:50%;
+        left:30px;
+        right:auto;
+
+        /* Mobile left-side 40% */
+        width:40%;
+        max-width:40%;
+        box-sizing:border-box;
+
+        padding:10px 11px;
+        border-radius:14px;
+
+        background:rgba(255,255,255,.28);
+        box-shadow:0 8px 20px rgba(18,53,28,.12);
+
+        transform:translateY(-50%);
+    }
+
+
+    .nutri-nest-home-hero-badge{
+        margin-bottom:5px;
+        padding:4px 7px;
+        font-size:7px;
+    }
+
+
+    .nutri-nest-home-hero-title{
+        font-size:clamp(14px, 4.1vw, 17px);
+        line-height:1.12;
+    }
+
+
+    .nutri-nest-home-hero-description{
+        margin-top:6px;
+        font-size:9px;
+        line-height:1.35;
+    }
+
+
+    .nutri-nest-home-hero-button-group{
+        gap:6px;
+        margin-top:8px;
+    }
+
+
+    .nutri-nest-home-hero-primary-button,
+    .nutri-nest-home-hero-secondary-button{
+        max-width:100%;
+        min-height:28px;
+        padding:7px 10px;
+        font-size:9px;
+    }
+
+
+    .nutri-nest-home-hero-arrow{
+        width:30px;
+        height:30px;
+    }
+
+
+    .nutri-nest-home-hero-prev{
+        left:7px;
+    }
+
+
+    .nutri-nest-home-hero-next{
+        right:7px;
+    }
+
+
+    .nutri-nest-home-hero-dot-wrapper{
+        bottom:7px;
+        gap:5px;
+    }
+
+
+    .nutri-nest-home-hero-dot{
+        width:6px;
+        height:6px;
+    }
+
+
+    .nutri-nest-home-hero-dot.nutri-nest-home-hero-dot-active{
+        width:17px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width:380px){
+
+    .nutri-nest-home-hero-glass-card{
+        left:12px;
+        width:40%;
+        max-width:40%;
+        padding:9px 10px;
+    }
+
+
+    .nutri-nest-home-hero-title{
+        font-size:14px;
+    }
+
+
+    .nutri-nest-home-hero-description{
+        display:none;
+    }
+}
+/* HERO SIDE ARROWS */
+
+.nutri-nest-home-hero-arrow-left,
+.nutri-nest-home-hero-arrow-right{
+    position:absolute !important;
+    z-index:5 !important;
+    top:50% !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    width:42px !important;
+    height:42px !important;
+    padding:0 !important;
+
+    border:1px solid rgba(255,255,255,.55) !important;
+    border-radius:50% !important;
+
+    /* Transparent arrow glass */
+    background:rgba(255,255,255,.22) !important;
+    color:#FFFFFF !important;
+
+    cursor:pointer !important;
+    box-shadow:0 5px 16px rgba(18,53,28,.12) !important;
+
+    backdrop-filter:blur(8px) !important;
+    -webkit-backdrop-filter:blur(8px) !important;
+
+    transform:translateY(-50%) !important;
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease !important;
+}
+
+
+.nutri-nest-home-hero-arrow-left{
+    left:18px !important;
+}
+
+
+.nutri-nest-home-hero-arrow-right{
+    right:18px !important;
+}
+
+
+.nutri-nest-home-hero-arrow-left:hover,
+.nutri-nest-home-hero-arrow-right:hover{
+    background:rgba(46,125,50,.72) !important;
+    color:#FFFFFF !important;
+    transform:translateY(-50%) scale(1.08) !important;
+}
+
+
+@media (max-width:767px){
+
+    .nutri-nest-home-hero-arrow-left,
+    .nutri-nest-home-hero-arrow-right{
+        width:30px !important;
+        height:30px !important;
+    }
+
+
+    .nutri-nest-home-hero-arrow-left{
+        left:7px !important;
+    }
+
+
+    .nutri-nest-home-hero-arrow-right{
+        right:7px !important;
+    }
+}
+@media (max-width:767px){
+
+    .nutri-nest-home-hero-arrow-left,
+    .nutri-nest-home-hero-arrow-right{
+        display:none !important;
+    }
+}

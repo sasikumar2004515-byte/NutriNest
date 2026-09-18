@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Order Details | NutriNest</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/variables.css}">
+  <link rel="stylesheet" th:href="@{/css/order-details.css}">
+
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="order-details-section">
+
+  <div class="order-details-container">
+
+    <div class="page-title">
+
+      <h2>Order Details</h2>
+
+      <p>
+        View complete information about your order.
+      </p>
+
+    </div>
+
+    <!-- Order Info -->
+
+    <div class="details-card">
+
+      <div class="detail-row">
+
+        <span>Order Number</span>
+
+        <strong th:text="${order.orderNumber}"></strong>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span>Order Date</span>
+
+        <strong th:text="${#temporals.format(order.orderDate,'dd MMM yyyy HH:mm')}"></strong>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span>Order Status</span>
+
+        <strong th:text="${order.orderStatus}"></strong>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span>Payment</span>
+
+        <strong th:text="${order.paymentMethod}"></strong>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span>Payment Status</span>
+
+        <strong th:text="${order.paymentStatus}"></strong>
+
+      </div>
+
+    </div>
+
+    <!-- ==========================
+                DELIVERY ADDRESS
+        ========================== -->
+
+    <div class="details-card">
+
+      <h3>
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        Delivery Address
+
+      </h3>
+
+      <p th:text="${order.address.fullName}"></p>
+
+      <p th:text="${order.address.phone}"></p>
+
+      <p>
+
+        <span th:text="${order.address.addressLine1}"></span><br>
+
+        <span th:text="${order.address.addressLine2}"></span><br>
+
+        <span th:text="${order.address.city}"></span>,
+        <span th:text="${order.address.state}"></span> -
+        <span th:text="${order.address.pincode}"></span>
+
+      </p>
+
+    </div>
+
+    <!-- ==========================
+            ORDER ITEMS
+    ========================== -->
+
+    <div class="details-card">
+
+      <h3>
+
+        <i class="fa-solid fa-box-open"></i>
+
+        Ordered Products
+
+      </h3>
+
+      <div class="product-item"
+           th:each="item : ${order.orderItems}">
+
+        <img th:src="@{${item.productImage}}"
+             alt="Product">
+
+        <div class="product-info">
+
+          <h4 th:text="${item.productName}"></h4>
+
+          <p>
+
+            Weight :
+            <span th:text="${item.selectedWeight}"></span>
+
+          </p>
+
+          <p>
+
+            Qty :
+            <span th:text="${item.quantity}"></span>
+
+          </p>
+
+        </div>
+
+        <div class="product-price">
+
+          ₹
+          <span th:text="${item.totalPrice}"></span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==========================
+                  PRICE SUMMARY
+          ========================== -->
+
+    <div class="details-card">
+
+      <h3>
+
+        <i class="fa-solid fa-receipt"></i>
+
+        Price Summary
+
+      </h3>
+
+      <div class="detail-row">
+
+        <span>Subtotal</span>
+
+        <strong>
+
+          ₹
+          <span th:text="${order.subtotal}"></span>
+
+        </strong>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span>Delivery Charge</span>
+
+        <strong>
+
+          ₹
+          <span th:text="${order.deliveryCharge}"></span>
+
+        </strong>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span>Discount</span>
+
+        <strong>
+
+          ₹
+          <span th:text="${order.discount}"></span>
+
+        </strong>
+
+      </div>
+
+      <div class="detail-row total-row">
+
+        <span>Grand Total</span>
+
+        <strong>
+
+          ₹
+          <span th:text="${order.grandTotal}"></span>
+
+        </strong>
+
+      </div>
+
+    </div>
+
+    <!-- ==========================
+            ACTION BUTTONS
+    ========================== -->
+
+    <div class="action-buttons">
+
+      <a th:href="@{/my-orders}"
+         class="back-btn">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to My Orders
+
+      </a>
+      <a th:href="@{/invoice/{orderNumber}(orderNumber=${order.orderNumber})}"
+         class="invoice-btn">
+
+        <i class="fa-solid fa-file-invoice"></i>
+
+        Download Invoice
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ==========================
+        FOOTER
+========================== -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- ==========================
+        JAVASCRIPT
+========================== -->
+
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+
+</html>

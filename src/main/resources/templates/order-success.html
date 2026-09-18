@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Order Success | NutriNest</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+    <!-- Navbar -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+
+    <!-- Order Success -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/order-success.css}">
+
+
+    <!-- Footer -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================
+     NAVBAR
+========================== -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+
+<!-- ==========================
+     ORDER SUCCESS
+========================== -->
+
+<section class="success-section">
+
+    <div class="success-container">
+
+
+        <!-- SUCCESS CARD -->
+
+        <div class="success-card">
+
+
+            <!-- SUCCESS ICON -->
+
+            <div class="success-icon">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <span class="success-small-title">
+                ORDER CONFIRMED
+            </span>
+
+
+            <h2>
+                Order Placed Successfully!
+            </h2>
+
+
+            <p class="success-message">
+                Thank you for shopping with NutriNest.
+                Your order has been received successfully.
+            </p>
+
+
+
+            <!-- ==========================
+                 ORDER INFORMATION
+            =========================== -->
+
+            <div class="order-info">
+
+
+                <!-- ORDER NUMBER -->
+
+                <div class="info-row">
+
+                    <div class="info-label">
+
+                        <i class="fa-solid fa-hashtag"></i>
+
+                        <span>
+                            Order Number
+                        </span>
+
+                    </div>
+
+                    <strong th:text="${order.orderNumber}">
+                        NN202608010001
+                    </strong>
+
+                </div>
+
+
+
+                <!-- PAYMENT -->
+
+                <div class="info-row">
+
+                    <div class="info-label">
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                        <span>
+                            Payment
+                        </span>
+
+                    </div>
+
+                    <strong th:text="${order.paymentMethod}">
+                        COD
+                    </strong>
+
+                </div>
+
+
+
+                <!-- TOTAL -->
+
+                <div class="info-row total-row">
+
+                    <div class="info-label">
+
+                        <i class="fa-solid fa-receipt"></i>
+
+                        <span>
+                            Total Amount
+                        </span>
+
+                    </div>
+
+                    <strong>
+
+                        ₹<span th:text="${order.grandTotal}">
+                            999
+                        </span>
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==========================
+                 SUCCESS MESSAGE
+            =========================== -->
+
+            <div class="delivery-note">
+
+                <i class="fa-solid fa-truck-fast"></i>
+
+                <span>
+                    Your order is now being prepared.
+                </span>
+
+            </div>
+
+
+
+            <!-- ==========================
+                 BUTTONS
+            =========================== -->
+
+            <div class="success-buttons">
+
+
+                <!-- CONTINUE SHOPPING -->
+
+                <a th:href="@{/products}"
+                   class="continue-btn">
+
+                    <i class="fa-solid fa-store"></i>
+
+                    <span>
+                        Continue Shopping
+                    </span>
+
+                </a>
+
+
+
+                <!-- MY ORDERS -->
+
+                <a th:href="@{/my-orders}"
+                   class="orders-btn">
+
+                    <i class="fa-solid fa-box"></i>
+
+                    <span>
+                        My Orders
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================
+     FOOTER
+========================== -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+
+<!-- ==========================
+     JAVASCRIPT
+========================== -->
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/main.js}"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | NutriNest</title>
+
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/animation.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<section class="login-section">
+
+    <div class="login-container">
+
+        <!-- LEFT BANNER -->
+        <div class="login-banner">
+
+            <div class="banner-content">
+
+                <span class="banner-label">
+                    <i class="fa-solid fa-leaf"></i>
+                    NUTRINEST
+                </span>
+
+                <h1>
+                    Welcome<br>
+                    <em>Back.</em>
+                </h1>
+
+                <p>
+                    Login to continue shopping healthy
+                    with NutriNest.
+                </p>
+
+            </div>
+
+            <div class="banner-image">
+                <img th:src="@{/images/welcom banner.png}"
+                     alt="Healthy Nuts">
+            </div>
+
+            <div class="banner-decoration"></div>
+
+        </div>
+
+
+        <!-- LOGIN CARD -->
+        <div class="login-card">
+
+            <div class="login-header">
+
+                <div class="login-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <h2>Sign In</h2>
+
+                <p class="login-subtitle">
+                    Access your NutriNest account
+                </p>
+
+            </div>
+
+
+            <!-- SUCCESS MESSAGE -->
+            <div class="success"
+                 th:if="${success}"
+                 th:text="${success}">
+            </div>
+
+
+            <!-- LOGIN ERROR -->
+            <div class="error"
+                 th:if="${param.error}">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Invalid Email or Password
+            </div>
+
+
+            <!-- LOGOUT MESSAGE -->
+            <div class="success"
+                 th:if="${param.logout}">
+                <i class="fa-solid fa-circle-check"></i>
+                You have been logged out successfully.
+            </div>
+
+
+            <!-- LOGIN FORM -->
+            <!-- IMPORTANT:
+                 Spring Security backend will handle this /login -->
+            <form id="loginForm"
+                  th:action="@{/login}"
+                  method="post">
+
+                <!-- EMAIL -->
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope input-icon"></i>
+
+                    <input
+                            type="email"
+                            id="email"
+                            name="username"
+                            placeholder="Email Address"
+                            autocomplete="username"
+                            required>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock input-icon"></i>
+
+                    <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Password"
+                            autocomplete="current-password"
+                            required>
+
+                    <!-- PASSWORD TOGGLE -->
+                    <i
+                            class="fa-solid fa-eye toggle-password"
+                            role="button"
+                            tabindex="0"
+                            aria-label="Show password">
+                    </i>
+
+                </div>
+
+
+                <!-- OPTIONS -->
+                <div class="login-options">
+
+                    <label>
+                        <input
+                                type="checkbox"
+                                id="rememberMe"
+                                name="remember-me">
+
+                        <span>Remember Me</span>
+                    </label>
+
+                    <a th:href="@{/forgot-password}"
+                       class="forgot-link">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+                <button
+                        type="submit"
+                        class="login-btn">
+
+                    <span class="login-btn-text">
+                        Login
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </form>
+
+
+            <!-- DIVIDER -->
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+
+            <!-- GOOGLE -->
+            <button
+                    type="button"
+                    class="google-btn">
+
+                <i class="fa-brands fa-google"></i>
+
+                <span>Continue with Google</span>
+
+            </button>
+
+
+            <!-- REGISTER -->
+            <p class="register-link">
+
+                Don't have an account?
+
+                <a th:href="@{/register}">
+                    Create Account
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOAD JS ONLY ONCE -->
+<script th:src="@{/js/login.js}"></script>
+
+</body>
+</html>

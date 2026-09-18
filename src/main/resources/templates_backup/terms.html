@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Terms & Conditions | NutriNest</title>
+
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/terms.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/animation.css}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+<!-- ===========================
+        MASTER NAVBAR
+=========================== -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+
+<!-- Hero -->
+
+<section class="terms-hero">
+
+    <div class="terms-overlay">
+
+        <h1>Terms & Conditions</h1>
+
+        <p>
+
+            Please read these terms carefully before using NutriNest.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Terms -->
+
+<section class="terms-container">
+
+    <div class="terms-card">
+
+        <h2>Acceptance of Terms</h2>
+
+        <p>
+
+            By accessing and using NutriNest, you agree to comply with these
+            Terms & Conditions. If you do not agree, please discontinue using
+            our website.
+
+        </p>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>User Account</h2>
+
+        <ul>
+
+            <li>Provide accurate account information.</li>
+
+            <li>Maintain the confidentiality of your password.</li>
+
+            <li>You are responsible for all activities under your account.</li>
+
+        </ul>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>Orders & Payments</h2>
+
+        <ul>
+
+            <li>Orders are subject to product availability.</li>
+
+            <li>Prices may change without prior notice.</li>
+
+            <li>Payments are processed securely.</li>
+
+            <li>Orders can be cancelled before shipment.</li>
+
+        </ul>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>Shipping & Delivery</h2>
+
+        <p>
+
+            Delivery timelines may vary depending on your location and courier
+            partner. Unexpected delays may occur due to weather or logistics.
+
+        </p>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>Returns & Refunds</h2>
+
+        <p>
+
+            Damaged or incorrect products can be returned according to our
+            return policy. Refunds will be processed after verification.
+
+        </p>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>Prohibited Activities</h2>
+
+        <ul>
+
+            <li>Fraudulent transactions.</li>
+
+            <li>Attempting to hack or disrupt the website.</li>
+
+            <li>Misuse of content or intellectual property.</li>
+
+        </ul>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>Limitation of Liability</h2>
+
+        <p>
+
+            NutriNest is not liable for indirect, incidental, or consequential
+            damages arising from the use of our services.
+
+        </p>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>Changes to Terms</h2>
+
+        <p>
+
+            We reserve the right to modify these Terms & Conditions at any
+            time. Updated versions will be published on this page.
+
+        </p>
+
+    </div>
+
+    <div class="terms-card">
+
+        <h2>Contact Information</h2>
+
+        <p>Email : support@nutrinest.com</p>
+
+        <p>Phone : +91 98765 43210</p>
+
+    </div>
+
+</section>
+<a th:href="@{/register}" class="back-btn">
+    ← Back to Register
+</a>
+
+<!-- ===========================
+        PREMIUM FOOTER
+=========================== -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="js/navbar.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/animation.js"></script>
+
+</body>
+
+</html>

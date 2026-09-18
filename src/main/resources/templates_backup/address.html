@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>My Addresses | NutriNest</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/variables.css}">
+  <link rel="stylesheet" th:href="@{/css/animation.css}">
+
+  <link rel="stylesheet" th:href="@{/css/address.css}">
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- ===========================
+        ADDRESS SECTION
+=========================== -->
+
+<section class="address-section">
+
+  <div class="address-header">
+
+    <h1>
+
+      <i class="fa-solid fa-location-dot"></i>
+
+      My Addresses
+
+    </h1>
+
+    <p>
+
+      Manage your saved delivery addresses.
+
+    </p>
+
+  </div>
+
+  <!-- Address Grid -->
+
+  <div class="address-grid">
+
+    <!-- Address Card -->
+
+    <div class="address-card"
+         th:each="address : ${addresses}">
+
+      <!-- Default Badge -->
+
+      <span class="default-badge"
+            th:if="${address.defaultAddress}">
+
+                ⭐ Default
+
+            </span>
+
+      <!-- Address Type -->
+
+      <div class="address-type">
+
+        <i class="fa-solid fa-house"
+           th:if="${address.addressType=='Home'}"></i>
+
+        <i class="fa-solid fa-building"
+           th:if="${address.addressType=='Office'}"></i>
+
+        <i class="fa-solid fa-location-dot"
+           th:if="${address.addressType=='Other'}"></i>
+
+        <span th:text="${address.addressType}"></span>
+
+      </div>
+
+      <h3 th:text="${address.fullName}"></h3>
+
+      <p>
+
+        <span th:text="${address.addressLine1}"></span><br>
+
+        <span th:text="${address.addressLine2}"></span><br>
+
+        <span th:text="${address.landmark}"></span><br>
+
+        <span th:text="${address.city}"></span>,
+
+        <span th:text="${address.state}"></span>
+
+        -
+
+        <span th:text="${address.pincode}"></span>
+
+      </p>
+
+      <strong>
+
+        📞
+
+        <span th:text="${address.phone}"></span>
+
+      </strong>
+
+      <!-- Buttons -->
+
+      <div class="address-buttons">
+
+        <a th:href="@{/address/edit/{id}(id=${address.id},returnTo=${returnTo})}"
+           class="edit-btn">
+          Edit
+
+        </a>
+
+        <a th:href="@{/address/delete/{id}(id=${address.id},returnTo=${returnTo})}"
+           class="delete-btn">
+
+          Delete
+
+        </a>
+
+        <a th:unless="${address.defaultAddress}"
+           th:href="@{/address/default/{id}(id=${address.id},returnTo=${returnTo})}"
+           class="default-btn">
+
+          Set Default
+
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- Add Address -->
+
+    <div class="add-address-card"
+         th:if="${#lists.size(addresses)<4}">
+
+      <a th:href="@{/address/add(returnTo=${returnTo})}">
+
+        <i class="fa-solid fa-plus"></i>
+
+        <h3>Add New Address</h3>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/navbar.js}"></script>
+
+
+</body>
+
+</html>

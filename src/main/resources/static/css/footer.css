@@ -1,0 +1,1287 @@
+/* =========================================================
+   NUTRINEST - PREMIUM COMPACT FOOTER
+   GREEN / GOLD ORGANIC THEME
+========================================================= */
+
+
+.footer {
+
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0c2b1e 0%,
+            #183f2c 55%,
+            #234f36 100%
+        );
+
+    color: #ffffff;
+
+    position: relative;
+
+    overflow: hidden;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+.footer-newsletter {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    padding:
+        55px
+        25px
+        45px;
+
+    text-align: center;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   BEFORE SUBSCRIBE
+========================================================= */
+
+.newsletter-before {
+
+    width: 100%;
+
+    animation:
+        newsletterFadeIn
+        0.5s
+        ease;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.footer-label {
+
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    color: #e5c878;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   BEFORE TITLE
+========================================================= */
+
+.newsletter-before h2 {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 32px;
+
+    line-height: 1.15;
+
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+}
+
+
+/* =========================================================
+   BEFORE DESCRIPTION
+========================================================= */
+
+.newsletter-before p {
+
+    max-width: 550px;
+
+    margin:
+        10px
+        auto
+        20px;
+
+    color:
+        rgba(255,255,255,0.68);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.newsletter-form {
+
+    width: 100%;
+
+    max-width: 520px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 5px;
+
+    border:
+        1px solid
+        rgba(229,200,120,0.35);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(10px);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.newsletter-form input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 42px;
+
+    padding:
+        0
+        13px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 11px;
+}
+
+
+.newsletter-form input:focus-visible {
+    outline:3px solid var(--primary-light, #81C784);
+    outline-offset:3px;
+}
+
+
+.newsletter-form input::placeholder {
+
+    color:
+        rgba(255,255,255,0.50);
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.newsletter-form button {
+
+    flex-shrink: 0;
+
+    height: 42px;
+
+    padding:
+        0
+        18px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    color: #183f2c;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e5c878,
+            #c9a24d
+        );
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px
+        rgba(201,162,77,0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.newsletter-form button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 22px
+        rgba(201,162,77,0.32);
+}
+
+
+/* =========================================================
+   DISCOUNT NOTE
+========================================================= */
+
+.discount-note {
+
+    display: block;
+
+    margin-top: 10px;
+
+    color: #e5c878;
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.newsletter-success {
+
+    margin:
+        12px
+        auto
+        0 !important;
+
+    color: #bce8c9 !important;
+
+    font-size: 10px !important;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.newsletter-error {
+
+    margin:
+        12px
+        auto
+        0 !important;
+
+    color: #ffb7b7 !important;
+
+    font-size: 10px !important;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   AFTER SUBSCRIBE
+========================================================= */
+
+.newsletter-after {
+
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    padding:
+        8px
+        20px
+        4px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    animation:
+        memberReveal
+        0.7s
+        cubic-bezier(.22,.61,.36,1);
+}
+
+
+/* =========================================================
+   CHECK CIRCLE
+========================================================= */
+
+.member-check {
+
+    width: 54px;
+
+    height: 54px;
+
+    margin-bottom: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e5c878,
+            #c9a24d
+        );
+
+    color: #183f2c;
+
+    font-size: 21px;
+
+    box-shadow:
+        0 10px 28px
+        rgba(201,162,77,0.28);
+
+    position: relative;
+}
+
+
+.member-check::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -7px;
+
+    border:
+        1px solid
+        rgba(229,200,120,0.28);
+
+    border-radius: 50%;
+}
+
+
+.member-check::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -13px;
+
+    border:
+        1px solid
+        rgba(229,200,120,0.12);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   MEMBER LABEL
+========================================================= */
+
+.member-label {
+
+    margin-bottom: 8px;
+
+    color: #e5c878;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   AFTER TITLE
+========================================================= */
+
+.newsletter-after h2 {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+}
+
+
+/* =========================================================
+   AFTER DESCRIPTION
+========================================================= */
+
+.newsletter-after p {
+
+    max-width: 570px;
+
+    margin:
+        11px
+        auto
+        18px;
+
+    color:
+        rgba(255,255,255,0.68);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SUBSCRIBED STATUS
+========================================================= */
+
+.member-status {
+
+    min-width: 145px;
+
+    height: 38px;
+
+    padding:
+        0
+        17px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border:
+        1px solid
+        rgba(229,200,120,0.35);
+
+    border-radius: 10px;
+
+    background:
+        rgba(229,200,120,0.10);
+
+    color: #e5c878;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.05);
+}
+
+
+.member-status i {
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MEMBER NOTE
+========================================================= */
+
+.member-note {
+
+    display: block;
+
+    margin-top: 11px;
+
+    color:
+        rgba(255,255,255,0.48);
+
+    font-size: 8px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MAIN FOOTER
+========================================================= */
+
+.footer-main {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding:
+        25px
+        25px
+        30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 40px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.10);
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.footer-brand h2 {
+
+    margin: 0;
+
+    color: #e5c878;
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+
+.footer-brand p {
+
+    max-width: 380px;
+
+    margin:
+        6px
+        0
+        0;
+
+    color:
+        rgba(255,255,255,0.55);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.footer-contact {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+}
+
+
+.footer-contact a,
+.footer-contact span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color:
+        rgba(255,255,255,0.65);
+
+    text-decoration: none;
+
+    font-size: 9px;
+
+    font-weight: 500;
+
+    transition:
+        color 0.25s ease;
+}
+
+
+.footer-contact i {
+
+    color: #c9a24d;
+
+    font-size: 10px;
+}
+
+
+.footer-contact a:hover {
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.footer-bottom {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding:
+        14px
+        25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.08);
+}
+
+
+.footer-bottom p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.40);
+
+    font-size: 8px;
+}
+
+
+.footer-bottom-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.footer-bottom-links a {
+
+    color:
+        rgba(255,255,255,0.50);
+
+    text-decoration: none;
+
+    font-size: 8px;
+
+    transition:
+        color 0.25s ease;
+}
+
+
+.footer-bottom-links a:hover {
+
+    color: #e5c878;
+}
+
+
+.footer-bottom-links span {
+
+    color:
+        rgba(255,255,255,0.25);
+
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes newsletterFadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes memberReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(18px)
+            scale(0.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .footer-newsletter {
+
+        padding:
+            45px
+            20px
+            35px;
+    }
+
+
+    .newsletter-before h2 {
+
+        font-size: 28px;
+    }
+
+
+    .newsletter-after h2 {
+
+        font-size: 27px;
+    }
+
+
+    .footer-main {
+
+        padding:
+            22px
+            20px
+            25px;
+
+        gap: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .footer-newsletter {
+
+        padding:
+            38px
+            14px
+            28px;
+    }
+
+
+    /* BEFORE */
+
+    .footer-label {
+
+        margin-bottom: 7px;
+
+        font-size: 7px;
+
+        letter-spacing: 1.3px;
+    }
+
+
+    .newsletter-before h2 {
+
+        font-size: 21px;
+
+        letter-spacing: -0.3px;
+    }
+
+
+    .newsletter-before p {
+
+        margin:
+            7px
+            auto
+            15px;
+
+        font-size: 8px;
+
+        line-height: 1.5;
+    }
+
+
+    /* FORM */
+
+    .newsletter-form {
+
+        max-width: 100%;
+
+        gap: 5px;
+
+        padding: 4px;
+
+        border-radius: 10px;
+    }
+
+
+    .newsletter-form input {
+
+        height: 34px;
+
+        padding:
+            0
+            9px;
+
+        font-size: 8px;
+    }
+
+
+    .newsletter-form button {
+
+        height: 34px;
+
+        padding:
+            0
+            11px;
+
+        border-radius: 7px;
+
+        font-size: 7px;
+    }
+
+
+    .discount-note {
+
+        margin-top: 7px;
+
+        font-size: 6px;
+    }
+
+
+    .newsletter-success,
+    .newsletter-error {
+
+        margin-top: 9px !important;
+
+        font-size: 7px !important;
+    }
+
+
+    /* AFTER */
+
+    .newsletter-after {
+
+        padding:
+            4px
+            5px
+            2px;
+    }
+
+
+    .member-check {
+
+        width: 42px;
+
+        height: 42px;
+
+        margin-bottom: 11px;
+
+        font-size: 16px;
+    }
+
+
+    .member-check::before {
+
+        inset: -5px;
+    }
+
+
+    .member-check::after {
+
+        inset: -9px;
+    }
+
+
+    .member-label {
+
+        margin-bottom: 6px;
+
+        font-size: 7px;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .newsletter-after h2 {
+
+        font-size: 20px;
+
+        line-height: 1.25;
+    }
+
+
+    .newsletter-after p {
+
+        max-width: 320px;
+
+        margin:
+            8px
+            auto
+            13px;
+
+        font-size: 8px;
+
+        line-height: 1.6;
+    }
+
+
+    .member-status {
+
+        min-width: 115px;
+
+        height: 31px;
+
+        padding:
+            0
+            12px;
+
+        gap: 6px;
+
+        border-radius: 8px;
+
+        font-size: 7px;
+
+        letter-spacing: 1px;
+    }
+
+
+    .member-status i {
+
+        font-size: 10px;
+    }
+
+
+    .member-note {
+
+        margin-top: 8px;
+
+        font-size: 6px;
+    }
+
+
+    /* MAIN */
+
+    .footer-main {
+
+        padding:
+            20px
+            14px;
+
+        display: block;
+
+        text-align: center;
+    }
+
+
+    .footer-brand h2 {
+
+        font-size: 18px;
+    }
+
+
+    .footer-brand p {
+
+        max-width: 280px;
+
+        margin:
+            5px
+            auto
+            15px;
+
+        font-size: 7px;
+    }
+
+
+    .footer-contact {
+
+        justify-content: center;
+
+        gap: 9px 13px;
+    }
+
+
+    .footer-contact a,
+    .footer-contact span {
+
+        font-size: 6.5px;
+
+        gap: 4px;
+    }
+
+
+    .footer-contact i {
+
+        font-size: 7px;
+    }
+
+
+    /* BOTTOM */
+
+    .footer-bottom {
+
+        padding:
+            10px
+            14px;
+
+        flex-direction: column;
+
+        gap: 6px;
+
+        text-align: center;
+    }
+
+
+    .footer-bottom p {
+
+        font-size: 6px;
+    }
+
+
+    .footer-bottom-links {
+
+        gap: 5px;
+    }
+
+
+    .footer-bottom-links a {
+
+        font-size: 6px;
+    }
+
+
+    .footer-bottom-links span {
+
+        font-size: 5px;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .footer-newsletter {
+
+        padding:
+            32px
+            10px
+            24px;
+    }
+
+
+    .newsletter-before h2 {
+
+        font-size: 19px;
+    }
+
+
+    .newsletter-before p {
+
+        font-size: 7px;
+    }
+
+
+    .newsletter-form input {
+
+        height: 31px;
+
+        font-size: 7px;
+    }
+
+
+    .newsletter-form button {
+
+        height: 31px;
+
+        padding:
+            0
+            9px;
+
+        font-size: 6px;
+    }
+
+
+    .discount-note {
+
+        font-size: 5.5px;
+    }
+
+
+    .member-check {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 14px;
+    }
+
+
+    .newsletter-after h2 {
+
+        font-size: 18px;
+    }
+
+
+    .newsletter-after p {
+
+        max-width: 280px;
+
+        font-size: 7px;
+    }
+
+
+    .member-status {
+
+        min-width: 105px;
+
+        height: 29px;
+
+        font-size: 6px;
+    }
+
+
+    .member-note {
+
+        font-size: 5.5px;
+    }
+
+
+    .footer-main {
+
+        padding:
+            17px
+            10px;
+    }
+
+
+    .footer-brand h2 {
+
+        font-size: 16px;
+    }
+
+
+    .footer-brand p {
+
+        font-size: 6px;
+    }
+
+
+    .footer-contact {
+
+        gap: 7px 9px;
+    }
+
+
+    .footer-contact a,
+    .footer-contact span {
+
+        font-size: 5.5px;
+    }
+
+
+    .footer-bottom {
+
+        padding:
+            8px
+            10px;
+    }
+
+
+    .footer-bottom p,
+    .footer-bottom-links a {
+
+        font-size: 5px;
+    }
+
+}

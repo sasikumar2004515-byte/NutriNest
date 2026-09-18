@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Customers | NutriNest Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <link rel="stylesheet"
+        th:href="@{/css/admin.css}">
+
+  <style>
+
+    .customers-container {
+        padding: 25px;
+    }
+
+    .page-header {
+        margin-bottom: 25px;
+    }
+
+    .page-header h2 {
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .page-header p {
+        margin-top: 5px;
+        color: #777;
+    }
+
+    .customers-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+        overflow: hidden;
+    }
+
+    .customers-table {
+        margin: 0;
+    }
+
+    .customers-table thead th {
+        background: #198754;
+        color: #fff;
+        padding: 15px;
+        white-space: nowrap;
+    }
+
+    .customers-table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .customers-table tbody tr:hover {
+        background: #f8fdf9;
+    }
+
+    .customer-id {
+        font-weight: 700;
+        color: #198754;
+    }
+
+    .customer-name {
+        font-weight: 600;
+    }
+
+    .customer-email {
+        color: #666;
+    }
+
+    .phone {
+        font-weight: 500;
+    }
+
+    .status-active {
+        background: #d1e7dd;
+        color: #0f5132;
+        padding: 6px 11px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-inactive {
+        background: #f8d7da;
+        color: #842029;
+        padding: 6px 11px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .empty-customers {
+        text-align: center;
+        padding: 70px 20px;
+        color: #777;
+    }
+
+    .empty-customers i {
+        font-size: 55px;
+        color: #198754;
+        margin-bottom: 15px;
+    }
+
+    .empty-customers h4 {
+        color: #333;
+        font-weight: 700;
+    }
+
+    @media (max-width: 992px) {
+
+        .customers-container {
+            padding: 18px;
+            overflow-x: auto;
+        }
+
+        .customers-card {
+            min-width: 850px;
+        }
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<!-- =========================
+       SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+  <div class="logo text-center mb-4">
+
+    <img th:src="@{/images/logo.jpeg}"
+         alt="NutriNest Logo"
+         class="logo-img">
+
+    <h4 class="mt-2">NutriNest</h4>
+
+    <p class="tagline">
+      Premium Nuts & Dry Fruits
+    </p>
+
+  </div>
+
+  <a href="/admin/dashboard">
+    <i class="fa-solid fa-house"></i>
+    Dashboard
+  </a>
+
+  <a href="/admin/categories">
+    <i class="fa-solid fa-layer-group"></i>
+    Categories
+  </a>
+
+  <a href="/admin/products">
+    <i class="fa-solid fa-box"></i>
+    Products
+  </a>
+
+  <a href="#">
+    <i class="fa-solid fa-tags"></i>
+    Brands
+  </a>
+
+  <a href="/admin/orders">
+    <i class="fa-solid fa-cart-shopping"></i>
+    Orders
+  </a>
+
+  <a href="/admin/customers">
+    <i class="fa-solid fa-users"></i>
+    Customers
+  </a>
+
+  <a href="/logout">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Logout
+  </a>
+
+</div>
+
+
+<!-- =========================
+       MAIN
+========================= -->
+
+<div class="main">
+
+  <div class="navbar">
+
+    <h2>Customers</h2>
+
+    <h3>Welcome Admin</h3>
+
+  </div>
+
+
+  <div class="customers-container">
+
+    <div class="page-header">
+
+      <h2>All Customers</h2>
+
+      <p>
+        View registered NutriNest customers.
+      </p>
+
+    </div>
+
+
+    <div class="customers-card">
+
+      <div class="table-responsive">
+
+        <table class="table customers-table">
+
+          <thead>
+
+          <tr>
+
+            <th>#</th>
+
+            <th>Customer</th>
+
+            <th>Email</th>
+
+            <th>Phone</th>
+
+            <th>Role</th>
+
+            <th>Status</th>
+
+          </tr>
+
+          </thead>
+
+
+          <tbody>
+
+          <tr th:each="customer, stat : ${customers}">
+
+            <td>
+                            <span class="customer-id"
+                                  th:text="${stat.count}">
+                                1
+                            </span>
+            </td>
+
+
+            <td>
+
+                            <span class="customer-name"
+                                  th:text="${customer.fullName}">
+                                Customer Name
+                            </span>
+
+            </td>
+
+
+            <td>
+
+                            <span class="customer-email"
+                                  th:text="${customer.email}">
+                                customer@email.com
+                            </span>
+
+            </td>
+
+
+            <td>
+
+                            <span class="phone"
+                                  th:text="${customer.phone}">
+                                9876543210
+                            </span>
+
+            </td>
+
+
+            <td>
+
+                            <span th:if="${customer.role != null}"
+                                  class="badge bg-secondary"
+                                  th:text="${customer.role.roleName}">
+                                ROLE_CUSTOMER
+                            </span>
+
+              <span th:if="${customer.role == null}"
+                    class="badge bg-secondary">
+                                -
+                            </span>
+
+            </td>
+
+
+            <td>
+
+                            <span th:if="${customer.enabled}"
+                                  class="status-active">
+                                Active
+                            </span>
+
+              <span th:unless="${customer.enabled}"
+                    class="status-inactive">
+                                Inactive
+                            </span>
+
+            </td>
+
+          </tr>
+
+
+          <!-- EMPTY STATE -->
+
+          <tr th:if="${customers == null or #lists.isEmpty(customers)}">
+
+            <td colspan="6">
+
+              <div class="empty-customers">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h4>No Customers Yet</h4>
+
+                <p>
+                  Registered customers will appear here.
+                </p>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>

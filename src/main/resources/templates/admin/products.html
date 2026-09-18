@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <link rel="icon"
+        type="image/jpeg"
+        th:href="@{/images/logo.jpeg}">
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Products | NutriNest Admin</title>
+
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+  <style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f5f7f5;
+        color: #24352b;
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+
+        background: #163d2a;
+
+        padding: 28px 18px;
+
+        z-index: 1000;
+
+        box-shadow: 4px 0 18px rgba(0, 0, 0, 0.08);
+    }
+
+
+    .logo {
+        color: #fff;
+    }
+
+
+    .logo-img {
+        width: 62px;
+        height: 62px;
+
+        object-fit: contain;
+
+        border-radius: 14px;
+
+        background: #fff;
+
+        padding: 5px;
+    }
+
+
+    .logo h4 {
+        margin-bottom: 3px;
+        font-weight: 700;
+    }
+
+
+    .tagline {
+        color: #b8c8bd;
+        font-size: 11px;
+        margin: 0;
+    }
+
+
+    .sidebar a {
+        display: flex;
+
+        align-items: center;
+
+        gap: 13px;
+
+        color: #d9e5dc;
+
+        text-decoration: none;
+
+        padding: 13px 14px;
+
+        border-radius: 10px;
+
+        margin-bottom: 5px;
+
+        font-size: 14px;
+
+        transition: .2s ease;
+    }
+
+
+    .sidebar a i {
+        width: 18px;
+        text-align: center;
+    }
+
+
+    .sidebar a:hover {
+        background: rgba(255,255,255,.08);
+        color: #fff;
+    }
+
+
+    .sidebar a.active {
+        background: #d9b45f;
+
+        color: #163d2a;
+
+        font-weight: 600;
+    }
+
+
+
+    /* =====================================================
+       MAIN
+    ===================================================== */
+
+    .main {
+        margin-left: 250px;
+
+        min-height: 100vh;
+
+        padding: 30px 35px;
+    }
+
+
+    .navbar {
+        background: transparent;
+
+        padding: 0;
+
+        margin-bottom: 28px;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+    }
+
+
+    .navbar h2 {
+        margin: 0;
+
+        color: #183b29;
+
+        font-size: 28px;
+
+        font-weight: 700;
+    }
+
+
+    .navbar p {
+        margin: 6px 0 0;
+
+        color: #77877d;
+
+        font-size: 14px;
+    }
+
+
+    .admin-badge {
+        background: #fff;
+
+        border: 1px solid #e3e9e4;
+
+        padding: 9px 14px;
+
+        border-radius: 30px;
+
+        color: #466052;
+
+        font-size: 13px;
+    }
+
+
+
+    /* =====================================================
+       TOOLBAR
+    ===================================================== */
+
+    .toolbar {
+        background: #fff;
+
+        border: 1px solid #e6ebe7;
+
+        border-radius: 16px;
+
+        padding: 18px;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        gap: 15px;
+
+        margin-bottom: 22px;
+
+        box-shadow: 0 5px 20px rgba(22,61,42,.04);
+    }
+
+
+    .search-box {
+        position: relative;
+
+        width: 360px;
+    }
+
+
+    .search-box i {
+        position: absolute;
+
+        left: 15px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        color: #8b9a91;
+    }
+
+
+    .search-box input {
+        width: 100%;
+
+        height: 44px;
+
+        border: 1px solid #dfe6e1;
+
+        border-radius: 10px;
+
+        padding: 0 15px 0 42px;
+
+        outline: none;
+
+        background: #fafcfb;
+
+        font-size: 14px;
+    }
+
+
+    .search-box input:focus {
+        border-color: #7da38a;
+
+        box-shadow:
+            0 0 0 3px rgba(125,163,138,.12);
+
+        background: #fff;
+    }
+
+
+    .add-btn {
+        height: 44px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        padding: 0 19px;
+
+        border-radius: 10px;
+
+        background: #163d2a;
+
+        color: #fff;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        transition: .2s ease;
+    }
+
+
+    .add-btn:hover {
+        background: #23583d;
+
+        color: #fff;
+
+        transform: translateY(-1px);
+    }
+
+
+
+    /* =====================================================
+       FILTER BUTTONS
+    ===================================================== */
+
+    .product-sections {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 9px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .section-btn {
+        border: 1px solid #dfe7e1;
+
+        background: #fff;
+
+        color: #52645a;
+
+        padding: 9px 15px;
+
+        border-radius: 30px;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: .2s ease;
+    }
+
+
+    .section-btn:hover {
+        background: #edf5ef;
+
+        color: #285d3e;
+
+        border-color: #cbded0;
+    }
+
+
+    .section-btn.active {
+        background: #163d2a;
+
+        color: #fff;
+
+        border-color: #163d2a;
+    }
+
+
+
+    /* =====================================================
+       TABLE
+    ===================================================== */
+
+    .table-card {
+        background: #fff;
+
+        border: 1px solid #e6ebe7;
+
+        border-radius: 16px;
+
+        overflow: hidden;
+
+        box-shadow: 0 5px 20px rgba(22,61,42,.04);
+    }
+
+
+    .table-header {
+        padding: 20px 22px;
+
+        border-bottom: 1px solid #edf1ee;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+    }
+
+
+    .table-header h3 {
+        margin: 0;
+
+        color: #183b29;
+
+        font-size: 17px;
+    }
+
+
+    .product-count {
+        font-size: 12px;
+
+        color: #728178;
+
+        background: #f2f6f3;
+
+        padding: 6px 10px;
+
+        border-radius: 20px;
+    }
+
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+
+    table {
+        width: 100%;
+
+        min-width: 1100px;
+
+        border-collapse: collapse;
+    }
+
+
+    thead th {
+        background: #f8faf8;
+
+        color: #718077;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        letter-spacing: .6px;
+
+        text-transform: uppercase;
+
+        padding: 15px 18px;
+
+        border-bottom: 1px solid #e9eeea;
+
+        white-space: nowrap;
+    }
+
+
+    tbody td {
+        padding: 16px 18px;
+
+        border-bottom: 1px solid #edf1ee;
+
+        vertical-align: middle;
+
+        font-size: 14px;
+    }
+
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+    tbody tr:hover {
+        background: #fbfcfb;
+    }
+
+
+
+    /* =====================================================
+       PRODUCT
+    ===================================================== */
+
+    .product-image {
+        width: 60px;
+
+        height: 60px;
+
+        border-radius: 11px;
+
+        object-fit: contain;
+
+        background: #f8faf8;
+
+        border: 1px solid #e4ebe5;
+
+        padding: 5px;
+    }
+
+
+    .product-name {
+        font-weight: 700;
+
+        color: #203e2d;
+    }
+
+
+    .category-name {
+        color: #6d7d73;
+
+        font-size: 13px;
+    }
+
+
+    .price {
+        color: #28603f;
+
+        font-weight: 700;
+    }
+
+
+    .stock {
+        font-weight: 600;
+    }
+
+
+    .low-stock {
+        color: #a56c28;
+    }
+
+
+    .out-stock {
+        color: #a34848;
+    }
+
+
+
+    /* =====================================================
+       COLLECTION BADGES
+    ===================================================== */
+
+    .badge-custom {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        padding: 5px 8px;
+
+        border-radius: 20px;
+
+        font-size: 10px;
+
+        font-weight: 700;
+
+        margin: 2px;
+
+        white-space: nowrap;
+    }
+
+
+    .badge-featured {
+        background: #f8efd9;
+
+        color: #9b7427;
+    }
+
+
+    .badge-organic {
+        background: #e8f5eb;
+
+        color: #26733e;
+    }
+
+
+    .badge-best {
+        background: #f5e9e1;
+
+        color: #a55b35;
+    }
+
+
+    .badge-premium {
+        background: #f4edd9;
+
+        color: #80621e;
+    }
+
+
+    .badge-gift {
+        background: #f7e8ed;
+
+        color: #9a4e67;
+    }
+
+
+    .badge-active {
+        background: #e8f5eb;
+
+        color: #26733e;
+    }
+
+
+    .badge-inactive {
+        background: #f8eaea;
+
+        color: #a34848;
+    }
+
+
+
+    /* =====================================================
+       ACTIONS
+    ===================================================== */
+
+    .actions {
+        display: flex;
+
+        gap: 7px;
+    }
+
+
+    .action-btn {
+        width: 34px;
+
+        height: 34px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        border: 1px solid #e1e7e2;
+
+        background: #fff;
+
+        transition: .2s ease;
+    }
+
+
+    .edit-btn {
+        color: #396a4d;
+    }
+
+
+    .edit-btn:hover {
+        background: #edf5ef;
+
+        border-color: #cbded0;
+    }
+
+
+    .delete-btn {
+        color: #a54d4d;
+    }
+
+
+    .delete-btn:hover {
+        background: #faeeee;
+
+        border-color: #eccccc;
+    }
+
+
+
+    /* =====================================================
+       NO FILTER RESULTS
+    ===================================================== */
+
+    .no-filter-results {
+        display: none;
+
+        text-align: center;
+
+        padding: 60px 20px;
+    }
+
+
+    .no-filter-results.show {
+        display: block;
+    }
+
+
+    .no-filter-icon {
+        width: 65px;
+
+        height: 65px;
+
+        margin: 0 auto 16px;
+
+        border-radius: 18px;
+
+        background: #edf5ef;
+
+        color: #477858;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 25px;
+    }
+
+
+    .no-filter-results h4 {
+        margin: 0 0 7px;
+
+        color: #294435;
+    }
+
+
+    .no-filter-results p {
+        margin: 0;
+
+        color: #819087;
+
+        font-size: 13px;
+    }
+
+
+
+    /* =====================================================
+       EMPTY DATABASE
+    ===================================================== */
+
+    .empty-state {
+        text-align: center;
+
+        padding: 65px 20px;
+    }
+
+
+    .empty-icon {
+        width: 65px;
+
+        height: 65px;
+
+        margin: 0 auto 16px;
+
+        border-radius: 18px;
+
+        background: #edf5ef;
+
+        color: #477858;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 25px;
+    }
+
+
+    .empty-state h4 {
+        margin: 0 0 7px;
+
+        color: #294435;
+    }
+
+
+    .empty-state p {
+        margin: 0 0 20px;
+
+        color: #819087;
+
+        font-size: 13px;
+    }
+
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+        .sidebar {
+            width: 210px;
+        }
+
+
+        .main {
+            margin-left: 210px;
+
+            padding: 25px 20px;
+        }
+
+
+        .search-box {
+            width: 280px;
+        }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .sidebar {
+            position: relative;
+
+            width: 100%;
+
+            height: auto;
+
+            padding: 15px;
+        }
+
+
+        .main {
+            margin-left: 0;
+
+            padding: 20px 14px;
+        }
+
+
+        .toolbar {
+            flex-direction: column;
+
+            align-items: stretch;
+        }
+
+
+        .search-box {
+            width: 100%;
+        }
+
+
+        .add-btn {
+            justify-content: center;
+        }
+
+
+        .navbar {
+            align-items: flex-start;
+        }
+
+
+        .admin-badge {
+            display: none;
+        }
+
+
+        .navbar h2 {
+            font-size: 23px;
+        }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+        .product-sections {
+            gap: 6px;
+        }
+
+
+        .section-btn {
+            padding: 8px 11px;
+
+            font-size: 11px;
+        }
+
+    }
+
+
+    /* =========================================
+       PRODUCT ROW VISIBILITY
+    ========================================= */
+
+    #productBody .product-row {
+        visibility: visible;
+    }
+
+
+    #productBody .product-row[hidden] {
+        display: none !important;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+
+  <div class="logo text-center mb-4">
+
+
+    <img th:src="@{/images/logo.jpeg}"
+         alt="NutriNest Logo"
+         class="logo-img">
+
+
+    <h4 class="mt-2">
+      NutriNest
+    </h4>
+
+
+    <p class="tagline">
+      Premium Nuts & Dry Fruits
+    </p>
+
+
+  </div>
+
+
+
+  <a th:href="@{/admin/dashboard}">
+
+    <i class="fa-solid fa-house"></i>
+
+    Dashboard
+
+  </a>
+
+
+
+  <a th:href="@{/admin/categories}">
+
+    <i class="fa-solid fa-layer-group"></i>
+
+    Categories
+
+  </a>
+
+
+
+  <a th:href="@{/admin/products}"
+     class="active">
+
+    <i class="fa-solid fa-box"></i>
+
+    Products
+
+  </a>
+
+
+
+  <a th:href="@{/admin/brands}">
+
+    <i class="fa-solid fa-tags"></i>
+
+    Brands
+
+  </a>
+
+
+
+  <a th:href="@{/admin/orders}">
+
+    <i class="fa-solid fa-cart-shopping"></i>
+
+    Orders
+
+  </a>
+
+
+
+  <a th:href="@{/admin/customers}">
+
+    <i class="fa-solid fa-users"></i>
+
+    Customers
+
+  </a>
+
+
+
+  <a th:href="@{/logout}">
+
+    <i class="fa-solid fa-right-from-bracket"></i>
+
+    Logout
+
+  </a>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="main">
+
+
+  <!-- HEADER -->
+
+  <div class="navbar">
+
+
+    <div>
+
+      <h2>
+        Product Management
+      </h2>
+
+
+      <p>
+        Manage your products and product collections
+      </p>
+
+    </div>
+
+
+
+    <div class="admin-badge">
+
+      <i class="fa-solid fa-user-shield"></i>
+
+      Administrator
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- =================================================
+       TOOLBAR
+  ================================================= -->
+
+  <div class="toolbar">
+
+
+    <div class="search-box">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+
+      <input type="text"
+             id="productSearch"
+             placeholder="Search products..."
+             autocomplete="off">
+
+    </div>
+
+
+
+    <a th:href="@{/admin/products/new}"
+       class="add-btn">
+
+      <i class="fa-solid fa-plus"></i>
+
+      Add Product
+
+    </a>
+
+
+  </div>
+
+
+
+  <!-- =================================================
+       FILTER BUTTONS
+  ================================================= -->
+
+  <div class="product-sections">
+
+
+    <!-- ALL -->
+
+    <button type="button"
+            class="section-btn"
+            data-filter="all">
+
+      <i class="fa-solid fa-border-all"></i>
+
+      All Products
+
+    </button>
+
+
+
+    <!-- FEATURED -->
+
+    <button type="button"
+            class="section-btn"
+            data-filter="featured">
+
+      ⭐ Featured
+
+    </button>
+
+
+
+    <!-- ORGANIC -->
+
+    <button type="button"
+            class="section-btn"
+            data-filter="organic">
+
+      🌿 Organic
+
+    </button>
+
+
+
+    <!-- BEST SELLER -->
+
+    <button type="button"
+            class="section-btn"
+            data-filter="bestSeller">
+
+      🔥 Best Sellers
+
+    </button>
+
+
+
+    <!-- PREMIUM -->
+
+    <button type="button"
+            class="section-btn"
+            data-filter="premium">
+
+      👑 Premium
+
+    </button>
+
+
+
+    <!-- GIFT -->
+
+    <button type="button"
+            class="section-btn"
+            data-filter="gift">
+
+      🎁 Gift
+
+    </button>
+
+
+
+    <!-- ACTIVE -->
+
+    <button type="button"
+            class="section-btn active"
+            data-filter="active">
+
+      <i class="fa-solid fa-circle-check"></i>
+
+      Active
+
+    </button>
+
+
+
+    <!-- INACTIVE -->
+
+    <button type="button"
+            class="section-btn"
+            data-filter="inactive">
+
+      <i class="fa-solid fa-circle-xmark"></i>
+
+      Inactive
+
+    </button>
+
+
+  </div>
+
+
+
+  <!-- =================================================
+       TABLE CARD
+  ================================================= -->
+
+  <div class="table-card">
+
+
+    <!-- TABLE HEADER -->
+
+    <div class="table-header">
+
+
+      <h3 id="tableTitle">
+        Active Products
+      </h3>
+
+
+
+      <span class="product-count"
+            id="productCount"
+            th:text="${#lists.size(products) + ' Products'}">
+
+        0 Products
+
+      </span>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         TABLE
+    ================================================= -->
+
+    <div class="table-wrapper">
+
+
+      <table id="productTable">
+
+
+        <thead>
+
+        <tr>
+
+          <th>
+            ID
+          </th>
+
+
+          <th>
+            Product
+          </th>
+
+
+          <th>
+            Category
+          </th>
+
+
+          <th>
+            Price
+          </th>
+
+
+          <th>
+            Stock
+          </th>
+
+
+          <th>
+            Collections
+          </th>
+
+
+          <th>
+            Status
+          </th>
+
+
+          <th>
+            Action
+          </th>
+
+        </tr>
+
+        </thead>
+
+
+
+        <tbody id="productBody">
+
+
+        <!-- =================================================
+             PRODUCT ROW
+        ================================================= -->
+
+        <tr  th:each="product, stat : ${products}"
+            class="product-row"
+
+            th:attr="
+            data-featured=${product.featured == true},
+            data-organic=${product.organic == true},
+            data-bestseller=${product.bestSeller == true},
+            data-premium=${product.premium == true},
+            data-gift=${product.gift == true},
+            data-active=${product.active == true}">
+
+
+          <td>
+
+            <strong th:text="${stat.count}">
+              1
+            </strong>
+
+          </td>
+
+
+
+          <!-- =================================================
+               PRODUCT
+          ================================================= -->
+
+          <td>
+
+            <div class="d-flex align-items-center gap-3">
+
+
+              <!-- IMAGE -->
+
+              <img th:if="${product.imageUrl != null
+                         and !#strings.isEmpty(product.imageUrl)}"
+
+                   th:src="${product.imageUrl.startsWith('/')
+                          ? product.imageUrl
+                          : '/images/' + product.imageUrl}"
+
+                   th:alt="${product.productName}"
+
+                   class="product-image">
+
+
+
+              <!-- NO IMAGE -->
+
+              <div th:if="${product.imageUrl == null
+                         or #strings.isEmpty(product.imageUrl)}"
+
+                   class="product-image
+                        d-flex
+                        align-items-center
+                        justify-content-center">
+
+
+                <i class="fa-solid fa-box text-secondary"></i>
+
+
+              </div>
+
+
+
+              <!-- NAME -->
+
+              <span class="product-name"
+                    th:text="${product.productName}">
+
+              Product
+
+            </span>
+
+
+            </div>
+
+          </td>
+
+
+
+          <!-- =================================================
+               CATEGORY
+          ================================================= -->
+
+          <td>
+
+          <span class="category-name"
+                th:if="${product.category != null}"
+                th:text="${product.category.categoryName}">
+
+            Category
+
+          </span>
+
+
+            <span class="category-name"
+                  th:unless="${product.category != null}">
+
+            No Category
+
+          </span>
+
+          </td>
+
+
+
+          <!-- =================================================
+               PRICE
+          ================================================= -->
+
+          <td>
+
+          <span class="price">
+
+            ₹<span th:text="${product.price}">
+              0
+            </span>
+
+          </span>
+
+          </td>
+
+
+
+          <!-- =================================================
+               STOCK
+          ================================================= -->
+
+          <td>
+
+          <span class="stock"
+
+                th:classappend="${product.stock == null
+                                ? ''
+                                : (product.stock == 0
+                                   ? ' out-stock'
+                                   : (product.stock <= 10
+                                      ? ' low-stock'
+                                      : ''))}"
+
+                th:text="${product.stock != null
+                          ? product.stock
+                          : 0}">
+
+            0
+
+          </span>
+
+          </td>
+
+
+
+          <!-- =================================================
+               COLLECTIONS
+          ================================================= -->
+
+          <td>
+
+
+            <!-- FEATURED -->
+
+            <span th:if="${product.featured == true}"
+                  class="badge-custom badge-featured">
+
+            ⭐ Featured
+
+          </span>
+
+
+
+            <!-- ORGANIC -->
+
+            <span th:if="${product.organic == true}"
+                  class="badge-custom badge-organic">
+
+            🌿 Organic
+
+          </span>
+
+
+
+            <!-- BEST SELLER -->
+
+            <span th:if="${product.bestSeller == true}"
+                  class="badge-custom badge-best">
+
+            🔥 Best Seller
+
+          </span>
+
+
+
+            <!-- PREMIUM -->
+
+            <span th:if="${product.premium == true}"
+                  class="badge-custom badge-premium">
+
+            👑 Premium
+
+          </span>
+
+
+
+            <!-- GIFT -->
+
+            <span th:if="${product.gift == true}"
+                  class="badge-custom badge-gift">
+
+            🎁 Gift
+
+          </span>
+
+
+
+            <!-- NO COLLECTION -->
+
+            <span th:if="${product.featured != true
+                        and product.organic != true
+                        and product.bestSeller != true
+                        and product.premium != true
+                        and product.gift != true}"
+
+                  class="text-muted"
+
+                  style="font-size:12px;">
+
+            No collection
+
+          </span>
+
+
+          </td>
+
+
+
+          <!-- =================================================
+               STATUS
+          ================================================= -->
+
+          <td>
+
+
+            <!-- ACTIVE -->
+
+            <span th:if="${product.active == true}"
+                  class="badge-custom badge-active">
+
+            <i class="fa-solid fa-circle"></i>
+
+            Active
+
+          </span>
+
+
+
+            <!-- INACTIVE -->
+
+            <span th:unless="${product.active == true}"
+                  class="badge-custom badge-inactive">
+
+            <i class="fa-solid fa-circle"></i>
+
+            Inactive
+
+          </span>
+
+
+          </td>
+
+
+
+          <!-- =================================================
+               ACTION
+          ================================================= -->
+
+          <td>
+
+
+            <div class="actions">
+
+
+              <!-- EDIT -->
+
+              <a th:href="@{/admin/products/edit/{id}(id=${product.id})}"
+
+                 class="action-btn edit-btn"
+
+                 title="Edit Product">
+
+
+                <i class="fa-solid fa-pen"></i>
+
+
+              </a>
+
+
+
+              <!-- DELETE -->
+
+              <a th:href="@{/admin/products/delete/{id}(id=${product.id})}"
+
+                 class="action-btn delete-btn"
+
+                 title="Delete Product"
+
+                 onclick="return confirm('Are you sure you want to delete this product?');">
+
+
+                <i class="fa-solid fa-trash"></i>
+
+
+              </a>
+
+
+            </div>
+
+
+          </td>
+
+
+        </tr>
+
+
+        </tbody>
+
+
+      </table>
+
+
+
+      <!-- =================================================
+           FILTER NO RESULT
+      ================================================= -->
+
+      <div class="no-filter-results"
+           id="noFilterResults">
+
+
+        <div class="no-filter-icon">
+
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+
+        </div>
+
+
+        <h4>
+          No Products Found
+        </h4>
+
+
+        <p id="noFilterMessage">
+
+          No products match this collection.
+
+        </p>
+
+
+      </div>
+
+
+
+      <!-- =================================================
+           DATABASE EMPTY
+      ================================================= -->
+
+      <div class="empty-state"
+           th:if="${#lists.isEmpty(products)}">
+
+
+        <div class="empty-icon">
+
+          <i class="fa-solid fa-box-open"></i>
+
+        </div>
+
+
+        <h4>
+          No Products Yet
+        </h4>
+
+
+        <p>
+          Start by adding your first product.
+        </p>
+
+
+        <a th:href="@{/admin/products/new}"
+           class="add-btn">
+
+
+          <i class="fa-solid fa-plus"></i>
+
+          Add Product
+
+
+        </a>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+      const searchInput =
+          document.getElementById("productSearch");
+
+      const rows =
+          document.querySelectorAll("#productBody .product-row");
+
+      const countElement =
+          document.getElementById("productCount");
+
+      const filterButtons =
+          document.querySelectorAll(".section-btn");
+
+      const noFilterResults =
+          document.getElementById("noFilterResults");
+
+      const noFilterMessage =
+          document.getElementById("noFilterMessage");
+
+      const tableTitle =
+          document.getElementById("tableTitle");
+
+
+      /*
+       * IMPORTANT:
+       *
+       * Default filter is ACTIVE.
+       *
+       * Soft-deleted products have:
+       *
+       * active = false
+       *
+       * Therefore they will not appear after refresh.
+       */
+
+      let currentFilter = "active";
+
+
+      /* =========================================
+         FILTER NAMES
+      ========================================= */
+
+      const filterNames = {
+
+          all: "All Products",
+
+          featured: "Featured Products",
+
+          organic: "Organic Products",
+
+          bestSeller: "Best Sellers",
+
+          premium: "Premium Products",
+
+          gift: "Gift Products",
+
+          active: "Active Products",
+
+          inactive: "Inactive Products"
+
+      };
+
+
+      /* =========================================
+         SAFE BOOLEAN
+      ========================================= */
+
+      function isTrue(value) {
+
+          return String(value)
+              .trim()
+              .toLowerCase() === "true";
+
+      }
+
+
+      /* =========================================
+         FILTER PRODUCTS
+      ========================================= */
+
+      function filterProducts() {
+
+          const keyword =
+              searchInput
+                  ? searchInput.value.trim().toLowerCase()
+                  : "";
+
+
+          let visibleCount = 0;
+
+
+          rows.forEach(function (row) {
+
+
+              /* -----------------------------
+                 PRODUCT DATA
+              ----------------------------- */
+
+              const featured =
+                  isTrue(
+                      row.getAttribute("data-featured")
+                  );
+
+
+              const organic =
+                  isTrue(
+                      row.getAttribute("data-organic")
+                  );
+
+
+              const bestSeller =
+                  isTrue(
+                      row.getAttribute("data-bestseller")
+                  );
+
+
+              const premium =
+                  isTrue(
+                      row.getAttribute("data-premium")
+                  );
+
+
+              const gift =
+                  isTrue(
+                      row.getAttribute("data-gift")
+                  );
+
+
+              const active =
+                  isTrue(
+                      row.getAttribute("data-active")
+                  );
+
+
+              /* -----------------------------
+                 SEARCH
+              ----------------------------- */
+
+              const text =
+                  row.textContent
+                     .trim()
+                     .toLowerCase();
+
+
+              const matchesSearch =
+                  keyword === "" ||
+                  text.includes(keyword);
+
+
+              /* -----------------------------
+                 COLLECTION FILTER
+              ----------------------------- */
+
+              let matchesFilter = true;
+
+
+              switch (currentFilter) {
+
+
+                  case "featured":
+
+                      matchesFilter = featured;
+
+                      break;
+
+
+                  case "organic":
+
+                      matchesFilter = organic;
+
+                      break;
+
+
+                  case "bestSeller":
+
+                      matchesFilter = bestSeller;
+
+                      break;
+
+
+                  case "premium":
+
+                      matchesFilter = premium;
+
+                      break;
+
+
+                  case "gift":
+
+                      matchesFilter = gift;
+
+                      break;
+
+
+                  case "active":
+
+                      matchesFilter = active;
+
+                      break;
+
+
+                  case "inactive":
+
+                      matchesFilter = !active;
+
+                      break;
+
+
+                  case "all":
+
+                  default:
+
+                      matchesFilter = true;
+
+                      break;
+
+              }
+
+
+              /* -----------------------------
+                 FINAL RESULT
+              ----------------------------- */
+
+              if (matchesFilter && matchesSearch) {
+
+                  row.hidden = false;
+
+                  row.style.removeProperty("display");
+
+                  visibleCount++;
+
+              } else {
+
+                  row.hidden = true;
+
+              }
+
+
+          });
+
+
+          /* =========================================
+             COUNT
+          ========================================= */
+
+          if (countElement) {
+
+              countElement.textContent =
+                  visibleCount +
+                  (visibleCount === 1
+                      ? " Product"
+                      : " Products");
+
+          }
+
+
+          /* =========================================
+             TABLE TITLE
+          ========================================= */
+
+          if (tableTitle) {
+
+              tableTitle.textContent =
+                  filterNames[currentFilter] ||
+                  "Active Products";
+
+          }
+
+
+          /* =========================================
+             NO RESULT MESSAGE
+          ========================================= */
+
+          if (noFilterResults) {
+
+              if (rows.length > 0 &&
+                  visibleCount === 0) {
+
+                  noFilterResults.classList.add("show");
+
+
+                  if (noFilterMessage) {
+
+                      if (keyword !== "") {
+
+                          noFilterMessage.textContent =
+                              "No products match your search and selected filter.";
+
+                      } else {
+
+                          noFilterMessage.textContent =
+                              "No products are available in this collection.";
+
+                      }
+
+                  }
+
+
+              } else {
+
+                  noFilterResults.classList.remove("show");
+
+              }
+
+          }
+
+      }
+
+
+      /* =========================================
+         SEARCH
+      ========================================= */
+
+      if (searchInput) {
+
+          searchInput.addEventListener(
+              "input",
+              filterProducts
+          );
+
+      }
+
+
+      /* =========================================
+         FILTER BUTTONS
+      ========================================= */
+
+      filterButtons.forEach(function (button) {
+
+          button.addEventListener(
+              "click",
+              function () {
+
+
+                  filterButtons.forEach(function (btn) {
+
+                      btn.classList.remove("active");
+
+                  });
+
+
+                  this.classList.add("active");
+
+
+                  currentFilter =
+                      this.getAttribute("data-filter");
+
+
+                  filterProducts();
+
+              }
+          );
+
+      });
+
+
+      /* =========================================
+         INITIAL LOAD
+      ========================================= */
+
+      /*
+       * Make ACTIVE button visually selected
+       * on every page refresh.
+       */
+
+      filterButtons.forEach(function (button) {
+
+          button.classList.remove("active");
+
+      });
+
+
+      const activeButton =
+          document.querySelector(
+              '.section-btn[data-filter="active"]'
+          );
+
+
+      if (activeButton) {
+
+          activeButton.classList.add("active");
+
+      }
+
+
+      /*
+       * Apply ACTIVE filter immediately.
+       */
+
+      filterProducts();
+
+
+  });
+
+</script>
+
+
+</body>
+</html>

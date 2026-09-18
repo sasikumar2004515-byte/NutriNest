@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Edit Profile | NutriNest</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common CSS -->
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <link rel="stylesheet" th:href="@{/css/variables.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/animation.css}">
+
+  <!-- Edit Profile CSS -->
+  <link rel="stylesheet" th:href="@{/css/edit-profile.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ===========================
+        NAVBAR
+=========================== -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- ===========================
+       EDIT PROFILE SECTION
+=========================== -->
+
+<section class="edit-profile-section">
+
+  <div class="edit-profile-container">
+
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-title">
+
+      <h2>
+        Edit Profile
+      </h2>
+
+      <p>
+        Update your personal information
+      </p>
+
+    </div>
+
+
+    <!-- ===========================
+         EDIT PROFILE FORM
+    ============================ -->
+
+    <form th:action="@{/account/update}"
+          method="post"
+          enctype="multipart/form-data"
+          class="edit-profile-form">
+
+
+      <!-- ===========================
+           PROFILE IMAGE
+      ============================ -->
+
+      <div class="profile-image-box">
+
+        <div class="profile-image-wrapper">
+
+          <img th:if="${user.profileImage != null}"
+               th:src="@{${user.profileImage}}"
+               id="preview"
+               alt="Profile">
+
+          <img th:if="${user.profileImage == null}"
+               th:src="@{/images/OIP.jpeg}"
+               id="preview"
+               alt="Profile">
+
+        </div>
+
+
+        <label for="image" class="change-image-btn">
+
+          <i class="fa-solid fa-camera"></i>
+
+          Change Photo
+
+        </label>
+
+        <input type="file"
+               id="image"
+               name="image"
+               accept="image/*"
+               hidden>
+
+        <span class="image-hint">
+                    JPG, JPEG or PNG
+                </span>
+
+      </div>
+
+
+      <!-- ===========================
+           FORM FIELDS
+      ============================ -->
+
+      <div class="form-fields">
+
+
+        <!-- FULL NAME -->
+
+        <div class="form-group">
+
+          <label for="fullName">
+            <i class="fa-solid fa-user"></i>
+            Full Name
+          </label>
+
+          <input type="text"
+                 id="fullName"
+                 name="fullName"
+                 th:value="${user.fullName}"
+                 placeholder="Enter your full name"
+                 required>
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label for="email">
+            <i class="fa-solid fa-envelope"></i>
+            Email Address
+          </label>
+
+          <input type="email"
+                 id="email"
+                 th:value="${user.email}"
+                 readonly>
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+          <label for="phone">
+            <i class="fa-solid fa-phone"></i>
+            Phone Number
+          </label>
+
+          <input type="text"
+                 id="phone"
+                 name="phone"
+                 th:value="${user.phone}"
+                 placeholder="Enter your phone number">
+
+        </div>
+
+
+        <!-- ROLE -->
+
+        <div class="form-group">
+
+          <label for="role">
+            <i class="fa-solid fa-user-shield"></i>
+            Role
+          </label>
+
+          <input type="text"
+                 id="role"
+                 th:value="${user.role.roleName}"
+                 readonly>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- ===========================
+           BUTTONS
+      ============================ -->
+
+      <div class="button-group">
+
+
+        <button type="submit"
+                class="save-btn">
+
+          <i class="fa-solid fa-floppy-disk"></i>
+
+          <span>
+                        Save Changes
+                    </span>
+
+        </button>
+
+
+        <a th:href="@{/account}"
+           class="cancel-btn">
+
+          <i class="fa-solid fa-arrow-left"></i>
+
+          <span>
+                        Cancel
+                    </span>
+
+        </a>
+
+
+      </div>
+
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- ===========================
+        FOOTER
+=========================== -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- ===========================
+       IMAGE PREVIEW
+=========================== -->
+
+<script>
+
+  const imageInput = document.getElementById("image");
+  const preview = document.getElementById("preview");
+
+  if (imageInput && preview) {
+
+      imageInput.addEventListener("change", function () {
+
+          const file = this.files[0];
+
+          if (file) {
+
+              preview.src = URL.createObjectURL(file);
+
+          }
+
+      });
+
+  }
+
+</script>
+
+
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+
+</html>

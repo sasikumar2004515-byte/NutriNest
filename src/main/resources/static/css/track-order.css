@@ -1,0 +1,1041 @@
+/* =========================================================
+   NUTRINEST - TRACK ORDER
+   Premium Green / Cream / Gold Design
+========================================================= */
+
+:root {
+
+    --track-green: #183f2c;
+    --track-deep: #0c2b1e;
+    --track-green-2: #356d49;
+
+    --track-sage: #edf5ee;
+    --track-cream: #f7f3e8;
+    --track-white: #ffffff;
+
+    --track-gold: #c9a24d;
+    --track-gold-light: #e5c878;
+
+    --track-text: #1d2a23;
+    --track-muted: #748078;
+    --track-soft: #a1aaa5;
+
+    --track-border: rgba(24, 63, 44, 0.12);
+
+    --track-red: #c95656;
+    --track-red-bg: #fff1f1;
+
+    --track-shadow:
+        0 14px 40px rgba(20, 55, 38, 0.08);
+
+    --track-shadow-hover:
+        0 25px 60px rgba(20, 55, 38, 0.14);
+}
+
+
+/* =========================================================
+   MAIN SECTION
+========================================================= */
+
+.track-order-section {
+
+    width: 100%;
+    min-height: 70vh;
+
+    padding: 75px 40px 80px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(201, 162, 77, 0.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(53, 109, 73, 0.08),
+            transparent 32%
+        ),
+        var(--track-cream);
+
+    font-family: "Poppins", sans-serif;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.track-header {
+
+    max-width: 1200px;
+
+    margin: 0 auto 35px;
+
+    text-align: center;
+}
+
+
+.track-small-title {
+
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: var(--track-gold);
+}
+
+
+.track-header h1 {
+
+    margin: 0;
+
+    font-size: 38px;
+    font-weight: 700;
+
+    color: var(--track-deep);
+}
+
+
+.track-header p {
+
+    margin: 8px 0 0;
+
+    font-size: 15px;
+
+    color: var(--track-muted);
+}
+
+
+/* =========================================================
+   TRACK CARD
+========================================================= */
+
+.track-card {
+
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--track-white),
+            #fcfaf3
+        );
+
+    border: 1px solid var(--track-border);
+
+    border-radius: 24px;
+
+    box-shadow: var(--track-shadow);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.track-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: var(--track-shadow-hover);
+}
+
+
+/* =========================================================
+   TOP INFORMATION
+========================================================= */
+
+.track-top {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 0;
+
+    padding: 32px 38px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--track-green),
+            var(--track-deep)
+        );
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+
+.track-info {
+
+    padding: 0 28px;
+
+    border-right:
+        1px solid rgba(255,255,255,0.12);
+}
+
+
+.track-info:first-child {
+
+    padding-left: 0;
+}
+
+
+.track-info:last-child {
+
+    padding-right: 0;
+
+    border-right: none;
+}
+
+
+.track-info h3 {
+
+    margin: 0 0 8px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: rgba(255,255,255,0.65);
+}
+
+
+.track-info > span {
+
+    display: block;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color: var(--track-white);
+}
+
+
+/* =========================================================
+   CURRENT STATUS
+========================================================= */
+
+.current-status {
+
+    display: inline-block !important;
+
+    width: fit-content;
+
+    padding: 7px 13px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(201, 162, 77, 0.18);
+
+    border:
+        1px solid rgba(229, 200, 120, 0.45);
+
+    color: var(--track-gold-light) !important;
+
+    font-size: 13px !important;
+
+    font-weight: 600 !important;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   TRACKING PROGRESS
+========================================================= */
+
+.tracking-progress {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+
+    padding: 55px 55px 45px;
+
+    background: var(--track-white);
+}
+
+
+.progress-line {
+
+    position: absolute;
+
+    top: 87px;
+
+    left: 12%;
+
+    right: 12%;
+
+    height: 3px;
+
+    background:
+        var(--track-border);
+
+    z-index: 0;
+}
+
+
+/* =========================================================
+   TRACKING STEP
+========================================================= */
+
+.tracking-step {
+
+    position: relative;
+
+    z-index: 1;
+
+    text-align: center;
+}
+
+
+.step-icon {
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--track-sage);
+
+    border:
+        2px solid rgba(24,63,44,0.15);
+
+    color: var(--track-soft);
+
+    font-size: 21px;
+
+    transition:
+        all 0.3s ease;
+}
+
+
+.tracking-step h4 {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    color: var(--track-text);
+}
+
+
+.tracking-step p {
+
+    margin: 6px 0 0;
+
+    font-size: 12px;
+
+    color: var(--track-muted);
+}
+
+
+/* =========================================================
+   COMPLETED
+========================================================= */
+
+.tracking-step.completed .step-icon {
+
+    background: var(--track-green);
+
+    border-color: var(--track-green);
+
+    color: var(--track-white);
+
+    box-shadow:
+        0 8px 20px rgba(24,63,44,0.20);
+}
+
+
+.tracking-step.completed h4 {
+
+    color: var(--track-green);
+}
+
+
+/* =========================================================
+   ACTIVE
+========================================================= */
+
+.tracking-step.active .step-icon {
+
+    background: var(--track-gold);
+
+    border-color: var(--track-gold);
+
+    color: var(--track-white);
+
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 0 8px rgba(201,162,77,0.12),
+        0 10px 25px rgba(201,162,77,0.25);
+}
+
+
+.tracking-step.active h4 {
+
+    color: var(--track-green);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.track-summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    border-top:
+        1px solid var(--track-border);
+
+    background:
+        linear-gradient(
+            135deg,
+            #fcfaf3,
+            var(--track-sage)
+        );
+}
+
+
+.summary-item {
+
+    padding: 22px 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-right:
+        1px solid var(--track-border);
+}
+
+
+.summary-item:last-child {
+
+    border-right: none;
+}
+
+
+.summary-item span {
+
+    font-size: 13px;
+
+    color: var(--track-muted);
+}
+
+
+.summary-item strong {
+
+    font-size: 14px;
+
+    color: var(--track-green);
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.tracking-actions {
+
+    max-width: 1200px;
+
+    margin: 28px auto 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.refresh-btn,
+.back-orders-btn {
+
+    min-height: 46px;
+
+    padding: 0 22px;
+
+    border-radius: 12px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        all 0.3s ease;
+
+    text-decoration: none;
+
+    box-sizing: border-box;
+}
+
+
+/* Refresh */
+
+.refresh-btn {
+
+    border: 1px solid var(--track-green);
+
+    background: var(--track-green);
+
+    color: var(--track-white);
+}
+
+
+.refresh-btn:hover {
+
+    background: var(--track-deep);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(24,63,44,0.20);
+}
+
+
+.refresh-btn i {
+
+    transition:
+        transform 0.5s ease;
+}
+
+
+.refresh-btn:hover i {
+
+    transform: rotate(180deg);
+}
+
+
+/* Back */
+
+.back-orders-btn {
+
+    border:
+        1px solid var(--track-border);
+
+    background: var(--track-white);
+
+    color: var(--track-green);
+}
+
+
+.back-orders-btn:hover {
+
+    background: var(--track-sage);
+
+    border-color: rgba(24,63,44,0.25);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   LAPTOP - BIGGER VERSION
+========================================================= */
+
+@media (min-width: 1201px) {
+
+    .track-order-section {
+
+        padding:
+            85px 55px 90px;
+    }
+
+
+    .track-header h1 {
+
+        font-size: 42px;
+    }
+
+
+    .track-card {
+
+        max-width: 1280px;
+    }
+
+
+    .track-top {
+
+        padding:
+            36px 45px;
+    }
+
+
+    .tracking-progress {
+
+        padding:
+            65px 70px 50px;
+    }
+
+
+    .step-icon {
+
+        width: 70px;
+        height: 70px;
+
+        font-size: 23px;
+    }
+
+
+    .progress-line {
+
+        top: 100px;
+
+        left: 13%;
+        right: 13%;
+    }
+
+
+    .tracking-actions {
+
+        max-width: 1280px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 601px)
+       and (max-width: 900px) {
+
+    .track-order-section {
+
+        padding:
+            70px 25px 60px;
+    }
+
+
+    .track-header h1 {
+
+        font-size: 32px;
+    }
+
+
+    .track-top {
+
+        padding: 25px;
+    }
+
+
+
+    .track-info {
+
+        padding: 0 15px;
+    }
+
+
+    .tracking-progress {
+
+        padding:
+            45px 25px 35px;
+
+        gap: 10px;
+    }
+
+
+    .progress-line {
+
+        left: 10%;
+        right: 10%;
+
+        top: 76px;
+    }
+
+
+    .step-icon {
+
+        width: 55px;
+        height: 55px;
+
+        font-size: 18px;
+    }
+
+
+    .track-summary {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .summary-item {
+
+        border-right: none;
+
+        border-bottom:
+            1px solid var(--track-border);
+    }
+
+
+    .summary-item:last-child {
+
+        border-bottom: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+      .track-order-section {
+           padding: 110px 15px 40px;
+       }
+
+
+    .track-header {
+
+        margin-bottom: 24px;
+    }
+
+
+
+    .track-small-title {
+
+        font-size: 10px;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .track-header h1 {
+
+        font-size: 27px;
+
+        line-height: 1.25;
+    }
+
+
+    .track-header p {
+
+        font-size: 12px;
+    }
+
+
+    .track-card {
+
+        border-radius: 18px;
+    }
+
+
+    /* Top information */
+
+    .track-top {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+
+        padding: 22px 20px;
+    }
+
+
+    .track-info {
+
+        padding: 0 0 16px;
+
+        border-right: none;
+
+        border-bottom:
+            1px solid rgba(255,255,255,0.10);
+    }
+
+
+    .track-info:last-child {
+
+        padding-bottom: 0;
+
+        border-bottom: none;
+    }
+
+
+    .track-info h3 {
+
+        font-size: 10px;
+
+        margin-bottom: 5px;
+    }
+
+
+    .track-info > span {
+
+        font-size: 14px;
+    }
+
+
+    .current-status {
+
+        font-size: 10px !important;
+
+        padding: 6px 10px;
+    }
+
+
+    /* Tracking */
+
+    .tracking-progress {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+        padding:
+            25px 20px;
+    }
+
+
+    .progress-line {
+
+        top: 48px;
+
+        bottom: 48px;
+
+        left: 49px;
+
+        right: auto;
+
+        width: 3px;
+
+        height: auto;
+    }
+
+
+    .tracking-step {
+
+        min-height: 90px;
+
+        display: grid;
+
+        grid-template-columns: 58px 1fr;
+
+        grid-template-rows: auto auto;
+
+        column-gap: 16px;
+
+        text-align: left;
+
+        align-items: center;
+    }
+
+
+    .step-icon {
+
+        width: 50px;
+        height: 50px;
+
+        grid-row: span 2;
+
+        margin: 0;
+
+        font-size: 17px;
+    }
+
+
+    .tracking-step h4 {
+
+        font-size: 13px;
+
+        align-self: end;
+    }
+
+
+    .tracking-step p {
+
+        margin: 3px 0 0;
+
+        font-size: 11px;
+
+        align-self: start;
+    }
+
+
+    /* Summary */
+
+    .track-summary {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .summary-item {
+
+        padding:
+            15px 18px;
+
+        border-right: none;
+
+        border-bottom:
+            1px solid var(--track-border);
+    }
+
+
+    .summary-item:last-child {
+
+        border-bottom: none;
+    }
+
+
+    .summary-item span {
+
+        font-size: 11px;
+    }
+
+
+    .summary-item strong {
+
+        font-size: 12px;
+    }
+
+
+    /* Actions */
+
+    .tracking-actions {
+
+        margin-top: 18px;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+
+    .refresh-btn,
+    .back-orders-btn {
+
+        width: 100%;
+
+        min-height: 43px;
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .track-order-section {
+
+        padding:
+            72px 10px 35px;
+    }
+
+
+    .track-header h1 {
+
+        font-size: 24px;
+    }
+
+
+    .track-header p {
+
+        font-size: 11px;
+    }
+
+
+    .track-top {
+
+        padding: 18px 16px;
+    }
+
+
+    .tracking-progress {
+
+        padding:
+            22px 15px;
+    }
+
+
+    .tracking-step {
+
+        grid-template-columns:
+            52px 1fr;
+
+        column-gap: 12px;
+
+        min-height: 84px;
+    }
+
+
+    .step-icon {
+
+        width: 46px;
+        height: 46px;
+
+        font-size: 15px;
+    }
+
+
+    .progress-line {
+
+        left: 40px;
+    }
+
+}

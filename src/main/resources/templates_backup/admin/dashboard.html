@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | NutriNest Admin</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Existing Admin CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/admin.css}">
+
+    <style>
+
+        /* =========================
+           DASHBOARD ENHANCEMENTS
+        ========================= */
+
+        .dashboard-content {
+            padding: 25px 0;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #163d2a, #23583d);
+            border-radius: 18px;
+            padding: 28px 30px;
+            color: #fff;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(22, 61, 42, 0.12);
+        }
+
+        .welcome-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: -55px;
+            top: -70px;
+            border: 35px solid rgba(217, 180, 95, 0.16);
+            border-radius: 50%;
+        }
+
+        .welcome-card h2 {
+            margin: 0 0 7px;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .welcome-card p {
+            margin: 0;
+            color: #d8e5dc;
+            font-size: 14px;
+        }
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stat-card {
+            background: #fff;
+            border: 1px solid #e6ebe7;
+            border-radius: 16px;
+            padding: 22px;
+            height: 100%;
+            box-shadow: 0 5px 20px rgba(22, 61, 42, 0.05);
+            transition: 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(22, 61, 42, 0.09);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .products-icon {
+            background: #edf5ef;
+            color: #28603f;
+        }
+
+        .categories-icon {
+            background: #f7f0df;
+            color: #a07824;
+        }
+
+        .orders-icon {
+            background: #eef2f7;
+            color: #49627c;
+        }
+
+        .customers-icon {
+            background: #f4edf7;
+            color: #765084;
+        }
+
+        .stat-label {
+            margin: 0;
+            color: #77877d;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .stat-number {
+            margin: 0;
+            color: #183b29;
+            font-size: 30px;
+            font-weight: 750;
+            line-height: 1;
+        }
+
+        /* =========================
+           QUICK ACTIONS
+        ========================= */
+
+        .section-card {
+            background: #fff;
+            border: 1px solid #e6ebe7;
+            border-radius: 16px;
+            margin-top: 28px;
+            box-shadow: 0 5px 20px rgba(22, 61, 42, 0.04);
+        }
+
+        .section-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid #edf1ee;
+        }
+
+        .section-header h3 {
+            margin: 0;
+            color: #183b29;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            margin: 5px 0 0;
+            color: #819087;
+            font-size: 12px;
+        }
+
+        .quick-actions {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .quick-action {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 16px;
+            border: 1px solid #e5ebe6;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #294435;
+            background: #fafcfb;
+            transition: .2s ease;
+        }
+
+        .quick-action:hover {
+            background: #f3f8f4;
+            border-color: #cbded0;
+            color: #183b29;
+            transform: translateY(-2px);
+        }
+
+        .quick-icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #edf5ef;
+            color: #28603f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-action h5 {
+            margin: 0 0 3px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .quick-action span {
+            color: #87938c;
+            font-size: 11px;
+        }
+
+        .arrow {
+            margin-left: auto;
+            color: #91a097;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .dashboard-content {
+                padding: 15px 0;
+            }
+
+            .welcome-card {
+                padding: 22px;
+            }
+
+            .welcome-card h2 {
+                font-size: 21px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .stat-card {
+                padding: 18px;
+            }
+
+            .stat-number {
+                font-size: 26px;
+            }
+
+            .welcome-card {
+                border-radius: 14px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <!-- LOGO -->
+
+    <div class="logo text-center mb-4">
+
+        <img th:src="@{/images/logo.jpeg}"
+             alt="NutriNest Logo"
+             class="logo-img">
+
+        <h4 class="mt-2">
+            NutriNest
+        </h4>
+
+        <p class="tagline">
+            Premium Nuts & Dry Fruits
+        </p>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <a th:href="@{/admin/dashboard}"
+       class="active">
+
+        <i class="fa-solid fa-house"></i>
+
+        Dashboard
+
+    </a>
+
+
+    <!-- CATEGORIES -->
+
+    <a th:href="@{/admin/categories}">
+
+        <i class="fa-solid fa-layer-group"></i>
+
+        Categories
+
+    </a>
+
+
+    <!-- PRODUCTS -->
+
+    <a th:href="@{/admin/products}">
+
+        <i class="fa-solid fa-box"></i>
+
+        Products
+
+    </a>
+
+
+    <!-- BRANDS -->
+
+    <a th:href="@{/admin/brands}">
+
+        <i class="fa-solid fa-tags"></i>
+
+        Brands
+
+    </a>
+
+
+    <!-- ORDERS -->
+
+    <a th:href="@{/admin/orders}">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+        Orders
+
+    </a>
+
+
+    <!-- CUSTOMERS -->
+
+    <a th:href="@{/admin/customers}">
+
+        <i class="fa-solid fa-users"></i>
+
+        Customers
+
+    </a>
+
+
+    <!-- LOGOUT -->
+
+    <a th:href="@{/logout}">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+    </a>
+
+</div>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="main">
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div>
+
+            <h2>
+                Dashboard
+            </h2>
+
+            <p class="dashboard-subtitle">
+                Overview of your NutriNest store
+            </p>
+
+        </div>
+
+        <h3>
+            Welcome Admin
+        </h3>
+
+    </div>
+
+
+
+    <div class="container-fluid dashboard-content">
+
+
+        <!-- =========================
+             WELCOME
+        ========================= -->
+
+        <div class="welcome-card">
+
+            <h2>
+                Welcome back, Admin 👋
+            </h2>
+
+            <p>
+                Manage your products, categories, brands, orders and customers from one place.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             STAT CARDS
+        ========================= -->
+
+        <div class="row g-4">
+
+
+            <!-- PRODUCTS -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon products-icon">
+
+                            <i class="fa-solid fa-box"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Total Products
+                    </p>
+
+                    <h2 class="stat-number"
+                        th:text="${totalProducts}">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CATEGORIES -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon categories-icon">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Categories
+                    </p>
+
+                    <h2 class="stat-number"
+                        th:text="${totalCategories}">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ORDERS -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon orders-icon">
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Orders
+                    </p>
+
+                    <h2 class="stat-number"
+                        th:text="${totalOrders}">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CUSTOMERS -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon customers-icon">
+
+                            <i class="fa-solid fa-users"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Customers
+                    </p>
+
+                    <h2 class="stat-number"
+                        th:text="${totalCustomers}">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             QUICK ACTIONS
+        ========================= -->
+
+        <div class="section-card">
+
+            <div class="section-header">
+
+                <h3>
+                    Quick Actions
+                </h3>
+
+                <p>
+                    Quickly access the most commonly used admin sections.
+                </p>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <!-- PRODUCTS -->
+
+                <a th:href="@{/admin/products}"
+                   class="quick-action">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Manage Products
+                        </h5>
+
+                        <span>
+                            Add, edit and manage products
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </a>
+
+
+
+                <!-- CATEGORIES -->
+
+                <a th:href="@{/admin/categories}"
+                   class="quick-action">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-layer-group"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Manage Categories
+                        </h5>
+
+                        <span>
+                            Organize product categories
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </a>
+
+
+
+                <!-- BRANDS -->
+
+                <a th:href="@{/admin/brands}"
+                   class="quick-action">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-tags"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Manage Brands
+                        </h5>
+
+                        <span>
+                            Add and manage product brands
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </a>
+
+
+
+                <!-- ORDERS -->
+
+                <a th:href="@{/admin/orders}"
+                   class="quick-action">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Manage Orders
+                        </h5>
+
+                        <span>
+                            View and update customer orders
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </a>
+
+
+
+                <!-- CUSTOMERS -->
+
+                <a th:href="@{/admin/customers}"
+                   class="quick-action">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Manage Customers
+                        </h5>
+
+                        <span>
+                            View registered customers
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </a>
+
+
+
+                <!-- VIEW STORE -->
+
+                <a th:href="@{/}"
+                   class="quick-action">
+
+                    <div class="quick-icon">
+
+                        <i class="fa-solid fa-store"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            View Store
+                        </h5>
+
+                        <span>
+                            Open the customer website
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

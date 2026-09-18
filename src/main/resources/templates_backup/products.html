@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="_csrf"
+          th:content="${_csrf.token}">
+
+    <meta name="_csrf_header"
+          th:content="${_csrf.headerName}">
+
+    <title>Products | NutriNest</title>
+
+    <!-- Products -->
+    <link rel="stylesheet" th:href="@{/css/products.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/variables.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/products-new-v1.css}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ===========================
+        MASTER NAVBAR
+=========================== -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- =========================================
+            PRODUCTS HERO
+========================================= -->
+
+<section class="products-hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <span class="hero-tag">
+            🌿 100% Natural & Premium
+        </span>
+
+        <h1>
+            Premium Nuts <br>
+            & Dry Fruits
+        </h1>
+
+        <p>
+            Discover our handpicked collection of premium nuts,
+            dry fruits and luxury gift packs for a healthy lifestyle.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#products" class="shop-btn">
+                Explore Collection
+            </a>
+
+            <a th:href="@{/}" class="outline-btn">
+                Back to Home
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div class="stat-box">
+                <h2>100+</h2>
+                <span>Premium Products</span>
+            </div>
+
+            <div class="stat-box">
+                <h2>10K+</h2>
+                <span>Happy Customers</span>
+            </div>
+
+            <div class="stat-box">
+                <h2>4.9★</h2>
+                <span>Customer Rating</span>
+            </div>
+
+            <div class="stat-box">
+                <h2>24 Hrs</h2>
+                <span>Fast Delivery</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Floating Icons -->
+
+    <div class="floating almond">🥜</div>
+    <div class="floating cashew">🌰</div>
+    <div class="floating pistachio">🌿</div>
+    <div class="floating gift">🎁</div>
+
+</section>
+
+
+<!-- =========================================
+            PRODUCTS TOOLBAR
+========================================= -->
+
+<!--<section class="products-toolbar" id="products">-->
+
+<!--    <div class="search-box">-->
+
+<!--        <i class="fa-solid fa-magnifying-glass"></i>-->
+
+<!--        <input type="text"-->
+<!--               id="searchProduct"-->
+<!--               placeholder="Search nuts, dry fruits, gift packs...">-->
+
+<!--    </div>-->
+
+<!--    <select id="categoryFilter">-->
+
+<!--        <option value="all">All Categories</option>-->
+<!--        <option value="almonds">Almonds</option>-->
+<!--        <option value="cashews">Cashews</option>-->
+<!--        <option value="walnuts">Walnuts</option>-->
+<!--        <option value="dates">Dates</option>-->
+<!--        <option value="raisins">Raisins</option>-->
+<!--        <option value="gift">Gift Packs</option>-->
+
+<!--    </select>-->
+
+<!--    <select id="priceFilter">-->
+
+<!--        <option>Price</option>-->
+<!--        <option>Below ₹500</option>-->
+<!--        <option>₹500 - ₹1000</option>-->
+<!--        <option>Above ₹1000</option>-->
+
+<!--    </select>-->
+
+<!--    <select id="sortProducts">-->
+
+<!--        <option>Sort By</option>-->
+<!--        <option>Popularity</option>-->
+<!--        <option>Latest</option>-->
+<!--        <option>Price Low → High</option>-->
+<!--        <option>Price High → Low</option>-->
+
+<!--    </select>-->
+
+<!--</section>-->
+
+
+<!-- =========================================
+            BEST SELLERS
+========================================= -->
+
+<section class="product-section best-section">
+
+    <div class="section-header">
+
+        <div class="section-content">
+
+            <span class="section-label">
+                🔥 CUSTOMER FAVORITES
+            </span>
+
+            <h2 class="section-title">
+                Best Sellers
+            </h2>
+
+            <p class="section-subtitle">
+                Most Loved Products Chosen By Thousands
+            </p>
+
+        </div>
+
+        <a href="#" class="view-all-btn">
+            View All →
+        </a>
+
+    </div>
+
+
+    <div class="products-grid">
+
+        <div class="product-card"
+             th:each="product,stat : ${bestSellerProducts}"
+             th:if="${stat.index < 4}">
+
+            <div class="product-badge">
+                Bestseller
+            </div>
+
+            <div class="image-box">
+
+                <!-- WISHLIST HEART - ONLY THIS PART CHANGED -->
+
+                <form th:if="${!wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/add/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn"
+                            title="Add to Wishlist">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <form th:if="${wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/remove/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn wishlist-active"
+                            title="Remove from Wishlist">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- PRODUCT IMAGE -> DETAILS -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}">
+
+                    <img class="product-image"
+                         th:src="${product.displayImageUrl}"
+                         th:alt="${product.productName}">
+
+                </a>
+
+
+                <!-- QUICK VIEW -> DETAILS -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}"
+                   class="quick-view-btn">
+
+                    Quick View
+
+                </a>
+
+            </div>
+
+
+            <h3 class="product-name"
+                th:text="${product.productName}">
+            </h3>
+
+
+            <p class="product-weight"
+               th:text="${product.weight}">
+            </p>
+
+
+            <div class="price-box">
+
+                <span class="product-price"
+                      th:text="'₹'+${product.price}">
+                </span>
+
+                <span class="product-mrp"
+                      th:text="'₹'+${product.mrp}">
+                </span>
+
+                <span class="discount-tag"
+                      th:if="${product.mrp > product.price}"
+                      th:text="${T(java.lang.Math).round(((product.mrp-product.price)*100)/product.mrp)} + '% OFF'">
+                </span>
+
+            </div>
+
+
+            <div class="rating-box">
+
+                <div class="stars">
+
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+
+                </div>
+
+                <span class="rating-text">
+                    4.8 (126)
+                </span>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <span class="stock">
+                    ✅ In Stock
+                </span>
+
+                <span class="delivery">
+                    🚚 Delivery in 2-3 Days
+                </span>
+
+            </div>
+
+
+            <div class="action-box">
+
+                <button type="button"
+                        class="add-cart-btn"
+                        th:data-id="${product.id}">
+
+                    <span class="cart-text">
+                        🛒 Add to Cart
+                    </span>
+
+                    <span class="cart-loading"
+                          style="display:none;">
+                        ⏳ Adding...
+                    </span>
+
+                    <span class="cart-success"
+                          style="display:none;">
+                        ✔ Added
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+            ORGANIC PRODUCTS
+========================================= -->
+
+<section class="product-section organic-section">
+
+    <div class="section-header">
+
+        <div class="section-content">
+
+            <span class="section-label">
+                🌿 100% NATURAL
+            </span>
+
+            <h2 class="section-title">
+                Organic Collection
+            </h2>
+
+            <p class="section-subtitle">
+                Fresh, Chemical-Free & Farm Sourced
+            </p>
+
+        </div>
+
+        <a href="#" class="view-all-btn">
+            Explore Organic →
+        </a>
+
+    </div>
+
+
+    <div class="products-grid">
+
+        <div class="product-card"
+             th:each="product,stat : ${organicProducts}"
+             th:if="${stat.index < 4}">
+
+            <div class="product-badge">
+                Organic
+            </div>
+
+            <div class="image-box">
+
+                <!-- WISHLIST HEART - ONLY THIS PART CHANGED -->
+
+                <form th:if="${!wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/add/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn"
+                            title="Add to Wishlist">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <form th:if="${wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/remove/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn wishlist-active"
+                            title="Remove from Wishlist">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- PRODUCT IMAGE -> DETAILS -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}">
+
+                    <img class="product-image"
+                         th:src="${product.displayImageUrl}"
+                         th:alt="${product.productName}">
+
+                </a>
+
+
+                <!-- QUICK VIEW -> DETAILS -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}"
+                   class="quick-view-btn">
+
+                    Quick View
+
+                </a>
+
+            </div>
+
+
+            <h3 class="product-name"
+                th:text="${product.productName}">
+            </h3>
+
+
+            <p class="product-weight"
+               th:text="${product.weight}">
+            </p>
+
+
+            <div class="price-box">
+
+                <span class="product-price"
+                      th:text="'₹'+${product.price}">
+                </span>
+
+                <span class="product-mrp"
+                      th:text="'₹'+${product.mrp}">
+                </span>
+
+                <span class="discount-tag"
+                      th:if="${product.mrp > product.price}"
+                      th:text="${T(java.lang.Math).round(((product.mrp-product.price)*100)/product.mrp)} + '% OFF'">
+                </span>
+
+            </div>
+
+
+            <div class="rating-box">
+
+                <div class="stars">
+
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+
+                </div>
+
+                <span class="rating-text">
+                    4.8 (126)
+                </span>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <span class="stock">
+                    ✅ In Stock
+                </span>
+
+                <span class="delivery">
+                    🚚 Delivery in 2-3 Days
+                </span>
+
+            </div>
+
+
+            <div class="action-box">
+
+                <button type="button"
+                        class="add-cart-btn"
+                        th:data-id="${product.id}">
+
+                    <span class="cart-text">
+                        🛒 Add to Cart
+                    </span>
+
+                    <span class="cart-loading"
+                          style="display:none;">
+                        ⏳ Adding...
+                    </span>
+
+                    <span class="cart-success"
+                          style="display:none;">
+                        ✔ Added
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+            FEATURED PRODUCTS
+========================================= -->
+
+<section class="product-section featured-section">
+
+    <div class="section-header">
+
+        <div class="section-content">
+
+            <span class="section-label">
+                ⭐ EDITOR'S PICK
+            </span>
+
+            <h2 class="section-title">
+                Featured Products
+            </h2>
+
+            <p class="section-subtitle">
+                Handpicked Premium Selection
+            </p>
+
+        </div>
+
+        <a href="#" class="view-all-btn">
+            Discover More →
+        </a>
+
+    </div>
+
+
+    <div class="products-grid">
+
+        <div class="product-card"
+             th:each="product,stat : ${featuredProducts}"
+             th:if="${stat.index < 4}">
+
+            <div class="product-badge">
+                Featured
+            </div>
+
+            <div class="image-box">
+
+                <!-- WISHLIST HEART - ONLY THIS PART CHANGED -->
+
+                <form th:if="${!wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/add/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn"
+                            title="Add to Wishlist">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <form th:if="${wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/remove/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn wishlist-active"
+                            title="Remove from Wishlist">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- PRODUCT IMAGE -> DETAILS -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}">
+
+                    <img class="product-image"
+                         th:src="${product.displayImageUrl}"
+                         th:alt="${product.productName}">
+
+                </a>
+
+
+                <!-- QUICK VIEW -> DETAILS -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}"
+                   class="quick-view-btn">
+
+                    Quick View
+
+                </a>
+
+            </div>
+
+
+            <h3 class="product-name"
+                th:text="${product.productName}">
+            </h3>
+
+
+            <p class="product-weight"
+               th:text="${product.weight}">
+            </p>
+
+
+            <div class="price-box">
+
+                <span class="product-price"
+                      th:text="'₹'+${product.price}">
+                </span>
+
+                <span class="product-mrp"
+                      th:text="'₹'+${product.mrp}">
+                </span>
+
+                <span class="discount-tag"
+                      th:if="${product.mrp > product.price}"
+                      th:text="${T(java.lang.Math).round(((product.mrp-product.price)*100)/product.mrp)} + '% OFF'">
+                </span>
+
+            </div>
+
+
+            <div class="rating-box">
+
+                <div class="stars">
+
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+
+                </div>
+
+                <span class="rating-text">
+                    4.8 (126)
+                </span>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <span class="stock">
+                    ✅ In Stock
+                </span>
+
+                <span class="delivery">
+                    🚚 Delivery in 2-3 Days
+                </span>
+
+            </div>
+
+
+            <div class="action-box">
+
+                <button type="button"
+                        class="add-cart-btn"
+                        th:data-id="${product.id}">
+
+                    <span class="cart-text">
+                        🛒 Add to Cart
+                    </span>
+
+                    <span class="cart-loading"
+                          style="display:none;">
+                        ⏳ Adding...
+                    </span>
+
+                    <span class="cart-success"
+                          style="display:none;">
+                        ✔ Added
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+            PREMIUM MIXED NUTS
+========================================= -->
+<!-- =========================================
+     PREMIUM MIXED NUTS
+========================================= -->
+
+<section class="product-section premium-section">
+
+    <div class="section-header">
+
+        <div class="section-content">
+
+            <span class="section-label">
+                👑 SIGNATURE SERIES
+            </span>
+
+            <h2 class="section-title">
+                Premium Mixed Nuts
+            </h2>
+
+            <p class="section-subtitle">
+                Crafted For Everyday Luxury
+            </p>
+
+        </div>
+
+        <a th:href="@{/products}" class="view-all-btn">
+            Shop Premium →
+        </a>
+
+    </div>
+
+
+    <div class="products-grid">
+
+        <!-- DYNAMIC PREMIUM PRODUCTS -->
+
+        <div class="product-card"
+             th:each="product,stat : ${premiumProducts}"
+             th:if="${stat.index < 4}">
+
+            <div class="product-badge">
+                Premium
+            </div>
+
+
+            <div class="image-box">
+
+                <!-- WISHLIST -->
+
+                <form th:if="${!wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/add/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn"
+                            title="Add to Wishlist">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <form th:if="${wishlistProductIds.contains(product.id)}"
+                      th:action="@{/wishlist/remove/{id}(id=${product.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="wishlist-btn wishlist-active"
+                            title="Remove from Wishlist">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- PRODUCT IMAGE -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}">
+
+                    <img class="product-image"
+                         th:src="${product.displayImageUrl}"
+                         th:alt="${product.productName}">
+
+                </a>
+
+
+                <!-- QUICK VIEW -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}"
+                   class="quick-view-btn">
+
+                    Quick View
+
+                </a>
+
+            </div>
+
+
+            <!-- PRODUCT NAME -->
+
+            <h3 class="product-name"
+                th:text="${product.productName}">
+
+                Premium Mixed Nuts
+
+            </h3>
+
+
+            <!-- WEIGHT -->
+
+            <p class="product-weight"
+               th:text="${product.weight}">
+
+                500g
+
+            </p>
+
+
+            <!-- PRICE -->
+
+            <div class="price-box">
+
+                <span class="product-price"
+                      th:text="'₹' + ${product.price}">
+
+                    ₹999
+
+                </span>
+
+
+                <span class="product-mrp"
+                      th:if="${product.mrp > product.price}"
+                      th:text="'₹' + ${product.mrp}">
+
+                    ₹1199
+
+                </span>
+
+
+                <span class="discount-tag"
+                      th:if="${product.mrp > product.price}"
+                      th:text="${T(java.lang.Math).round(((product.mrp - product.price) * 100) / product.mrp)} + '% OFF'">
+
+                    17% OFF
+
+                </span>
+
+            </div>
+
+
+            <!-- RATING -->
+
+            <div class="rating-box">
+
+                <div class="stars">
+
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+
+                </div>
+
+                <span class="rating-text">
+                    4.8 (126)
+                </span>
+
+            </div>
+
+
+            <!-- PRODUCT INFO -->
+
+            <div class="product-info">
+
+                <span class="stock"
+                      th:if="${product.stock != null and product.stock > 0}">
+
+                    ✅ In Stock
+
+                </span>
+
+                <span class="stock"
+                      th:unless="${product.stock != null and product.stock > 0}">
+
+                    ❌ Out of Stock
+
+                </span>
+
+                <span class="delivery">
+                    🚚 Delivery in 2-3 Days
+                </span>
+
+            </div>
+
+
+            <!-- ADD TO CART -->
+
+            <div class="action-box">
+
+                <button type="button"
+                        class="add-cart-btn"
+                        th:data-id="${product.id}"
+                        th:disabled="${product.stock == null or product.stock <= 0}">
+
+                    <span class="cart-text"
+                          th:text="${product.stock != null and product.stock > 0
+                                   ? '🛒 Add to Cart'
+                                   : '❌ Out of Stock'}">
+
+                        🛒 Add to Cart
+
+                    </span>
+
+
+                    <span class="cart-loading"
+                          style="display:none;">
+
+                        ⏳ Adding...
+
+                    </span>
+
+
+                    <span class="cart-success"
+                          style="display:none;">
+
+                        ✔ Added
+
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===========================
+        GIFT COLLECTION
+=========================== -->
+<!-- =========================================
+     GIFT COLLECTION
+========================================= -->
+
+<section class="gift-section">
+
+    <div class="gift-header">
+
+        <div>
+
+            <h2 class="gift-title">
+                🎁 Luxury Gift Collection
+            </h2>
+
+            <p class="gift-subtitle">
+                Perfect for Festivals, Corporate & Special Occasions
+            </p>
+
+        </div>
+
+
+        <a th:href="@{/products}"
+           class="gift-btn">
+
+            View All Gifts →
+
+        </a>
+
+    </div>
+
+
+    <!-- DYNAMIC GIFT PRODUCTS -->
+
+    <div class="gift-grid">
+
+        <div class="gift-card"
+             th:each="product,stat : ${giftProducts}"
+             th:if="${stat.index < 4}">
+
+
+            <!-- IMAGE -->
+
+            <div class="image-wrapper">
+
+                <span class="gift-ribbon">
+                    🎁 GIFT COLLECTION
+                </span>
+
+
+                <a th:href="@{/products/{id}(id=${product.id})}">
+
+                    <img class="gift-image"
+                         th:src="${product.displayImageUrl}"
+                         th:alt="${product.productName}">
+
+                </a>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="gift-content">
+
+                <!-- NAME -->
+
+                <h3 th:text="${product.productName}">
+
+                    Luxury Gift Box
+
+                </h3>
+
+
+                <!-- RATING -->
+
+                <div class="gift-rating">
+
+                    ⭐⭐⭐⭐⭐
+
+                    <span>
+                        (4.9)
+                    </span>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <p th:text="${product.description}">
+
+                    Premium nuts and dry fruits
+                    beautifully packed for gifting.
+
+                </p>
+
+
+                <!-- PRICE -->
+
+                <div class="gift-price">
+
+                    <span class="price"
+                          th:text="'₹' + ${product.price}">
+
+                        ₹1499
+
+                    </span>
+
+
+                    <span class="old-price"
+                          th:if="${product.mrp > product.price}"
+                          th:text="'₹' + ${product.mrp}">
+
+                        ₹1799
+
+                    </span>
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="gift-status">
+
+                    <span class="in-stock"
+                          th:if="${product.stock != null and product.stock > 0}">
+
+                        🟢 Ready to Ship
+
+                    </span>
+
+
+                    <span class="in-stock"
+                          th:unless="${product.stock != null and product.stock > 0}">
+
+                        🔴 Out of Stock
+
+                    </span>
+
+                </div>
+
+
+                <!-- FEATURES -->
+
+                <div class="gift-features">
+
+                    <span>
+                        🎀 Free Gift Wrap
+                    </span>
+
+                    <span>
+                        💌 Greeting Card Included
+                    </span>
+
+                    <span>
+                        🚚 Free Delivery
+                    </span>
+
+                </div>
+
+
+                <!-- ADD TO CART -->
+
+                <button type="button"
+                        class="gift-add-btn add-cart-btn"
+                        th:data-id="${product.id}"
+                        th:disabled="${product.stock == null or product.stock <= 0}">
+
+                    <span class="gift-text cart-text"
+                          th:text="${product.stock != null and product.stock > 0
+                                   ? '🎁 Add Gift'
+                                   : '❌ Out of Stock'}">
+
+                        🎁 Add Gift
+
+                    </span>
+
+
+                    <span class="gift-loading cart-loading"
+                          style="display:none;">
+
+                        📦 Packing...
+
+                    </span>
+
+
+                    <span class="gift-success cart-success"
+                          style="display:none;">
+
+                        ✔ Gift Added
+
+                    </span>
+
+                </button>
+
+
+                <!-- DETAILS -->
+
+                <a th:href="@{/products/{id}(id=${product.id})}"
+                   class="gift-btn">
+
+                    View Details →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===========================
+      CUSTOMER REVIEWS
+=========================== -->
+
+<section class="reviews-section">
+
+    <div class="section-header">
+
+        <div class="section-content">
+
+            <span class="section-label">
+                ⭐ CUSTOMER REVIEWS
+            </span>
+
+            <h2 class="section-title">
+                What Our Customers Say
+            </h2>
+
+            <p class="section-subtitle">
+                Trusted by Thousands of Happy Customers
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="reviews-grid">
+
+        <div class="review-card">
+
+            <div class="review-stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p class="review-text">
+                Fresh products and premium quality. Delivery was very fast.
+            </p>
+
+            <h4>
+                - Rahul S.
+            </h4>
+
+        </div>
+
+
+        <div class="review-card">
+
+            <div class="review-stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p class="review-text">
+                Beautiful gift packing and excellent taste. Highly recommended.
+            </p>
+
+            <h4>
+                - Priya M.
+            </h4>
+
+        </div>
+
+
+        <div class="review-card">
+
+            <div class="review-stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p class="review-text">
+                Best organic nuts I have purchased online.
+            </p>
+
+            <h4>
+                - Arjun K.
+            </h4>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===========================
+        PREMIUM FOOTER
+=========================== -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<script src="/js/products.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/animation.js"></script>
+
+</body>
+</html>

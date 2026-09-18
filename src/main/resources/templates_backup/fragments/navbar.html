@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="_csrf"
+          th:content="${_csrf.token}">
+    <meta name="_csrf_header"
+          th:content="${_csrf.headerName}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | NutriNest</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Existing CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/variables.css}">
+    <link rel="stylesheet" th:href="@{/css/animation.css}">
+
+    <!-- Account Page CSS -->
+    <link rel="stylesheet" th:href="@{/css/account.css}">
+
+</head>
+
+<body>
+
+<!-- ===========================
+        NAVBAR
+=========================== -->
+
+<div th:fragment="navbar">
+
+
+<!-- ===========================
+    MASTER NAVBAR
+=========================== -->
+
+<header class="main-header">
+
+    <div class="nav-container">
+
+        <!-- Left -->
+        <div class="nav-left">
+
+            <button class="menu-btn" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <a th:href="@{/}" class="logo">
+                <img th:src="@{/images/logo.jpeg}" alt="NutriNest Logo">
+                <span>NutriNest</span>
+            </a>
+
+        </div>
+
+        <!-- Right -->
+        <div class="nav-right">
+
+
+            <div class="search-wrapper">
+
+                <button class="icon-btn" id="searchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+                <div class="search-expand" id="searchExpand">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search healthy products...">
+
+                    <button class="search-close" id="searchClose">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <a th:href="@{/wishlist}" class="icon-btn" title="Wishlist">
+                <i class="fa-regular fa-heart"></i>
+                <span class="count" th:text="${wishlistCount}">0</span>
+            </a>
+
+
+
+
+            <a th:href="@{/cart}" class="icon-btn" title="Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" th:text="${cartCount}" >0</span>
+            </a>
+
+
+
+
+            <!-- Login (only when logged out) -->
+            <a th:if="${#authorization.expression('!isAuthenticated()')}"
+               th:href="@{/login}"
+               class="login-btn">
+                <i class="fa-regular fa-user"></i>
+                <span>Login</span>
+            </a>
+
+            <!-- Account (only when logged in) -->
+            <div class="account-wrapper"
+                 th:if="${#authorization.expression('isAuthenticated()')}">
+
+                <a th:href="@{/my-account}" class="account-btn">
+
+                    <!-- User Image -->
+
+                    <img th:if="${user != null and user.profileImage != null}"
+                         th:src="@{${user.profileImage}}"
+                         class="profile-img"
+                         alt="Profile">
+
+                    <!-- Default Image -->
+
+                    <img th:if="${user == null or user.profileImage == null}"
+                         th:src="@{/images/OIP.jpeg}"
+                         class="profile-img"
+                         alt="Profile">
+
+                    <!-- User Name -->
+
+                    <span th:if="${user != null}"
+                          th:text="${user.fullName}">
+            Sasi Kumar
+        </span>
+
+                    <!-- Guest -->
+
+                    <span th:if="${user == null}">
+            My Account
+        </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ===========================
+        SIDEBAR
+=========================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+        <button class="sidebar-close" id="closeSidebar">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Guest -->
+
+        <div th:if="${user == null}" class="sidebar-profile">
+
+            <img th:src="@{/images/logo.jpeg}" alt="NutriNest">
+
+            <h2>NutriNest</h2>
+
+        </div>
+
+        <!-- Logged In -->
+
+        <div th:if="${user != null}" class="sidebar-profile">
+
+            <img th:if="${user.profileImage != null}"
+                 th:src="@{${user.profileImage}}"
+                 class="profile-image"
+                 alt="Profile">
+
+            <img th:if="${user.profileImage == null}"
+                 th:src="@{/images/OIP.jpeg}"
+                 class="profile-image"
+                 alt="Profile">
+
+            <h2 th:text="${user.fullName}">
+                Sasi Kumar
+            </h2>
+
+            <p th:text="${user.email}">
+                sasikumar@gmail.com
+            </p>
+
+        </div>
+
+    </div>
+
+    <nav class="sidebar-menu">
+
+
+
+        <a th:href="@{/}">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a th:href="@{/products}">
+            <i class="fa-solid fa-store"></i>
+            Products
+        </a>
+
+        <a th:href="@{/categories}">
+            <i class="fa-solid fa-layer-group"></i>
+            Categories
+        </a>
+
+        <a th:href="@{/wishlist}">
+            <i class="fa-regular fa-heart"></i>
+            Wishlist
+        </a>
+
+        <a th:href="@{/cart}">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Cart
+        </a>
+
+        <a th:href="@{/about}">
+            <i class="fa-solid fa-circle-info"></i>
+            About Us
+        </a>
+
+        <a th:href="@{/contact}">
+            <i class="fa-solid fa-phone"></i>
+            Contact
+        </a>
+
+        <!-- =========================
+          GUEST MENU
+  ========================= -->
+
+        <th:block th:if="${user == null}">
+
+            <li>
+                <a th:href="@{/login}">
+                    <i class="fa-regular fa-user"></i>
+                    Login
+                </a>
+            </li>
+
+        </th:block>
+
+        <!-- =========================
+              LOGGED-IN MENU
+        ========================= -->
+
+        <th:block th:if="${user != null}">
+
+            <li>
+                <a th:href="@{/my-account}">
+                    <i class="fa-solid fa-user"></i>
+                    My Account
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/my-orders}">
+                    <i class="fa-solid fa-box"></i>
+                    My Orders
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/address}">
+                    <i class="fa-solid fa-location-dot"></i>
+                    My Address
+                </a>
+            </li>
+
+            <li>
+                <form th:action="@{/logout}" method="post" class="logout-form">
+                    <button type="submit">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                    </button>
+                </form>
+            </li>
+
+        </th:block>
+
+    </nav>
+
+</aside>
+
+<div class="overlay" id="overlay"></div>
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/animation.js}"></script>
+
+</body>
+
+</html>
+
+</body>
+</html>

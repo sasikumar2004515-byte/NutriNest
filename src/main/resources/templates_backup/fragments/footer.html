@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | NutriNest</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+
+<div th:fragment="footer">
+
+
+    <footer class="footer">
+
+
+        <!-- =================================================
+             NEWSLETTER
+        ================================================== -->
+
+        <div class="footer-newsletter">
+
+
+            <!-- =================================================
+                 BEFORE SUBSCRIBE
+            ================================================== -->
+
+            <div class="newsletter-before"
+                 th:unless="${newsletterSubscribed}">
+
+
+                <span class="footer-label">
+
+                    🌿 NUTRINEST MEMBERS
+
+                </span>
+
+
+                <h2>
+
+                    Get 2% Instant Discount
+
+                </h2>
+
+
+                <p>
+
+                    Subscribe for healthy tips, new arrivals
+                    and exclusive offers.
+
+                </p>
+
+
+                <!-- Newsletter Form -->
+
+                <form class="newsletter-form"
+                      th:action="@{/newsletter/subscribe}"
+                      method="post">
+
+
+                    <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required>
+
+
+                    <button type="submit">
+
+                        Subscribe
+
+                    </button>
+
+
+                </form>
+
+
+                <small class="discount-note">
+
+                    ✦ Subscribe now &amp; get 2% instant discount
+
+                </small>
+
+
+                <!-- Success -->
+
+                <p class="newsletter-success"
+                   th:if="${newsletterSuccess}"
+                   th:text="${newsletterSuccess}">
+                </p>
+
+
+                <!-- Error -->
+
+                <p class="newsletter-error"
+                   th:if="${newsletterError}"
+                   th:text="${newsletterError}">
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 AFTER SUBSCRIBE
+            ================================================== -->
+
+            <div class="newsletter-after"
+                 th:if="${newsletterSubscribed}">
+
+
+                <!-- Check Circle -->
+
+                <div class="member-check">
+
+                    <i class="fa-solid fa-check"></i>
+
+                </div>
+
+
+                <!-- Member Label -->
+
+                <span class="member-label">
+
+                    NUTRINEST MEMBER
+
+                </span>
+
+
+                <!-- Main Heading -->
+
+                <h2>
+
+                    2% Instant Discount Activated
+
+                </h2>
+
+
+                <!-- Description -->
+
+                <p>
+
+                    Your exclusive NutriNest member benefit
+                    is now active. The 2% discount will be
+                    applied automatically at checkout.
+
+                </p>
+
+
+                <!-- Status -->
+
+                <div class="member-status">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+
+                        SUBSCRIBED
+
+                    </span>
+
+                </div>
+
+
+                <!-- Note -->
+
+                <small class="member-note">
+
+                    ✦ Your 2% member benefit is active
+
+                </small>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             MAIN FOOTER
+        ================================================== -->
+
+        <div class="footer-main">
+
+
+            <!-- Brand -->
+
+            <div class="footer-brand">
+
+                <h2>
+
+                    NutriNest
+
+                </h2>
+
+
+                <p>
+
+                    Premium nuts &amp; dry fruits,
+                    naturally sourced for your family.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Contact -->
+
+            <div class="footer-contact">
+
+
+                <a href="tel:+919876543210">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    +91 98765 43210
+
+                </a>
+
+
+                <a href="mailto:info@nutrinest.com">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    info@nutrinest.com
+
+                </a>
+
+
+                <span>
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Chennai, Tamil Nadu
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER BOTTOM
+        ================================================== -->
+
+        <div class="footer-bottom">
+
+
+            <p>
+
+                © 2026 NutriNest. All Rights Reserved.
+
+            </p>
+
+
+            <div class="footer-bottom-links">
+
+
+                <a th:href="@{/terms}">
+
+                    Terms
+
+                </a>
+
+
+                <span>
+
+                    •
+
+                </span>
+
+
+                <a th:href="@{/contact}">
+
+                    Contact
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>

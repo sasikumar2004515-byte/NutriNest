@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | NutriNest</title>
+
+
+    <!-- =========================
+         GOOGLE FONT
+    ========================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- =========================
+         FONT AWESOME
+    ========================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+
+    <!-- =========================
+         CHECKOUT
+    ========================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/checkout.css}">
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================== -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- =========================
+     CHECKOUT
+========================== -->
+
+<section class="checkout-section">
+
+    <div class="checkout-container">
+
+
+        <!-- =========================
+             PAGE HEADER
+        ========================== -->
+
+        <div class="checkout-title">
+
+            <span class="checkout-small-title">
+                SECURE CHECKOUT
+            </span>
+
+            <h2>
+                Checkout
+            </h2>
+
+            <p>
+                Review your order and place it.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             CHECKOUT FORM
+        ========================== -->
+        <form th:action="@{/checkout/place-order}"
+              method="post"
+              onsubmit="return validateCheckoutAddress();">
+
+            <!-- =========================
+                 DELIVERY ADDRESS
+            ========================== -->
+
+            <div class="checkout-card address-card">
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Delivery Address
+                        </h3>
+
+                        <p>
+                            Select your preferred delivery address
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NO ADDRESS -->
+
+                <div th:if="${#lists.isEmpty(addresses)}"
+                     class="empty-address">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <h4>
+                        No delivery address found
+                    </h4>
+
+                    <p id="address-error-message">
+                        Please enter your address.
+                    </p>
+
+                    <a th:href="@{/address/add(returnTo='checkout')}"
+                       class="manage-address-btn">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Add Address
+
+                    </a>
+
+                </div>
+
+
+                <!-- ADDRESS LIST -->
+
+                <div class="address-list"
+                     th:unless="${#lists.isEmpty(addresses)}">
+
+                    <div class="address-item"
+                         th:each="address : ${addresses}">
+
+                        <label>
+
+                            <input type="radio"
+                                   name="addressId"
+                                   th:value="${address.id}"
+                                   th:checked="${address.defaultAddress}"
+                                   required>
+
+                            <div class="address-content">
+
+                                <div class="address-type">
+
+                                    <strong th:text="${address.addressType}">
+                                        Home
+                                    </strong>
+
+                                </div>
+
+                                <div class="address-details">
+
+                                    <span th:text="${address.fullName}">
+                                        Customer Name
+                                    </span>
+
+                                    <span th:text="${address.phone}">
+                                        9876543210
+                                    </span>
+
+                                    <span th:text="${address.addressLine1}">
+                                        Address Line 1
+                                    </span>
+
+                                    <span th:if="${address.addressLine2 != null
+                                                 and !#strings.isEmpty(address.addressLine2)}"
+                                          th:text="${address.addressLine2}">
+                                        Address Line 2
+                                    </span>
+
+                                    <span>
+
+                                        <span th:text="${address.city}">
+                                            Chennai
+                                        </span>,
+
+                                        <span th:text="${address.state}">
+                                            Tamil Nadu
+                                        </span>
+
+                                        -
+
+                                        <span th:text="${address.pincode}">
+                                            600001
+                                        </span>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MANAGE ADDRESS -->
+
+                <a th:href="@{/address(returnTo='checkout')}"
+                   class="manage-address-btn">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Manage Addresses
+
+                </a>
+
+            </div>
+
+
+            <!-- =========================
+                 ORDER SUMMARY
+            ========================== -->
+
+            <div class="checkout-card order-summary-card">
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Order Summary
+                        </h3>
+
+                        <p>
+                            Review the items in your order
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUY NOW INDICATOR -->
+
+                <div th:if="${buyNow}"
+                     class="checkout-mode">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                    <span>
+                        Buy Now
+                    </span>
+
+                </div>
+
+
+                <!-- NEWSLETTER DISCOUNT STATUS -->
+
+                <div th:if="${newsletterSubscribed}"
+                     class="newsletter-discount-active">
+
+                    <div class="newsletter-discount-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Newsletter Member
+                        </strong>
+
+                        <span>
+                            2% instant discount applied
+                        </span>
+
+                    </div>
+
+                    <div class="newsletter-discount-percent">
+                        2% OFF
+                    </div>
+
+                </div>
+
+
+                <!-- CART / BUY NOW ITEMS -->
+
+                <div class="summary-list">
+
+                    <div class="summary-item"
+                         th:each="cart : ${cartItems}">
+
+
+                        <!-- PRODUCT IMAGE -->
+
+                        <div class="summary-left">
+
+                            <img th:src="${cart.product.imageUrl != null
+                                         and !#strings.isEmpty(cart.product.imageUrl)
+                                         ? cart.product.imageUrl
+                                         : '/images/OIP.jpeg'}"
+                                 th:alt="${cart.product.productName}"
+                                 onerror="this.src='/images/OIP.jpeg';">
+
+                        </div>
+
+
+                        <!-- PRODUCT DETAILS -->
+
+                        <div class="summary-right">
+
+                            <h4 th:text="${cart.product.productName}">
+                                Product
+                            </h4>
+
+
+                            <div class="product-meta">
+
+                                <span>
+
+                                    <i class="fa-solid fa-weight-hanging"></i>
+
+                                    Weight:
+
+                                    <strong th:text="${cart.selectedWeight != null
+                                                      ? cart.selectedWeight
+                                                      : cart.product.weight}">
+                                        500g
+                                    </strong>
+
+                                </span>
+
+
+                                <span>
+
+                                    <i class="fa-solid fa-layer-group"></i>
+
+                                    Qty:
+
+                                    <strong th:text="${cart.quantity}">
+                                        1
+                                    </strong>
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="product-price">
+
+                                ₹<span th:text="${cart.product.price * cart.quantity}">
+                                    648
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMPTY -->
+
+                    <div th:if="${#lists.isEmpty(cartItems)}"
+                         class="empty-cart-message">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        <h4>
+                            No products found
+                        </h4>
+
+                        <p>
+                            Please add a product before checkout.
+                        </p>
+
+                        <a th:href="@{/products}">
+                            Continue Shopping
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PAYMENT METHOD
+            ========================== -->
+
+            <div class="checkout-card payment-card">
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Payment Method
+                        </h3>
+
+                        <p>
+                            Choose how you want to pay
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="payment-list">
+
+
+                    <!-- COD -->
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="COD"
+                               checked
+                               required>
+
+                        <div class="payment-radio"></div>
+
+                        <div class="payment-content">
+
+                            <strong>
+                                Cash On Delivery
+                            </strong>
+
+                            <span>
+                                Pay when your order arrives
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-money-bill-wave payment-icon"></i>
+
+                    </label>
+
+
+                    <!-- UPI -->
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="UPI">
+
+                        <div class="payment-radio"></div>
+
+                        <div class="payment-content">
+
+                            <strong>
+                                UPI
+                            </strong>
+
+                            <span>
+                                Pay using UPI
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-mobile-screen-button payment-icon"></i>
+
+                    </label>
+
+
+                    <!-- CARD -->
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="CARD">
+
+                        <div class="payment-radio"></div>
+
+                        <div class="payment-content">
+
+                            <strong>
+                                Credit / Debit Card
+                            </strong>
+
+                            <span>
+                                Pay using your card
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-credit-card payment-icon"></i>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PRICE DETAILS
+            ========================== -->
+
+            <div class="checkout-card price-card">
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+                        <i class="fa-solid fa-receipt"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Price Details
+                        </h3>
+
+                        <p>
+                            Final order amount
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="price-details">
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="price-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong>
+
+                            ₹<span th:text="${subtotal}">
+                                0
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- NEWSLETTER DISCOUNT -->
+
+                    <div class="price-row newsletter-discount-row"
+                         th:if="${newsletterSubscribed}">
+
+                        <span>
+
+                            <i class="fa-solid fa-leaf"></i>
+
+                            Newsletter Discount
+                            <small>(2%)</small>
+
+                        </span>
+
+                        <strong class="discount-price">
+
+                            -₹<span th:text="${discount}">
+                                0
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- NOT SUBSCRIBED -->
+
+                    <div class="newsletter-not-active"
+                         th:unless="${newsletterSubscribed}">
+
+                        <i class="fa-regular fa-envelope"></i>
+
+                        <span>
+                            Subscribe to NutriNest Newsletter and get 2% instant discount
+                        </span>
+
+                    </div>
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="price-row">
+
+                        <span>
+                            Delivery Charge
+                        </span>
+
+                        <strong>
+
+                            <span th:if="${deliveryCharge == 0}"
+                                  class="free-delivery">
+
+                                FREE
+
+                            </span>
+
+                            <span th:unless="${deliveryCharge == 0}">
+
+                                ₹<span th:text="${deliveryCharge}">
+                                    99
+                                </span>
+
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="price-divider"></div>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="price-row total">
+
+                        <strong>
+                            Total Amount
+                        </strong>
+
+                        <strong class="grand-total">
+
+                            ₹<span th:text="${grandTotal}">
+                                0
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PLACE ORDER
+            ========================== -->
+
+            <div class="place-order-section">
+
+                <button type="submit"
+                        class="place-order-btn">
+
+                    <span>
+
+                        <i class="fa-solid fa-bag-shopping"></i>
+
+                        Place Order
+
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+                <p class="secure-note">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Your order information is secure
+
+                </p>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/main.js}"></script>
+<script>
+    <script>
+
+     function validateCheckoutAddress() {
+
+         const addressInputs =
+             document.querySelectorAll(
+                 'input[name="addressId"]'
+             );
+
+         // No saved address
+         if (addressInputs.length === 0) {
+
+             showAddressRequiredPopup();
+
+             return false;
+         }
+
+         // Address exists but none selected
+         const selectedAddress =
+             document.querySelector(
+                 'input[name="addressId"]:checked'
+             );
+
+         if (!selectedAddress) {
+
+             showAddressRequiredPopup();
+
+             return false;
+         }
+
+         // Address selected → allow form submit
+         return true;
+     }
+
+
+     function showAddressRequiredPopup() {
+
+         const existing =
+             document.getElementById('addressRequiredPopup');
+
+         if (existing) {
+             return;
+         }
+
+         const popup =
+             document.createElement('div');
+
+         popup.id = 'addressRequiredPopup';
+
+         popup.innerHTML = `
+             <div class="address-popup-overlay">
+
+                 <div class="address-popup">
+
+                     <button
+                         type="button"
+                         class="address-popup-close"
+                         onclick="closeAddressRequiredPopup()">
+
+                         <i class="fa-solid fa-xmark"></i>
+
+                     </button>
+
+                     <div class="address-popup-icon">
+
+                         <i class="fa-solid fa-location-dot"></i>
+
+                     </div>
+
+                     <h3>
+                         Delivery Address Required
+                     </h3>
+
+                     <p>
+                         Please enter your delivery address
+                         before placing your order.
+                     </p>
+
+                     <div class="address-popup-actions">
+
+                         <button
+                             type="button"
+                             class="address-popup-cancel"
+                             onclick="closeAddressRequiredPopup()">
+
+                             Cancel
+
+                         </button>
+
+                         <a
+                             href="/address/add?returnTo=checkout"
+                             class="address-popup-add">
+
+                             <i class="fa-solid fa-plus"></i>
+                             Add Address
+
+                         </a>
+
+                     </div>
+
+                 </div>
+
+             </div>
+         `;
+
+         document.body.appendChild(popup);
+     }
+
+
+     function closeAddressRequiredPopup() {
+
+         const popup =
+             document.getElementById(
+                 'addressRequiredPopup'
+             );
+
+         if (popup) {
+             popup.remove();
+         }
+     }
+
+</script>
+</script>
+
+</body>
+
+</html>

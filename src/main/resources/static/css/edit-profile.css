@@ -1,0 +1,426 @@
+/* =========================================================
+   NUTRINEST - EDIT PROFILE
+========================================================= */
+
+.edit-profile-section {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    padding: 55px 20px;
+    background: #f7f8f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.edit-profile-container {
+    width: 100%;
+    max-width: 720px;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-title {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.page-title h2 {
+    margin: 0 0 7px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #27351f;
+}
+
+.page-title p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+.profile-image-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.profile-image-wrapper {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #e5ecdF;
+    background: #f4f6f1;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+}
+
+.profile-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   CHANGE PHOTO BUTTON
+========================================================= */
+
+.change-image-btn {
+    margin-top: 15px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    background: #eef3e9;
+    color: #617b49;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.change-image-btn i {
+    margin-right: 6px;
+}
+
+.change-image-btn:hover {
+    background: #dfe9d7;
+    transform: translateY(-1px);
+}
+
+.image-hint {
+    margin-top: 7px;
+    font-size: 11px;
+    color: #999;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.edit-profile-form {
+    width: 100%;
+}
+
+.form-fields {
+    width: 100%;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+    width: 100%;
+    margin-bottom: 21px;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: #343434;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group label i {
+    color: #718c55;
+    width: 16px;
+    text-align: center;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.form-group input {
+    width: 100%;
+    height: 49px;
+    padding: 0 15px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    outline: none;
+    background: #ffffff;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    transition: 0.25s ease;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-group input:focus {
+    border-color: #78965b;
+    box-shadow: 0 0 0 3px rgba(120, 150, 91, 0.10);
+}
+
+.form-group input[readonly] {
+    background: #f5f5f5;
+    color: #777;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   BUTTON GROUP
+========================================================= */
+
+.button-group {
+    display: flex;
+    gap: 14px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+
+/* =========================================================
+   COMMON BUTTON
+========================================================= */
+
+.save-btn,
+.cancel-btn {
+    flex: 1;
+    height: 50px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+.save-btn {
+    border: none;
+    background: #6f8f4e;
+    color: #ffffff;
+}
+
+.save-btn:hover {
+    background: #607d43;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(111, 143, 78, 0.20);
+}
+
+
+/* =========================================================
+   CANCEL
+========================================================= */
+
+.cancel-btn {
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    color: #444444;
+}
+
+.cancel-btn:hover {
+    background: #f5f5f5;
+    border-color: #cccccc;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   MOBILE VERSION
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .edit-profile-section {
+        min-height: auto;
+        padding: 22px 12px 35px;
+    }
+
+
+    .edit-profile-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px 17px 25px;
+        border-radius: 18px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+    }
+
+
+    /* TITLE */
+
+    .page-title {
+        margin-bottom: 25px;
+    }
+
+    .page-title h2 {
+        font-size: 23px;
+        line-height: 1.3;
+    }
+
+    .page-title p {
+        font-size: 12px;
+    }
+
+
+    /* PROFILE IMAGE */
+
+    .profile-image-box {
+        margin-bottom: 25px;
+    }
+
+    .profile-image-wrapper {
+        width: 105px;
+        height: 105px;
+        border-width: 3px;
+    }
+
+    .change-image-btn {
+        margin-top: 12px;
+        padding: 8px 15px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .image-hint {
+        font-size: 10px;
+    }
+
+
+    /* FORM */
+
+    .form-group {
+        margin-bottom: 17px;
+    }
+
+    .form-group label {
+        font-size: 12.5px;
+        margin-bottom: 7px;
+        gap: 7px;
+    }
+
+    .form-group label i {
+        width: 15px;
+        font-size: 12px;
+    }
+
+    .form-group input {
+        height: 46px;
+        padding: 0 13px;
+        border-radius: 9px;
+        font-size: 13px;
+    }
+
+
+    /* BUTTONS */
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 24px;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        width: 100%;
+        height: 48px;
+        min-height: 48px;
+        flex: none;
+        border-radius: 9px;
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .edit-profile-section {
+        padding: 17px 9px 30px;
+    }
+
+    .edit-profile-container {
+        padding: 20px 13px 22px;
+        border-radius: 16px;
+    }
+
+
+    .page-title {
+        margin-bottom: 22px;
+    }
+
+    .page-title h2 {
+        font-size: 21px;
+    }
+
+    .page-title p {
+        font-size: 11px;
+    }
+
+
+    .profile-image-wrapper {
+        width: 95px;
+        height: 95px;
+    }
+
+
+    .change-image-btn {
+        font-size: 11.5px;
+        padding: 8px 13px;
+    }
+
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group input {
+        height: 44px;
+        font-size: 12.5px;
+        padding: 0 12px;
+    }
+
+
+    .save-btn,
+    .cancel-btn {
+        height: 46px;
+        min-height: 46px;
+        font-size: 12.5px;
+    }
+
+}

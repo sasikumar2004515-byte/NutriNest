@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Categories | NutriNest</title>
+
+
+  <!-- Google Font -->
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+  <!-- Font Awesome -->
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+  <!-- Common CSS -->
+
+  <link rel="stylesheet"
+        th:href="@{/css/style.css}">
+
+  <link rel="stylesheet"
+        th:href="@{/css/navbar.css}">
+
+
+  <link rel="stylesheet"
+        th:href="@{/css/variables.css}">
+
+  <link rel="stylesheet"
+        th:href="@{/css/footer.css}">
+
+  <link rel="stylesheet"
+        th:href="@{/css/animation.css}">
+
+
+  <!-- Page CSS -->
+
+  <link rel="stylesheet"
+        th:href="@{/css/categories-c.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ===========================
+        NAVBAR
+=========================== -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- ===========================
+       CATEGORY HERO
+=========================== -->
+
+<section class="category-hero">
+
+  <div class="category-hero-content">
+
+        <span class="category-tag">
+            🌿 NUTRINEST COLLECTION
+        </span>
+
+    <h1>
+      Explore Our Categories
+    </h1>
+
+    <p>
+      Discover premium nuts, dry fruits and healthy
+      products carefully selected for you.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ===========================
+       CATEGORY SECTION
+=========================== -->
+<section class="nn-home-categories">
+
+  <div class="nn-home-container">
+
+    <!-- Section Header -->
+    <div class="nn-section-heading">
+
+      <div class="nn-heading-content">
+                <span class="nn-eyebrow">
+                    ✦ EXPLORE OUR COLLECTION
+                </span>
+
+        <h2>
+          Shop By Category
+        </h2>
+
+        <p>
+          Discover Premium Natural &amp; Organic Goodness
+        </p>
+      </div>
+
+      <a th:href="@{/categories}" class="nn-view-all-btn">
+        View All
+        <span>→</span>
+      </a>
+
+    </div>
+
+    <div class="nn-heading-line"></div>
+
+
+    <!-- Categories Grid -->
+    <div class="nn-categories-grid">
+
+      <div class="nn-category-card"
+           th:each="category, stat : ${categories}"
+           th:if="${stat.index < 5}">
+
+        <a th:href="@{/categories/{id}(id=${category.id})}"
+           class="nn-category-link">
+
+          <!-- Image -->
+          <div class="nn-category-image-box">
+
+            <div class="nn-category-image-ring"></div>
+
+            <img th:if="${category.imageUrl != null and !#strings.isEmpty(category.imageUrl)}"
+                 th:src="${category.displayImageUrl}"
+                 th:alt="${category.categoryName}"
+                 class="nn-category-image">
+
+            <img th:if="${category.imageUrl == null or #strings.isEmpty(category.imageUrl)}"
+                 th:src="@{/images/OIP.jpeg}"
+                 th:alt="${category.categoryName}"
+                 class="nn-category-image">
+
+          </div>
+
+
+          <!-- Content -->
+          <div class="nn-category-content">
+
+                        <span class="nn-category-number"
+                              th:text="'0' + ${stat.index + 1}">
+                            01
+                        </span>
+
+            <h3 th:text="${category.categoryName}">
+              Category Name
+            </h3>
+
+            <span class="nn-category-explore">
+                            Explore Collection
+                            <span class="nn-arrow">→</span>
+                        </span>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- Empty State -->
+    <div class="nn-categories-empty"
+         th:if="${categories == null or #lists.isEmpty(categories)}">
+
+      <div class="nn-empty-icon">
+        ✦
+      </div>
+
+      <h3>Categories Coming Soon</h3>
+
+      <p>
+        Our premium collections will be available shortly.
+      </p>
+
+      <a th:href="@{/products}" class="nn-empty-btn">
+        Explore Products →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ===========================
+        FOOTER
+=========================== -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- ===========================
+        JAVASCRIPT
+=========================== -->
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/main.js}"></script>
+
+<script th:src="@{/js/animation.js}"></script>
+
+
+</body>
+
+</html>

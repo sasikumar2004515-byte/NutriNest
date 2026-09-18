@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="icon"
+          type="image/jpeg"
+          th:href="@{/images/logo.jpeg}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Products | NutriNest</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/search.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
+</head>
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+
+<!-- ========================================================= -->
+<!-- SEARCH HERO -->
+<!-- ========================================================= -->
+
+<section class="search-hero">
+
+    <div class="search-hero-content">
+
+        <span class="search-eyebrow">
+            <i class="fa-solid fa-leaf"></i>
+            NUTRINEST
+        </span>
+
+        <h1>
+            Find Your
+            <span>Healthy Choice</span>
+        </h1>
+
+        <p>
+            Search and discover premium natural and organic products
+            selected for your healthy lifestyle.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- SEARCH SECTION -->
+<!-- ========================================================= -->
+
+<section class="search-section">
+
+    <div class="search-container">
+
+
+        <!-- ================================================= -->
+        <!-- FILTER SIDEBAR -->
+        <!-- ================================================= -->
+
+        <aside class="filter-sidebar">
+
+
+            <!-- FILTER HEADER -->
+
+            <div class="filter-header">
+
+                <div>
+
+                    <span class="filter-small-title">
+                        REFINE
+                    </span>
+
+                    <h3>
+                        Filter Products
+                    </h3>
+
+                </div>
+
+                <i class="fa-solid fa-sliders"></i>
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- CATEGORY FILTER -->
+            <!-- ================================================= -->
+
+            <div class="filter-group">
+
+                <h4>
+                    Category
+                </h4>
+
+
+                <label class="custom-check">
+
+                    <input
+                            type="checkbox"
+                            value="all"
+                            class="category-filter">
+
+                    <span class="checkmark"></span>
+
+                    All Products
+
+                </label>
+
+
+                <label class="custom-check">
+
+                    <input
+                            type="checkbox"
+                            value="organic"
+                            class="category-filter">
+
+                    <span class="checkmark"></span>
+
+                    Organic
+
+                </label>
+
+
+                <label class="custom-check">
+
+                    <input
+                            type="checkbox"
+                            value="nuts"
+                            class="category-filter">
+
+                    <span class="checkmark"></span>
+
+                    Nuts
+
+                </label>
+
+
+                <label class="custom-check">
+
+                    <input
+                            type="checkbox"
+                            value="dry-fruits"
+                            class="category-filter">
+
+                    <span class="checkmark"></span>
+
+                    Dry Fruits
+
+                </label>
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- PRICE FILTER -->
+            <!-- ================================================= -->
+
+            <div class="filter-group">
+
+                <h4>
+                    Price Range
+                </h4>
+
+
+                <div class="price-range">
+
+
+                    <div class="price-input">
+
+                        <span>₹</span>
+
+                        <input
+                                type="number"
+                                id="minPrice"
+                                placeholder="Min"
+                                min="0">
+
+                    </div>
+
+
+                    <span class="price-dash">
+                        -
+                    </span>
+
+
+                    <div class="price-input">
+
+                        <span>₹</span>
+
+                        <input
+                                type="number"
+                                id="maxPrice"
+                                placeholder="Max"
+                                min="0">
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- ORGANIC FILTER -->
+            <!-- ================================================= -->
+
+            <div class="filter-group">
+
+                <h4>
+                    Product Type
+                </h4>
+
+
+                <label class="custom-check">
+
+                    <input
+                            type="checkbox"
+                            id="organicFilter">
+
+                    <span class="checkmark"></span>
+
+                    Organic Products
+
+                </label>
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- RESET FILTER -->
+            <!-- ================================================= -->
+
+            <button
+                    type="button"
+                    class="reset-filter"
+                    id="resetFilters">
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+                <span>
+                    Reset Filters
+                </span>
+
+            </button>
+
+
+        </aside>
+
+
+
+        <!-- ================================================= -->
+        <!-- SEARCH RESULTS -->
+        <!-- ================================================= -->
+
+        <div class="search-results">
+
+
+            <!-- ================================================= -->
+            <!-- SEARCH BAR + SORT -->
+            <!-- ================================================= -->
+
+            <div class="search-top">
+
+
+                <!-- SEARCH FORM -->
+
+                <form
+                        th:action="@{/search}"
+                        method="get"
+                        class="product-search-box">
+
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+
+                    <input
+                            type="search"
+                            name="keyword"
+                            id="productSearch"
+                            th:value="${keyword}"
+                            placeholder="Search for almonds, cashews, pistachios..."
+                            autocomplete="off">
+
+
+                    <button type="submit">
+
+                        Search
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- SORT -->
+
+                <div class="sort-box">
+
+                    <label for="sortProducts">
+                        Sort
+                    </label>
+
+
+                    <select id="sortProducts">
+
+                        <option value="default">
+                            Recommended
+                        </option>
+
+                        <option value="low">
+                            Price: Low to High
+                        </option>
+
+                        <option value="high">
+                            Price: High to Low
+                        </option>
+
+                        <option value="name">
+                            Name: A - Z
+                        </option>
+
+                        <option value="name-desc">
+                            Name: Z - A
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- RESULTS HEADER -->
+            <!-- ================================================= -->
+
+            <div class="results-header">
+
+
+                <div>
+
+                    <span class="results-small-title">
+                        NUTRINEST COLLECTION
+                    </span>
+
+                    <h2>
+                        Search Results
+                    </h2>
+
+                </div>
+
+
+                <p class="results-count">
+
+                    <span th:text="${#lists.size(products)}">
+                        0
+                    </span>
+
+                    Products
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- PRODUCT GRID -->
+            <!-- ================================================= -->
+
+            <div
+                    class="product-grid"
+                    id="productGrid">
+
+
+                <!-- ================================================= -->
+                <!-- PRODUCT CARD -->
+                <!-- ================================================= -->
+
+                <article
+                        class="product-card"
+                        th:each="product : ${products}"
+                        th:data-name="${product.productName}"
+                        th:data-price="${product.price}"
+                        th:data-organic="${product.organic}">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="product-image">
+
+
+                        <img
+                                th:src="${product.imageUrl}"
+                                th:alt="${product.productName}"
+                                onerror="this.src='/images/OIP.jpeg';">
+
+
+                    </div>
+
+
+
+                    <!-- PRODUCT CONTENT -->
+
+                    <div class="product-content">
+
+
+                        <!-- ORGANIC LABEL -->
+
+                        <span
+                                class="product-category"
+                                th:text="${product.organic ? 'Organic & Natural' : 'Natural Product'}">
+
+                            Natural Product
+
+                        </span>
+
+
+
+                        <!-- PRODUCT NAME -->
+
+                        <h3
+                                th:text="${product.productName}">
+
+                            Organic Almonds
+
+                        </h3>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        <p
+                                th:if="${product.description != null and !#strings.isEmpty(product.description)}"
+                                th:text="${product.description}">
+
+                            Premium quality natural product.
+
+                        </p>
+
+
+
+                        <!-- PRODUCT BOTTOM -->
+
+                        <div class="product-bottom">
+
+
+                            <!-- PRICE -->
+
+                            <div class="product-price">
+
+                                <span class="price-symbol">
+                                    ₹
+                                </span>
+
+                                <strong
+                                        th:text="${product.price}">
+                                    699
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- VIEW PRODUCT -->
+
+                            <a
+                                    th:href="@{/products/{id}(id=${product.id})}"
+                                    class="view-product-btn">
+
+                                <span>
+                                    View
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- NO RESULTS -->
+            <!-- ================================================= -->
+
+            <div
+                    class="no-results"
+                    th:if="${#lists.isEmpty(products)}">
+
+
+                <div class="no-results-icon">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                </div>
+
+
+                <h3>
+                    No Products Found
+                </h3>
+
+
+                <p>
+
+                    We couldn't find any products matching your search.
+                    Try a different keyword.
+
+                </p>
+
+
+                <a
+                        th:href="@{/products}"
+                        class="back-products-btn">
+
+                    <i class="fa-solid fa-store"></i>
+
+                    Browse All Products
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- FOOTER -->
+<!-- ========================================================= -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/footer.js}"></script>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+        const productGrid =
+            document.getElementById("productGrid");
+
+        const cards =
+            Array.from(
+                document.querySelectorAll(".product-card")
+            );
+
+
+        const sortProducts =
+            document.getElementById("sortProducts");
+
+
+        const minPrice =
+            document.getElementById("minPrice");
+
+
+        const maxPrice =
+            document.getElementById("maxPrice");
+
+
+        const organicFilter =
+            document.getElementById("organicFilter");
+
+
+        const resetFilters =
+            document.getElementById("resetFilters");
+
+
+
+        /* ========================================================= */
+        /* SORT PRODUCTS */
+        /* ========================================================= */
+
+        if (sortProducts) {
+
+            sortProducts.addEventListener(
+                "change",
+                function () {
+
+
+                    const sortValue =
+                        this.value;
+
+
+                    const sortedCards =
+                        [...cards];
+
+
+                    if (sortValue === "low") {
+
+                        sortedCards.sort(
+                            function (a, b) {
+
+                                return (
+                                    parseFloat(
+                                        a.dataset.price || 0
+                                    )
+                                    -
+                                    parseFloat(
+                                        b.dataset.price || 0
+                                    )
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    else if (sortValue === "high") {
+
+                        sortedCards.sort(
+                            function (a, b) {
+
+                                return (
+                                    parseFloat(
+                                        b.dataset.price || 0
+                                    )
+                                    -
+                                    parseFloat(
+                                        a.dataset.price || 0
+                                    )
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    else if (sortValue === "name") {
+
+                        sortedCards.sort(
+                            function (a, b) {
+
+                                return (
+                                    a.dataset.name || ""
+                                ).localeCompare(
+                                    b.dataset.name || ""
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    else if (sortValue === "name-desc") {
+
+                        sortedCards.sort(
+                            function (a, b) {
+
+                                return (
+                                    b.dataset.name || ""
+                                ).localeCompare(
+                                    a.dataset.name || ""
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    if (productGrid) {
+
+                        sortedCards.forEach(
+                            function (card) {
+
+                                productGrid.appendChild(card);
+
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* ========================================================= */
+        /* FILTER PRODUCTS */
+        /* ========================================================= */
+
+        function applyFilters() {
+
+
+            const min =
+                parseFloat(
+                    minPrice?.value
+                ) || 0;
+
+
+            const max =
+                parseFloat(
+                    maxPrice?.value
+                ) || Infinity;
+
+
+            const organicOnly =
+                organicFilter?.checked || false;
+
+
+
+            cards.forEach(
+                function (card) {
+
+
+                    const price =
+                        parseFloat(
+                            card.dataset.price || 0
+                        );
+
+
+                    const isOrganic =
+                        card.dataset.organic === "true";
+
+
+                    let visible = true;
+
+
+
+                    /* PRICE */
+
+                    if (
+                        price < min ||
+                        price > max
+                    ) {
+
+                        visible = false;
+
+                    }
+
+
+
+                    /* ORGANIC */
+
+                    if (
+                        organicOnly &&
+                        !isOrganic
+                    ) {
+
+                        visible = false;
+
+                    }
+
+
+
+                    card.style.display =
+                        visible ? "" : "block";
+
+                }
+            );
+
+        }
+
+
+
+        /* ========================================================= */
+        /* MIN PRICE */
+        /* ========================================================= */
+
+        if (minPrice) {
+
+            minPrice.addEventListener(
+                "input",
+                applyFilters
+            );
+
+        }
+
+
+
+        /* ========================================================= */
+        /* MAX PRICE */
+        /* ========================================================= */
+
+        if (maxPrice) {
+
+            maxPrice.addEventListener(
+                "input",
+                applyFilters
+            );
+
+        }
+
+
+
+        /* ========================================================= */
+        /* ORGANIC */
+        /* ========================================================= */
+
+        if (organicFilter) {
+
+            organicFilter.addEventListener(
+                "change",
+                applyFilters
+            );
+
+        }
+
+
+
+        /* ========================================================= */
+        /* RESET */
+        /* ========================================================= */
+
+        if (resetFilters) {
+
+            resetFilters.addEventListener(
+                "click",
+                function () {
+
+
+                    if (minPrice) {
+
+                        minPrice.value = "";
+
+                    }
+
+
+                    if (maxPrice) {
+
+                        maxPrice.value = "";
+
+                    }
+
+
+                    if (organicFilter) {
+
+                        organicFilter.checked = false;
+
+                    }
+
+
+                    document
+                        .querySelectorAll(".category-filter")
+                        .forEach(
+                            function (checkbox) {
+
+                                checkbox.checked = false;
+
+                            }
+                        );
+
+
+                    cards.forEach(
+                        function (card) {
+
+                            card.style.display = "";
+
+                        }
+                    );
+
+
+                    if (sortProducts) {
+
+                        sortProducts.value = "default";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+    });
+
+</script>
+
+
+</body>
+
+</html>
